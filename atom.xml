@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>JumpBean&#39;s Blog</title>
+  <subtitle>天道酬勤</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://www.jumpbeandev.com/"/>
+  <updated>2016-09-02T05:11:13.000Z</updated>
+  <id>http://www.jumpbeandev.com/</id>
+  
+  <author>
+    <name>Jump Bean</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://www.jumpbeandev.com/2016/09/02/hello-world/"/>
+    <id>http://www.jumpbeandev.com/2016/09/02/hello-world/</id>
+    <published>2016-09-02T05:11:13.000Z</published>
+    <updated>2016-09-02T05:11:13.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>windows下搭建python开发环境</title>
+    <link href="http://www.jumpbeandev.com/2016/02/23/winpyconfig/"/>
+    <id>http://www.jumpbeandev.com/2016/02/23/winpyconfig/</id>
+    <published>2016-02-23T02:02:01.000Z</published>
+    <updated>2016-09-02T03:29:33.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="安装python"><a href="#安装python" class="headerlink" title="安装python"></a>安装python</h2><p>到<a href="https://www.python.org/downloads/" target="_blank" rel="external">官网</a>下载安装包后安装，以2.7为例，安装完成后在环境变量Path中添加C:\Python27;C:\Python27\Scripts。在cmd中输入python -V,输出版本信息则安装成功。</p>
+<h2 id="创建virtualenv虚拟环境"><a href="#创建virtualenv虚拟环境" class="headerlink" title="创建virtualenv虚拟环境"></a>创建virtualenv虚拟环境</h2><h3 id="2-1-安装virtualenv"><a href="#2-1-安装virtualenv" class="headerlink" title="2.1 安装virtualenv"></a>2.1 安装virtualenv</h3><p>python 2.7中包含了pip，可以在cmd下输入pip -V验证。<br>执行：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install virtualenv</div></pre></td></tr></table></figure><br><a id="more"></a><br>如需代理，windows下可执行：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip --proxy proxy:port install virtualenv</div></pre></td></tr></table></figure><br>linux下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">export</span> https_proxy=proxy:port</div><div class="line">sudo -E pip insatll virtualenv</div></pre></td></tr></table></figure><br>安装完后输入virtualenv –version验证。</p>
+<p>可以安装<a href="http://virtualenvwrapper.readthedocs.org/en/latest/index.html" target="_blank" rel="external">virtualenvwrapper</a>进行更方便的操作，windows下是<a href="https://pypi.python.org/pypi/virtualenvwrapper-win" target="_blank" rel="external">virtualenvwrapper-win</a>。<br>Virtaulenvwrapper是virtualenv的扩展包，用于更方便管理虚拟环境，它可以做：</p>
+<ol>
+<li>将所有虚拟环境整合在一个目录下</li>
+<li>管理（新增，删除，复制）虚拟环境</li>
+<li>切换虚拟环境</li>
+</ol>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function">C:\<span class="title">Work</span>\<span class="title">WorkProject</span>\<span class="title">Python</span>&gt;<span class="title">pip</span> --<span class="title">proxy</span> <span class="title">proxy:port</span> <span class="title">install</span> <span class="title">virtualenvwrapper</span>-<span class="title">win</span></span></div><div class="line"><span class="title">You</span> <span class="title">are</span> <span class="title">using</span> <span class="title">pip</span> <span class="title">version</span> 7.0.1, <span class="title">however</span> <span class="title">version</span> 7.1.2 <span class="title">is</span> <span class="title">available</span>.</div><div class="line"><span class="title">You</span> <span class="title">should</span> <span class="title">consider</span> <span class="title">upgrading</span> <span class="title">via</span> <span class="title">the</span> '<span class="title">pip</span> <span class="title">install</span> --<span class="title">upgrade</span> <span class="title">pip</span>' <span class="title">command</span>.</div><div class="line"><span class="title">Collecting</span> <span class="title">virtualenvwrapper</span>-<span class="title">win</span></div><div class="line">  <span class="title">Downloading</span> <span class="title">virtualenvwrapper</span>-<span class="title">win</span>-1.2.1.<span class="title">zip</span></div><div class="line"><span class="title">Requirement</span> <span class="title">already</span> <span class="title">satisfied</span> (<span class="title">use</span> --<span class="title">upgrade</span> <span class="title">to</span> <span class="title">upgrade</span>): <span class="title">virtualenv</span> <span class="title">in</span> <span class="title">c</span>:\<span class="title">python27</span>\<span class="title">lib</span>\<span class="title">site</span>-<span class="title">packages</span> (<span class="title">from</span> <span class="title">virtualenvwrapper</span>-<span class="title">win</span>)</div><div class="line"><span class="title">Installing</span> <span class="title">collected</span> <span class="title">packages</span>: <span class="title">virtualenvwrapper</span>-<span class="title">win</span></div><div class="line">  <span class="title">Running</span> <span class="title">setup.py</span> <span class="title">install</span> <span class="title">for</span> <span class="title">virtualenvwrapper</span>-<span class="title">win</span></div><div class="line"><span class="title">Successfully</span> <span class="title">installed</span> <span class="title">virtualenvwrapper</span>-<span class="title">win</span>-1.2.1</div></pre></td></tr></table></figure>
+<h3 id="2-2-创建虚拟环境"><a href="#2-2-创建虚拟环境" class="headerlink" title="2.2 创建虚拟环境"></a>2.2 创建虚拟环境</h3><p>创建一个目录用来保存虚拟环境，进入该目录并在cmd下执行：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function">C:\<span class="title">Work</span>\<span class="title">WorkProject</span>\<span class="title">Python</span>&gt;<span class="title">mkvirtualenv</span> <span class="title">dayaenv</span></span></div><div class="line"><span class="title">New</span> <span class="title">python</span> <span class="title">executable</span> <span class="title">in</span> <span class="title">dayaenv</span>\<span class="title">Scripts</span>\<span class="title">python.exe</span></div><div class="line"><span class="title">Installing</span> <span class="title">setuptools</span>, <span class="title">pip</span>, <span class="title">wheel</span>...<span class="title">done</span>.</div><div class="line"></div><div class="line">(<span class="title">dayaenv</span>) <span class="title">C</span>:\<span class="title">Work</span>\<span class="title">WorkProject</span>\<span class="title">Python</span>&gt;<span class="title">lsvirtualenv</span></div><div class="line"></div><div class="line"><span class="title">dir</span> /<span class="title">b</span> /<span class="title">ad</span> "<span class="title">C</span>:\<span class="title">Users</span>\<span class="title">jacob</span>\<span class="title">Envs</span>"</div><div class="line">======================================================</div><div class="line"><span class="title">dayaenv</span></div></pre></td></tr></table></figure><br>退出虚拟环境：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">(dayaenv) C:\Work\WorkProject\Python&gt;deactivate</div><div class="line"><span class="function"></span></div><div class="line">C:\<span class="title">Work</span>\<span class="title">WorkProject</span>\<span class="title">Python</span>&gt;</div></pre></td></tr></table></figure></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;安装python&quot;&gt;&lt;a href=&quot;#安装python&quot; class=&quot;headerlink&quot; title=&quot;安装python&quot;&gt;&lt;/a&gt;安装python&lt;/h2&gt;&lt;p&gt;到&lt;a href=&quot;https://www.python.org/downloads/&quot;&gt;官网&lt;/a&gt;下载安装包后安装，以2.7为例，安装完成后在环境变量Path中添加C:\Python27;C:\Python27\Scripts。在cmd中输入python -V,输出版本信息则安装成功。&lt;/p&gt;
+&lt;h2 id=&quot;创建virtualenv虚拟环境&quot;&gt;&lt;a href=&quot;#创建virtualenv虚拟环境&quot; class=&quot;headerlink&quot; title=&quot;创建virtualenv虚拟环境&quot;&gt;&lt;/a&gt;创建virtualenv虚拟环境&lt;/h2&gt;&lt;h3 id=&quot;2-1-安装virtualenv&quot;&gt;&lt;a href=&quot;#2-1-安装virtualenv&quot; class=&quot;headerlink&quot; title=&quot;2.1 安装virtualenv&quot;&gt;&lt;/a&gt;2.1 安装virtualenv&lt;/h3&gt;&lt;p&gt;python 2.7中包含了pip，可以在cmd下输入pip -V验证。&lt;br&gt;执行：&lt;br&gt;&lt;figure class=&quot;highlight cmd&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;pip install virtualenv&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="python" scheme="http://www.jumpbeandev.com/categories/python/"/>
+    
+    
+      <category term="python" scheme="http://www.jumpbeandev.com/tags/python/"/>
+    
+      <category term="virtualenv" scheme="http://www.jumpbeandev.com/tags/virtualenv/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>微信支付开发配置</title>
+    <link href="http://www.jumpbeandev.com/2016/01/06/wechatconfig/"/>
+    <id>http://www.jumpbeandev.com/2016/01/06/wechatconfig/</id>
+    <published>2016-01-06T01:07:05.000Z</published>
+    <updated>2016-09-02T03:29:33.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>微信开发涉及到支付业务，配置相对繁琐一些，并且公众平台和商户平台要分别设置，如果第一次配可能会踩到很多坑，大体记录下主要的配置。</p>
+<hr>
+<h2 id="公众平台"><a href="#公众平台" class="headerlink" title="公众平台"></a>公众平台</h2><h3 id="开发基本配置"><a href="#开发基本配置" class="headerlink" title="开发基本配置"></a>开发基本配置</h3><p>在开发-基本配置中，启用服务器配置，设置所开发系统后台的服务器地址、Token、EncodingAESKey、消息加解密方式。<br><img src="/images/2016/01/06/1-4-2016 00-08-21.jpg"><br><a id="more"></a></p>
+<hr>
+<h3 id="JS接口安全域名"><a href="#JS接口安全域名" class="headerlink" title="JS接口安全域名"></a>JS接口安全域名</h3><p>在公众号设置-功能设置中，将所开发系统的域名添加到JS接口安全域名中，格式为域名全称，如www.abc.com，否则调用微信接口失败。<br><img src="/images/2016/01/06/1-4-2016 00-05-40.jpg"><br><img src="/images/2016/01/06/1-4-2016 00-06-22.jpg"></p>
+<hr>
+<h3 id="网页授权获取用户基本信息"><a href="#网页授权获取用户基本信息" class="headerlink" title="网页授权获取用户基本信息"></a>网页授权获取用户基本信息</h3><p>在接口权限-网页授权获取用户基本信息中设置系统域名，否则授权不通过，会报redirect_uri参数错误。<br><img src="/images/2016/01/06/1-4-2016 00-07-09.jpg"><br><img src="/images/2016/01/06/1-4-2016 00-07-38.jpg"></p>
+<hr>
+<h3 id="微信支付"><a href="#微信支付" class="headerlink" title="微信支付"></a>微信支付</h3><p>在微信支付-开发配置中，设置支付授权目录，该目录内容为发起支付所在目录，如WxpayAPI.<br><img src="/images/2016/01/06/1-4-2016 00-04-11.png"></p>
+<hr>
+<h2 id="商户平台"><a href="#商户平台" class="headerlink" title="商户平台"></a>商户平台</h2><p>公众平台配置结束后，进入商户平台进一步配置，目前商户平台只支持IE。</p>
+<h3 id="安装操作证书"><a href="#安装操作证书" class="headerlink" title="安装操作证书"></a>安装操作证书</h3><p>在操作证书中安装操作证书。<br><img src="/images/2016/01/06/1-4-2016 00-14-06.jpg"></p>
+<hr>
+<h3 id="API证书-amp-密钥"><a href="#API证书-amp-密钥" class="headerlink" title="API证书&amp;密钥"></a>API证书&amp;密钥</h3><p>在API安全-API证书中下载证书：<br><img src="/images/2016/01/06/1-4-2016 00-15-01.jpg"><br>在API安全-API密钥中设置密钥：<br><img src="/images/2016/01/06/1-4-2016 00-15-24.jpg"></p>
+<hr>
+<h2 id="微信参数"><a href="#微信参数" class="headerlink" title="微信参数"></a>微信参数</h2><p>调用微信接口需要的基本参数：</p>
+<ul>
+<li>AppID</li>
+<li>AppSecret</li>
+<li>API密钥</li>
+<li>微信支付商户号</li>
+<li>API证书</li>
+</ul>
+<p>到此微信侧基本配置完成，剩下的就是祈祷了。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;微信开发涉及到支付业务，配置相对繁琐一些，并且公众平台和商户平台要分别设置，如果第一次配可能会踩到很多坑，大体记录下主要的配置。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;公众平台&quot;&gt;&lt;a href=&quot;#公众平台&quot; class=&quot;headerlink&quot; title=&quot;公众平台&quot;&gt;&lt;/a&gt;公众平台&lt;/h2&gt;&lt;h3 id=&quot;开发基本配置&quot;&gt;&lt;a href=&quot;#开发基本配置&quot; class=&quot;headerlink&quot; title=&quot;开发基本配置&quot;&gt;&lt;/a&gt;开发基本配置&lt;/h3&gt;&lt;p&gt;在开发-基本配置中，启用服务器配置，设置所开发系统后台的服务器地址、Token、EncodingAESKey、消息加解密方式。&lt;br&gt;&lt;img src=&quot;/images/2016/01/06/1-4-2016 00-08-21.jpg&quot;&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="微信开发" scheme="http://www.jumpbeandev.com/categories/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="微信开发" scheme="http://www.jumpbeandev.com/tags/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hexo的next主题</title>
+    <link href="http://www.jumpbeandev.com/2015/12/12/nexttheme/"/>
+    <id>http://www.jumpbeandev.com/2015/12/12/nexttheme/</id>
+    <published>2015-12-12T05:26:23.000Z</published>
+    <updated>2016-09-02T03:29:33.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>每次心血澎湃的换用新环境新工具后，总会迷失在选主题的漩涡中，不能摆脱，无法自拔。尝试了几款主题，本想用炫酷的yelee，一番挣扎后，还是决定使用next主题，感谢<a href="http://notes.iissnan.com/" target="_blank" rel="external">IIssNan</a>。</p>
+<hr>
+<h2 id="Next主题下载"><a href="#Next主题下载" class="headerlink" title="Next主题下载"></a>Next主题下载</h2><p>这里使用的是Next的双栏皮肤Pisces，因还未正式发布，所以在<a href="https://github.com/iissnan/hexo-theme-next/tree/pisces" target="_blank" rel="external">Branch Pisces</a>中下载，解压后放到\Hexo\themes目录下，然后hexo的_config.yml中改为theme: next-pisces，重新生成即可。<br><a id="more"></a></p>
+<hr>
+<h2 id="Next配置"><a href="#Next配置" class="headerlink" title="Next配置"></a>Next配置</h2><p>配置基本都是参照主题的官方文档来的：<br><a href="http://theme-next.iissnan.com/" target="_blank" rel="external">http://theme-next.iissnan.com/</a><br>支持的比较全面，写的也很详细。<br>阅读次数需要注册LeanCloud，配置方法参照<a href="http://notes.xiamo.tk/2015-10-21-%E4%B8%BANexT%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E6%96%87%E7%AB%A0%E9%98%85%E8%AF%BB%E9%87%8F%E7%BB%9F%E8%AE%A1%E5%8A%9F%E8%83%BD.html" target="_blank" rel="external">这里</a>。<br>SEO优化参照<a href="http://www.arao.me/2015/hexo-next-theme-optimize-seo/" target="_blank" rel="external">arao的方法</a>。</p>
+<hr>
+<p>一通配置后，基本就是现在的模样了。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;每次心血澎湃的换用新环境新工具后，总会迷失在选主题的漩涡中，不能摆脱，无法自拔。尝试了几款主题，本想用炫酷的yelee，一番挣扎后，还是决定使用next主题，感谢&lt;a href=&quot;http://notes.iissnan.com/&quot;&gt;IIssNan&lt;/a&gt;。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;Next主题下载&quot;&gt;&lt;a href=&quot;#Next主题下载&quot; class=&quot;headerlink&quot; title=&quot;Next主题下载&quot;&gt;&lt;/a&gt;Next主题下载&lt;/h2&gt;&lt;p&gt;这里使用的是Next的双栏皮肤Pisces，因还未正式发布，所以在&lt;a href=&quot;https://github.com/iissnan/hexo-theme-next/tree/pisces&quot;&gt;Branch Pisces&lt;/a&gt;中下载，解压后放到\Hexo\themes目录下，然后hexo的_config.yml中改为theme: next-pisces，重新生成即可。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Hexo" scheme="http://www.jumpbeandev.com/categories/Hexo/"/>
+    
+    
+      <category term="hexo" scheme="http://www.jumpbeandev.com/tags/hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Groovy文件处理</title>
+    <link href="http://www.jumpbeandev.com/2015/09/22/Groovy%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86/"/>
+    <id>http://www.jumpbeandev.com/2015/09/22/Groovy文件处理/</id>
+    <published>2015-09-22T05:36:11.000Z</published>
+    <updated>2016-09-02T03:29:33.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Groovy与其他动态语言一样，具有强大的文件/文本处理能力。</p>
+<h2 id="1-遍历某文件夹内文件并进行文本查找与替换："><a href="#1-遍历某文件夹内文件并进行文本查找与替换：" class="headerlink" title="1. 遍历某文件夹内文件并进行文本查找与替换："></a>1. 遍历某文件夹内文件并进行文本查找与替换：</h2><h3 id="1-1-遍历文件夹内所有文件并查找与替换："><a href="#1-1-遍历文件夹内所有文件并查找与替换：" class="headerlink" title="1.1 遍历文件夹内所有文件并查找与替换："></a>1.1 遍历文件夹内所有文件并查找与替换：</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">def</span> <span class="keyword">static</span> replaceDirFileText(String src, String dest, File dir)&#123;</div><div class="line">    <span class="keyword">def</span> fileText</div><div class="line">    dir.eachFileRecurse(</div><div class="line">        &#123;file -&gt;</div><div class="line">            <span class="keyword">if</span>(file.isFile())&#123;</div><div class="line">                fileText = file.text;</div><div class="line">                fileText = fileText.replaceAll(src, dest)</div><div class="line">                file.write(fileText, “utf<span class="number">-8</span>”);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    )</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="1-2-遍历指定类型文件并查找与替换："><a href="#1-2-遍历指定类型文件并查找与替换：" class="headerlink" title="1.2 遍历指定类型文件并查找与替换："></a>1.2 遍历指定类型文件并查找与替换：</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">def</span> <span class="keyword">static</span> replaceDirFileText(String src, String dest, File dir)&#123;</div><div class="line">    <span class="keyword">def</span> fileText</div><div class="line">    <span class="comment">//Replace the text in special file types</span></div><div class="line">    <span class="comment">//def backupFile</span></div><div class="line">    <span class="keyword">def</span> exts = [<span class="string">".java"</span>, <span class="string">".xml"</span>]</div><div class="line">    dir.eachFileRecurse(</div><div class="line">        &#123;file -&gt;</div><div class="line">            <span class="keyword">for</span> (ext <span class="keyword">in</span> exts)&#123;</div><div class="line">                <span class="keyword">if</span> (file.name.endsWith(ext)) &#123;</div><div class="line">                    fileText = file.text;</div><div class="line">                    <span class="comment">//backupFile = new File(file.path + ".bak");</span></div><div class="line">                    <span class="comment">//backupFile.write(fileText);</span></div><div class="line">                    fileText = fileText.replaceAll(src, dest)</div><div class="line">                    file.write(fileText, <span class="string">"utf-8"</span>);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    )</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="2-文件-文件夹复制。JAVA实现比较繁琐，Groovy简洁明了："><a href="#2-文件-文件夹复制。JAVA实现比较繁琐，Groovy简洁明了：" class="headerlink" title="2. 文件/文件夹复制。JAVA实现比较繁琐，Groovy简洁明了："></a>2. 文件/文件夹复制。JAVA实现比较繁琐，Groovy简洁明了：</h2><h3 id="2-1-Java实现："><a href="#2-1-Java实现：" class="headerlink" title="2.1 Java实现："></a>2.1 Java实现：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">copyFile</span><span class="params">(File sourceFile, File targetFile)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">        BufferedInputStream inBuff = <span class="keyword">null</span>;</div><div class="line">        BufferedOutputStream outBuff = <span class="keyword">null</span>;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            <span class="comment">// 新建文件输入流并对它进行缓冲</span></div><div class="line">            inBuff = <span class="keyword">new</span> BufferedInputStream(<span class="keyword">new</span> FileInputStream(sourceFile));</div><div class="line">            <span class="comment">// 新建文件输出流并对它进行缓冲</span></div><div class="line">            outBuff = <span class="keyword">new</span> BufferedOutputStream(<span class="keyword">new</span> FileOutputStream(targetFile));</div><div class="line">            <span class="comment">// 缓冲数组</span></div><div class="line">            <span class="keyword">byte</span>[] b = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span> * <span class="number">5</span>];</div><div class="line">            <span class="keyword">int</span> len;</div><div class="line">            <span class="keyword">while</span> ((len = inBuff.read(b)) != -<span class="number">1</span>) &#123;</div><div class="line">                outBuff.write(b, <span class="number">0</span>, len);</div><div class="line">            &#125;</div><div class="line">            <span class="comment">// 刷新此缓冲的输出流</span></div><div class="line">            outBuff.flush();</div><div class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</div><div class="line">            println e</div><div class="line">            e.printStackTrace()</div><div class="line">        &#125;<span class="keyword">finally</span> &#123;</div><div class="line">            <span class="comment">// 关闭流</span></div><div class="line">            <span class="keyword">if</span> (inBuff != <span class="keyword">null</span>)</div><div class="line">                inBuff.close();</div><div class="line">            <span class="keyword">if</span> (outBuff != <span class="keyword">null</span>)</div><div class="line">                outBuff.close();</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">copyDirectiory</span><span class="params">(String sourceDir, String targetDir)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            <span class="comment">// 新建目标目录</span></div><div class="line">            (<span class="keyword">new</span> File(targetDir)).mkdirs();</div><div class="line">            <span class="comment">// 获取源文件夹当前下的文件或目录</span></div><div class="line">            File[] file = (<span class="keyword">new</span> File(sourceDir)).listFiles();</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; file.length; i++) &#123;</div><div class="line">                <span class="keyword">if</span> (file[i].isFile()) &#123;</div><div class="line">                    <span class="comment">// 源文件</span></div><div class="line">                    File sourceFile=file[i];</div><div class="line">                    <span class="comment">// 目标文件</span></div><div class="line">                    File targetFile=<span class="keyword">new</span> File(<span class="keyword">new</span> File(targetDir).getAbsolutePath() + File.separator+file[i].getName());</div><div class="line">                    copyFile(sourceFile,targetFile);</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">if</span> (file[i].isDirectory()) &#123;</div><div class="line">                    <span class="comment">// 准备复制的源文件夹</span></div><div class="line">                    String dir1=sourceDir + <span class="string">"/"</span> + file[i].getName();</div><div class="line">                    <span class="comment">// 准备复制的目标文件夹</span></div><div class="line">                    String dir2=targetDir + <span class="string">"/"</span>+ file[i].getName();</div><div class="line">                    copyDirectiory(dir1, dir2);</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</div><div class="line">            println e</div><div class="line">            e.printStackTrace()</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<h3 id="2-2-Groovy-AntBuilder实现："><a href="#2-2-Groovy-AntBuilder实现：" class="headerlink" title="2.2 Groovy AntBuilder实现："></a>2.2 Groovy AntBuilder实现：</h3><h4 id="2-2-1-Copy-directory-to-another-directory"><a href="#2-2-1-Copy-directory-to-another-directory" class="headerlink" title="2.2.1 Copy directory to another directory:"></a>2.2.1 Copy directory to another directory:</h4><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">String sourceDir = SOURCE_DIR_PATH</div><div class="line">String destinationDir = DESTINATION_DIR_PATH</div><div class="line"><span class="keyword">new</span> AntBuilder().copy(<span class="string">todir:</span> destinationDir) &#123;</div><div class="line">    fileset(<span class="string">dir:</span> sourceDir)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="2-2-2-Copy-directory-with-excluding-some-files"><a href="#2-2-2-Copy-directory-with-excluding-some-files" class="headerlink" title="2.2.2 Copy directory with excluding some files :"></a>2.2.2 Copy directory with excluding some files :</h4><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">String sourceDir = SOURCE_DIR_PATH</div><div class="line">String destinationDir = DESTINATION_DIR_PATH</div><div class="line"></div><div class="line"><span class="keyword">new</span> AntBuilder().copy(<span class="string">todir:</span> destinationDir) &#123;</div><div class="line">    fileset(<span class="string">dir :</span> sourceDir) &#123;</div><div class="line">        exclude(<span class="string">name:</span><span class="string">"*.java"</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">new</span> AntBuilder().copy(<span class="string">todir:</span> <span class="string">"E:/2"</span>) &#123;</div><div class="line">    fileset(<span class="string">dir :</span> <span class="string">"E:/1"</span>) &#123;</div><div class="line">        include(<span class="string">name:</span><span class="string">"**/*.java"</span>)</div><div class="line">        exclude(<span class="string">name:</span><span class="string">"**/*Test.java"</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="2-2-3-Copy-files-from-one-directory-to-another"><a href="#2-2-3-Copy-files-from-one-directory-to-another" class="headerlink" title="2.2.3 Copy files from one directory to another :"></a>2.2.3 Copy files from one directory to another :</h4><figure class="highlight groovy"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">String sourceFilePath = SOURCE_FILE_PATH</div><div class="line">String destinationFilePath = DESTINATION_FILE_PATH</div><div class="line">(<span class="keyword">new</span> AntBuilder()).copy(<span class="string">file:</span> sourceFilePath, <span class="string">tofile:</span> destinationFilePath)</div></pre></td></tr></table></figure>
+<p>参考:<br><a href="http://www.codercorp.com/blog/groovy/groovy-file-magic-with-antbuilder.html" target="_blank" rel="external">http://www.codercorp.com/blog/groovy/groovy-file-magic-with-antbuilder.html</a><br><a href="http://www.grails.info/2012/09/21/copy-filesfolders-from-one-location-to-another-in-groovy/" target="_blank" rel="external">http://www.grails.info/2012/09/21/copy-filesfolders-from-one-location-to-another-in-groovy/</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Groovy与其他动态语言一样，具有强大的文件/文本处理能力。&lt;/p&gt;
+&lt;h2 id=&quot;1-遍历某文件夹内文件并进行文本查找与替换：&quot;&gt;&lt;a href=&quot;#1-遍历某文件夹内文件并进行文本查找与替换：&quot; class=&quot;headerlink&quot; title=&quot;1. 遍历某文件夹内文件并进行文本查找与替换：&quot;&gt;&lt;/a&gt;1. 遍历某文件夹内文件并进行文本查找与替换：&lt;/h2&gt;&lt;h3 id=&quot;1-1-遍历文件夹内所有文件并查找与替换：&quot;&gt;&lt;a href=&quot;#1-1-遍历文件夹内所有文件并查找与替换：&quot; class=&quot;headerlink&quot; title=&quot;1.1 遍历文件夹内所有文件并查找与替换：&quot;&gt;&lt;/a&gt;1.1 遍历文件夹内所有文件并查找与替换：&lt;/h3&gt;&lt;figure class=&quot;highlight groovy&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;static&lt;/span&gt; replaceDirFileText(String src, String dest, File dir)&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; fileText&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    dir.eachFileRecurse(&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &amp;#123;file -&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;            &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt;(file.isFile())&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;                fileText = file.text;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;                fileText = fileText.replaceAll(src, dest)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;                file.write(fileText, “utf&lt;span class=&quot;number&quot;&gt;-8&lt;/span&gt;”);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;            &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    )&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="Groovy" scheme="http://www.jumpbeandev.com/categories/Groovy/"/>
+    
+    
+      <category term="Groovy" scheme="http://www.jumpbeandev.com/tags/Groovy/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用Hexo在Github搭建博客</title>
+    <link href="http://www.jumpbeandev.com/2015/09/01/%E4%BD%BF%E7%94%A8Hexo%E5%9C%A8Github%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/"/>
+    <id>http://www.jumpbeandev.com/2015/09/01/使用Hexo在Github搭建博客/</id>
+    <published>2015-09-01T04:52:48.000Z</published>
+    <updated>2016-09-02T03:29:33.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>倒腾了一天终于把blog搭起来了，第一篇就记录下搭建方法吧。</p>
+<hr>
+<h2 id="1-购买域名"><a href="#1-购买域名" class="headerlink" title="1. 购买域名"></a>1. 购买域名</h2><p>域名是在<a href="https://www.godaddy.com/" target="_blank" rel="external">Godaddy</a>上买的，原因是国外且支持支付宝，比较方便。</p>
+<ul>
+<li>注册个账号，注意个人信息中国家要选China，否则没有支付宝选项。</li>
+<li>查到域名加入购物车，选完后会有一堆收费服务，不用管，直接Continue to Cart。</li>
+<li>确认域名、购买时间等，然后一路点下去，支付方式选择支付宝，支付后购买成功。</li>
+</ul>
+<p>这里说明一下，币种默认USD就可以，支付宝会自动根据汇率转换。<br>另外比较坑的就是优惠码，网上随便一搜一堆，我挑了几个说是支持支付宝的，可在跳转支付界面时就提示错误了，换了几个都这样，不知道是使用的人数已经超额还是压根就不支持，anyway，删掉优惠码后就成功支付了。优惠码添加和删除在这里：<br><img src="/images/9-2-2015 09-42-08.png"><br><a id="more"></a></p>
+<hr>
+<h2 id="2-GitHub注册账号，创建username-github-io"><a href="#2-GitHub注册账号，创建username-github-io" class="headerlink" title="2. GitHub注册账号，创建username.github.io"></a>2. GitHub注册账号，创建username.github.io</h2><p>GitHub提供了Pages服务，可以用来搭建静态博客。官方介绍很详细，可以参照：<a href="https://help.github.com/categories/github-pages-basics/" target="_blank" rel="external">GitHub Pages</a></p>
+<ul>
+<li>注册账号</li>
+<li>选择”+New repository”</li>
+<li>Repository name一定要填<strong>username.github.io(其中username替换为你github注册的实际用户名)</strong><br><img src="/images/9-2-2015 10-25-35.png"></li>
+<li>参照<a href="https://help.github.com/articles/creating-pages-with-the-automatic-generator/" target="_blank" rel="external">The Automatic Page Generator</a>自动生成Page。</li>
+</ul>
+<p>这时候从浏览器访问username.github.io就可以看到自动生成的page了。</p>
+<hr>
+<h2 id="3-安装git，nodejs，hexo"><a href="#3-安装git，nodejs，hexo" class="headerlink" title="3. 安装git，nodejs，hexo"></a>3. 安装git，nodejs，hexo</h2><p>看到很多人说hexo操作简单，速度也比较快，就打算试试。<br>hexo是node.js写的，首先安装git和node.js，我的系统是Windows:</p>
+<ul>
+<li><a href="https://nodejs.org/" target="_blank" rel="external">Node.js</a></li>
+<li><a href="http://git-scm.com/" target="_blank" rel="external">Git</a></li>
+</ul>
+<h3 id="3-1-Node-js"><a href="#3-1-Node-js" class="headerlink" title="3.1 Node.js"></a>3.1 Node.js</h3><h4 id="3-1-1-安装"><a href="#3-1-1-安装" class="headerlink" title="3.1.1 安装"></a>3.1.1 安装</h4><p>安装基本一路Next就好了，过程中会自动在环境变量的path里添加nodejs，例如“C:\Program Files\nodejs”。但需要手动添加NODE_PATH环境变量，value为node_modules，例如“C:\Program Files\nodejs\node_modules”。</p>
+<h4 id="3-1-2-验证"><a href="#3-1-2-验证" class="headerlink" title="3.1.2 验证"></a>3.1.2 验证</h4><p>打开cmd，输入：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">node -v</div><div class="line">npm -v</div></pre></td></tr></table></figure>
+<h4 id="3-1-3-npm配置"><a href="#3-1-3-npm配置" class="headerlink" title="3.1.3 npm配置"></a>3.1.3 npm配置</h4><p>配置npm的全局模块的存放路径以及cache的路径，在NodeJs下建立”node_global”及”node_cache”两个文件夹。打开cmd，输入：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">npm config <span class="built_in">set</span> prefix "C:\Program Files\nodejs\node_global"</div><div class="line">npm config <span class="built_in">set</span> cache "C:\Program Files\nodejs\node_cache"</div></pre></td></tr></table></figure>
+<h3 id="3-2-Git"><a href="#3-2-Git" class="headerlink" title="3.2 Git"></a>3.2 Git</h3><p>安装过程就不说了，Git教程可参照<a href="http://git-scm.com/book/zh/v2" target="_blank" rel="external">Git中文教程</a>。<br>以下部分主要参考beiyuu的<a href="http://beiyuu.com/github-pages/" target="_blank" rel="external">《使用Github Pages建独立博客》</a>。</p>
+<h4 id="3-2-1-检查SSH-keys的设置"><a href="#3-2-1-检查SSH-keys的设置" class="headerlink" title="3.2.1 检查SSH keys的设置"></a>3.2.1 检查SSH keys的设置</h4><p>首先我们需要检查你电脑上现有的ssh key：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">cd</span> ~/.ssh</div></pre></td></tr></table></figure>
+<p>如果显示“No such file or directory”，跳到第三步，否则继续。</p>
+<h4 id="3-2-2-备份和移除原来的ssh-key设置"><a href="#3-2-2-备份和移除原来的ssh-key设置" class="headerlink" title="3.2.2 备份和移除原来的ssh key设置"></a>3.2.2 备份和移除原来的ssh key设置</h4><p>因为已经存在key文件，所以需要备份旧的数据并删除：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ ls</div><div class="line">config  id\_rsa  id\_rsa.pub  known_hosts</div><div class="line">$ mkdir key_backup</div><div class="line">$ cp id\_rsa* key\_backup</div><div class="line">$ rm id_rsa*</div></pre></td></tr></table></figure>
+<h4 id="3-2-3-生成新的SSH-Key"><a href="#3-2-3-生成新的SSH-Key" class="headerlink" title="3.2.3 生成新的SSH Key"></a>3.2.3 生成新的SSH Key</h4><p>输入下面的代码，就可以生成新的key文件，我们只需要默认设置就好，所以当需要输入文件名的时候，回车就好。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ ssh-keygen -t rsa -C <span class="string">"邮件地址@youremail.com"</span></div><div class="line">Generating public/private rsa key pair.</div><div class="line">Enter file <span class="keyword">in</span> <span class="built_in">which</span> to save the key (/Users/your\_user\_directory/.ssh/id_rsa):&lt;回车就好&gt;</div></pre></td></tr></table></figure>
+<p>然后系统会要你输入加密串（<a href="https://help.github.com/articles/working-with-ssh-key-passphrases/" target="_blank" rel="external">Passphrase</a>）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Enter passphrase (empty <span class="keyword">for</span> no passphrase):&lt;输入加密串&gt;</div><div class="line">Enter same passphrase again:&lt;再次输入加密串&gt;</div></pre></td></tr></table></figure>
+<p>最后看到这样的界面，就成功设置ssh key了：<br><img src="http://beiyuu.com/images/githubpages/ssh-key-set.png" alt=""></p>
+<h4 id="3-2-4-添加SSH-Key到GitHub"><a href="#3-2-4-添加SSH-Key到GitHub" class="headerlink" title="3.2.4 添加SSH Key到GitHub"></a>3.2.4 添加SSH Key到GitHub</h4><p>在本机设置SSH Key之后，需要添加到GitHub上，以完成SSH链接的设置。<br>用文本编辑工具打开id_rsa.pub文件，如果看不到这个文件，你需要设置显示隐藏文件。准确的复制这个文件的内容，才能保证设置的成功。<br>在Github主页上Settings –&gt; SSH keys –&gt; Add SSH key，把复制的内容粘贴进去，然后点击Add Key按钮即可</p>
+<p>PS：如果需要配置多个GitHub账号，可以参看这个<a href="http://blog.csdn.net/itmyhome1990/article/details/42643233?utm_source=tuicool" target="_blank" rel="external">多个github帐号的SSH key切换</a>，不过需要提醒一下的是，如果你只是通过这篇文章中所述配置了Host，那么你多个账号下面的提交用户会是一个人，所以需要通过命令git config –global –unset user.email删除用户账户设置，在每一个repo下面使用git config –local user.email ‘你的github邮箱@mail.com’ 命令单独设置用户账户信息</p>
+<h4 id="3-2-5-测试"><a href="#3-2-5-测试" class="headerlink" title="3.2.5 测试"></a>3.2.5 测试</h4><p>可以输入下面的命令，看看设置是否成功</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh -T git@github.com</div></pre></td></tr></table></figure>
+<p>如果是下面的反应：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">The authenticity of host <span class="string">'github.com (207.97.227.239)'</span> can<span class="string">'t be established.</span></div><div class="line">RSA key fingerprint is 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48.</div><div class="line">Are you sure you want to continue connecting (yes/no)?</div></pre></td></tr></table></figure>
+<p>不要紧张，输入yes就好，然后会看到：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Hi &lt;em&gt;username&lt;/em&gt;! You<span class="string">'ve successfully authenticated, but GitHub does not provide shell access.</span></div></pre></td></tr></table></figure>
+<h3 id="3-3-Hexo"><a href="#3-3-Hexo" class="headerlink" title="3.3 Hexo"></a>3.3 Hexo</h3><p>Hexo 是一个简单地、轻量地、基于Node的一个静态博客框架，参考<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="external">Hexo文档</a>。<br>利用npm命令可安装：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install -g hexo [--proxy http://url:port]</div></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="4-创建hexo博客目录，新建文章并部署到github"><a href="#4-创建hexo博客目录，新建文章并部署到github" class="headerlink" title="4. 创建hexo博客目录，新建文章并部署到github"></a>4. 创建hexo博客目录，新建文章并部署到github</h2><p>我当前Hexo的版本为3.1.1。</p>
+<h3 id="4-1-初始化"><a href="#4-1-初始化" class="headerlink" title="4.1 初始化"></a>4.1 初始化</h3><p>创建hexo目录，右键选择Git bash，执行以下命令：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">hexo init</div><div class="line">npm install</div></pre></td></tr></table></figure>
+<h3 id="4-2-创建文章"><a href="#4-2-创建文章" class="headerlink" title="4.2 创建文章"></a>4.2 创建文章</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo new "my new post"</div></pre></td></tr></table></figure>
+<p>会生成my new post.md文件，可以进行编辑。</p>
+<h3 id="4-3-生成"><a href="#4-3-生成" class="headerlink" title="4.3 生成"></a>4.3 生成</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo generate</div></pre></td></tr></table></figure>
+<h3 id="4-4-部署"><a href="#4-4-部署" class="headerlink" title="4.4 部署"></a>4.4 部署</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo deploy</div></pre></td></tr></table></figure>
+<h3 id="4-5-配置"><a href="#4-5-配置" class="headerlink" title="4.5 配置"></a>4.5 配置</h3><p>_config.yml是其配置文件，记一下踩的坑吧：</p>
+<ul>
+<li>某项修改时，冒号后面格式为：一个半角空格+value，例如title: MyBlog，空格多或少都会报错</li>
+<li>Hexo 3的deploy配置：<br>deploy:<br>type: git<br>repository: git@github.com:username/username.github.io.git<br>branch: master</li>
+</ul>
+<p>另外Hexo没有删除命令，如果要删除某文章，直接到source中把文件删掉即可。</p>
+<hr>
+<h2 id="5-绑定域名，设置DNS"><a href="#5-绑定域名，设置DNS" class="headerlink" title="5. 绑定域名，设置DNS"></a>5. 绑定域名，设置DNS</h2><h3 id="5-1-DNSPod"><a href="#5-1-DNSPod" class="headerlink" title="5.1 DNSPod"></a>5.1 DNSPod</h3><p>使用<a href="https://www.dnspod.cn" target="_blank" rel="external">DNSPod</a>，注册后添加两条A记录和一条CNAME记录，其中A的两条记录指向的ip地址是github Pages的提供的ip，可在<a href="https://help.github.com/articles/tips-for-configuring-an-a-record-with-your-dns-provider/" target="_blank" rel="external">Github Pages</a>查看。CNAME记录中记录值为username.github.io。<br><img src="/images/9-6-2015 10-28-17.png"></p>
+<h3 id="5-2-Godday"><a href="#5-2-Godday" class="headerlink" title="5.2 Godday"></a>5.2 Godday</h3><p>登录后找到域名 –&gt; Manage –&gt; Nameservers，更改godaddy的Nameservers为DNSpod的NameServers f1g1ns1.dnspod.net、f1g1ns2.dnspod.net。<br><img src="/images/9-6-2015 10-43-03.png"></p>
+<h3 id="5-3-Github"><a href="#5-3-Github" class="headerlink" title="5.3 Github"></a>5.3 Github</h3><p>在hexo的source目录下创建CNAME文件，内容为要绑定的域名，然后hexo deploy提交到github上去。</p>
+<p>配置完后等待域名解析生效即可。</p>
+<p>参考：<br><a href="http://zipperary.com/2013/05/28/hexo-guide-2/" target="_blank" rel="external">hexo系列教程：（二）搭建hexo博客</a><br><a href="http://www.cnblogs.com/zhcncn/p/4097881.html" target="_blank" rel="external">Hexo搭建Github静态博客</a><br><a href="http://blog.csdn.net/poem_of_sunshine/article/details/29369785/" target="_blank" rel="external">如何搭建一个独立博客——简明Github Pages与Hexo教程</a><br><a href="http://zhaofei.tk/2014/11/30/jekyll_to_hexo/" target="_blank" rel="external">更换博客系统——从jekyll到hexo</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;倒腾了一天终于把blog搭起来了，第一篇就记录下搭建方法吧。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;1-购买域名&quot;&gt;&lt;a href=&quot;#1-购买域名&quot; class=&quot;headerlink&quot; title=&quot;1. 购买域名&quot;&gt;&lt;/a&gt;1. 购买域名&lt;/h2&gt;&lt;p&gt;域名是在&lt;a href=&quot;https://www.godaddy.com/&quot;&gt;Godaddy&lt;/a&gt;上买的，原因是国外且支持支付宝，比较方便。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;注册个账号，注意个人信息中国家要选China，否则没有支付宝选项。&lt;/li&gt;
+&lt;li&gt;查到域名加入购物车，选完后会有一堆收费服务，不用管，直接Continue to Cart。&lt;/li&gt;
+&lt;li&gt;确认域名、购买时间等，然后一路点下去，支付方式选择支付宝，支付后购买成功。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这里说明一下，币种默认USD就可以，支付宝会自动根据汇率转换。&lt;br&gt;另外比较坑的就是优惠码，网上随便一搜一堆，我挑了几个说是支持支付宝的，可在跳转支付界面时就提示错误了，换了几个都这样，不知道是使用的人数已经超额还是压根就不支持，anyway，删掉优惠码后就成功支付了。优惠码添加和删除在这里：&lt;br&gt;&lt;img src=&quot;/images/9-2-2015 09-42-08.png&quot;&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Hexo" scheme="http://www.jumpbeandev.com/categories/Hexo/"/>
+    
+    
+      <category term="hexo" scheme="http://www.jumpbeandev.com/tags/hexo/"/>
+    
+      <category term="github" scheme="http://www.jumpbeandev.com/tags/github/"/>
+    
+      <category term="blog" scheme="http://www.jumpbeandev.com/tags/blog/"/>
+    
+  </entry>
+  
+</feed>

@@ -1,0 +1,1006 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="kkGprphURMECAzNy_CxcrGPEV7H59jJooQIlxZBjW-g" />
+
+
+
+
+  <meta name="baidu-site-verification" content="Cffxnkwm8V" />
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+    <link href='//fonts.lug.ustc.edu.cn/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+  
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="hexo,github,blog," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="JumpBean's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.0" />
+
+
+
+
+
+
+<meta name="description" content="倒腾了一天终于把blog搭起来了，第一篇就记录下搭建方法吧。
+
+1. 购买域名域名是在Godaddy上买的，原因是国外且支持支付宝，比较方便。
+
+注册个账号，注意个人信息中国家要选China，否则没有支付宝选项。
+查到域名加入购物车，选完后会有一堆收费服务，不用管，直接Continue to Cart。
+确认域名、购买时间等，然后一路点下去，支付方式选择支付宝，支付后购买成功。
+
+这里说明一下，币">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Hexo在Github搭建博客">
+<meta property="og:url" content="http://www.jumpbeandev.com/2015/09/01/使用Hexo在Github搭建博客/index.html">
+<meta property="og:site_name" content="JumpBean's Blog">
+<meta property="og:description" content="倒腾了一天终于把blog搭起来了，第一篇就记录下搭建方法吧。
+
+1. 购买域名域名是在Godaddy上买的，原因是国外且支持支付宝，比较方便。
+
+注册个账号，注意个人信息中国家要选China，否则没有支付宝选项。
+查到域名加入购物车，选完后会有一堆收费服务，不用管，直接Continue to Cart。
+确认域名、购买时间等，然后一路点下去，支付方式选择支付宝，支付后购买成功。
+
+这里说明一下，币">
+<meta property="og:image" content="http://www.jumpbeandev.com/images/9-2-2015 09-42-08.png">
+<meta property="og:image" content="http://www.jumpbeandev.com/images/9-2-2015 10-25-35.png">
+<meta property="og:image" content="http://beiyuu.com/images/githubpages/ssh-key-set.png">
+<meta property="og:image" content="http://www.jumpbeandev.com/images/9-6-2015 10-28-17.png">
+<meta property="og:image" content="http://www.jumpbeandev.com/images/9-6-2015 10-43-03.png">
+<meta property="og:updated_time" content="2016-09-02T03:29:33.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用Hexo在Github搭建博客">
+<meta name="twitter:description" content="倒腾了一天终于把blog搭起来了，第一篇就记录下搭建方法吧。
+
+1. 购买域名域名是在Godaddy上买的，原因是国外且支持支付宝，比较方便。
+
+注册个账号，注意个人信息中国家要选China，否则没有支付宝选项。
+查到域名加入购物车，选完后会有一堆收费服务，不用管，直接Continue to Cart。
+确认域名、购买时间等，然后一路点下去，支付方式选择支付宝，支付后购买成功。
+
+这里说明一下，币">
+<meta name="twitter:image" content="http://www.jumpbeandev.com/images/9-2-2015 09-42-08.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: '[object Object]',
+    fancybox: true,
+    motion: true
+  };
+</script>
+
+  <title> 使用Hexo在Github搭建博客 | JumpBean's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', '70327159-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?9d9fd342838aa23531cdd1cf6f24dd63";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">JumpBean's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">天道酬勤</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+      
+        <li class="menu-item menu-item-search">
+          <a href="#" class="st-search-show-outputs">
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', '3zykFxDwyyp4cjyjoJea','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                使用Hexo在Github搭建博客
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-09-01T12:52:48+08:00" content="2015-09-01">
+              2015-09-01
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Hexo/" itemprop="url" rel="index">
+                    <span itemprop="name">Hexo</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/09/01/使用Hexo在Github搭建博客/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/01/使用Hexo在Github搭建博客/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2015/09/01/使用Hexo在Github搭建博客/" class="leancloud_visitors" data-flag-title="使用Hexo在Github搭建博客">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>倒腾了一天终于把blog搭起来了，第一篇就记录下搭建方法吧。</p>
+<hr>
+<h2 id="1-购买域名"><a href="#1-购买域名" class="headerlink" title="1. 购买域名"></a>1. 购买域名</h2><p>域名是在<a href="https://www.godaddy.com/" target="_blank" rel="external">Godaddy</a>上买的，原因是国外且支持支付宝，比较方便。</p>
+<ul>
+<li>注册个账号，注意个人信息中国家要选China，否则没有支付宝选项。</li>
+<li>查到域名加入购物车，选完后会有一堆收费服务，不用管，直接Continue to Cart。</li>
+<li>确认域名、购买时间等，然后一路点下去，支付方式选择支付宝，支付后购买成功。</li>
+</ul>
+<p>这里说明一下，币种默认USD就可以，支付宝会自动根据汇率转换。<br>另外比较坑的就是优惠码，网上随便一搜一堆，我挑了几个说是支持支付宝的，可在跳转支付界面时就提示错误了，换了几个都这样，不知道是使用的人数已经超额还是压根就不支持，anyway，删掉优惠码后就成功支付了。优惠码添加和删除在这里：<br><img src="/images/9-2-2015 09-42-08.png"><br><a id="more"></a></p>
+<hr>
+<h2 id="2-GitHub注册账号，创建username-github-io"><a href="#2-GitHub注册账号，创建username-github-io" class="headerlink" title="2. GitHub注册账号，创建username.github.io"></a>2. GitHub注册账号，创建username.github.io</h2><p>GitHub提供了Pages服务，可以用来搭建静态博客。官方介绍很详细，可以参照：<a href="https://help.github.com/categories/github-pages-basics/" target="_blank" rel="external">GitHub Pages</a></p>
+<ul>
+<li>注册账号</li>
+<li>选择”+New repository”</li>
+<li>Repository name一定要填<strong>username.github.io(其中username替换为你github注册的实际用户名)</strong><br><img src="/images/9-2-2015 10-25-35.png"></li>
+<li>参照<a href="https://help.github.com/articles/creating-pages-with-the-automatic-generator/" target="_blank" rel="external">The Automatic Page Generator</a>自动生成Page。</li>
+</ul>
+<p>这时候从浏览器访问username.github.io就可以看到自动生成的page了。</p>
+<hr>
+<h2 id="3-安装git，nodejs，hexo"><a href="#3-安装git，nodejs，hexo" class="headerlink" title="3. 安装git，nodejs，hexo"></a>3. 安装git，nodejs，hexo</h2><p>看到很多人说hexo操作简单，速度也比较快，就打算试试。<br>hexo是node.js写的，首先安装git和node.js，我的系统是Windows:</p>
+<ul>
+<li><a href="https://nodejs.org/" target="_blank" rel="external">Node.js</a></li>
+<li><a href="http://git-scm.com/" target="_blank" rel="external">Git</a></li>
+</ul>
+<h3 id="3-1-Node-js"><a href="#3-1-Node-js" class="headerlink" title="3.1 Node.js"></a>3.1 Node.js</h3><h4 id="3-1-1-安装"><a href="#3-1-1-安装" class="headerlink" title="3.1.1 安装"></a>3.1.1 安装</h4><p>安装基本一路Next就好了，过程中会自动在环境变量的path里添加nodejs，例如“C:\Program Files\nodejs”。但需要手动添加NODE_PATH环境变量，value为node_modules，例如“C:\Program Files\nodejs\node_modules”。</p>
+<h4 id="3-1-2-验证"><a href="#3-1-2-验证" class="headerlink" title="3.1.2 验证"></a>3.1.2 验证</h4><p>打开cmd，输入：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">node -v</div><div class="line">npm -v</div></pre></td></tr></table></figure>
+<h4 id="3-1-3-npm配置"><a href="#3-1-3-npm配置" class="headerlink" title="3.1.3 npm配置"></a>3.1.3 npm配置</h4><p>配置npm的全局模块的存放路径以及cache的路径，在NodeJs下建立”node_global”及”node_cache”两个文件夹。打开cmd，输入：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">npm config <span class="built_in">set</span> prefix "C:\Program Files\nodejs\node_global"</div><div class="line">npm config <span class="built_in">set</span> cache "C:\Program Files\nodejs\node_cache"</div></pre></td></tr></table></figure>
+<h3 id="3-2-Git"><a href="#3-2-Git" class="headerlink" title="3.2 Git"></a>3.2 Git</h3><p>安装过程就不说了，Git教程可参照<a href="http://git-scm.com/book/zh/v2" target="_blank" rel="external">Git中文教程</a>。<br>以下部分主要参考beiyuu的<a href="http://beiyuu.com/github-pages/" target="_blank" rel="external">《使用Github Pages建独立博客》</a>。</p>
+<h4 id="3-2-1-检查SSH-keys的设置"><a href="#3-2-1-检查SSH-keys的设置" class="headerlink" title="3.2.1 检查SSH keys的设置"></a>3.2.1 检查SSH keys的设置</h4><p>首先我们需要检查你电脑上现有的ssh key：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ <span class="built_in">cd</span> ~/.ssh</div></pre></td></tr></table></figure>
+<p>如果显示“No such file or directory”，跳到第三步，否则继续。</p>
+<h4 id="3-2-2-备份和移除原来的ssh-key设置"><a href="#3-2-2-备份和移除原来的ssh-key设置" class="headerlink" title="3.2.2 备份和移除原来的ssh key设置"></a>3.2.2 备份和移除原来的ssh key设置</h4><p>因为已经存在key文件，所以需要备份旧的数据并删除：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ ls</div><div class="line">config  id\_rsa  id\_rsa.pub  known_hosts</div><div class="line">$ mkdir key_backup</div><div class="line">$ cp id\_rsa* key\_backup</div><div class="line">$ rm id_rsa*</div></pre></td></tr></table></figure>
+<h4 id="3-2-3-生成新的SSH-Key"><a href="#3-2-3-生成新的SSH-Key" class="headerlink" title="3.2.3 生成新的SSH Key"></a>3.2.3 生成新的SSH Key</h4><p>输入下面的代码，就可以生成新的key文件，我们只需要默认设置就好，所以当需要输入文件名的时候，回车就好。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ ssh-keygen -t rsa -C <span class="string">"邮件地址@youremail.com"</span></div><div class="line">Generating public/private rsa key pair.</div><div class="line">Enter file <span class="keyword">in</span> <span class="built_in">which</span> to save the key (/Users/your\_user\_directory/.ssh/id_rsa):&lt;回车就好&gt;</div></pre></td></tr></table></figure>
+<p>然后系统会要你输入加密串（<a href="https://help.github.com/articles/working-with-ssh-key-passphrases/" target="_blank" rel="external">Passphrase</a>）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Enter passphrase (empty <span class="keyword">for</span> no passphrase):&lt;输入加密串&gt;</div><div class="line">Enter same passphrase again:&lt;再次输入加密串&gt;</div></pre></td></tr></table></figure>
+<p>最后看到这样的界面，就成功设置ssh key了：<br><img src="http://beiyuu.com/images/githubpages/ssh-key-set.png" alt=""></p>
+<h4 id="3-2-4-添加SSH-Key到GitHub"><a href="#3-2-4-添加SSH-Key到GitHub" class="headerlink" title="3.2.4 添加SSH Key到GitHub"></a>3.2.4 添加SSH Key到GitHub</h4><p>在本机设置SSH Key之后，需要添加到GitHub上，以完成SSH链接的设置。<br>用文本编辑工具打开id_rsa.pub文件，如果看不到这个文件，你需要设置显示隐藏文件。准确的复制这个文件的内容，才能保证设置的成功。<br>在Github主页上Settings –&gt; SSH keys –&gt; Add SSH key，把复制的内容粘贴进去，然后点击Add Key按钮即可</p>
+<p>PS：如果需要配置多个GitHub账号，可以参看这个<a href="http://blog.csdn.net/itmyhome1990/article/details/42643233?utm_source=tuicool" target="_blank" rel="external">多个github帐号的SSH key切换</a>，不过需要提醒一下的是，如果你只是通过这篇文章中所述配置了Host，那么你多个账号下面的提交用户会是一个人，所以需要通过命令git config –global –unset user.email删除用户账户设置，在每一个repo下面使用git config –local user.email ‘你的github邮箱@mail.com’ 命令单独设置用户账户信息</p>
+<h4 id="3-2-5-测试"><a href="#3-2-5-测试" class="headerlink" title="3.2.5 测试"></a>3.2.5 测试</h4><p>可以输入下面的命令，看看设置是否成功</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh -T git@github.com</div></pre></td></tr></table></figure>
+<p>如果是下面的反应：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">The authenticity of host <span class="string">'github.com (207.97.227.239)'</span> can<span class="string">'t be established.</span></div><div class="line">RSA key fingerprint is 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48.</div><div class="line">Are you sure you want to continue connecting (yes/no)?</div></pre></td></tr></table></figure>
+<p>不要紧张，输入yes就好，然后会看到：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Hi &lt;em&gt;username&lt;/em&gt;! You<span class="string">'ve successfully authenticated, but GitHub does not provide shell access.</span></div></pre></td></tr></table></figure>
+<h3 id="3-3-Hexo"><a href="#3-3-Hexo" class="headerlink" title="3.3 Hexo"></a>3.3 Hexo</h3><p>Hexo 是一个简单地、轻量地、基于Node的一个静态博客框架，参考<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="external">Hexo文档</a>。<br>利用npm命令可安装：<br><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install -g hexo [--proxy http://url:port]</div></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="4-创建hexo博客目录，新建文章并部署到github"><a href="#4-创建hexo博客目录，新建文章并部署到github" class="headerlink" title="4. 创建hexo博客目录，新建文章并部署到github"></a>4. 创建hexo博客目录，新建文章并部署到github</h2><p>我当前Hexo的版本为3.1.1。</p>
+<h3 id="4-1-初始化"><a href="#4-1-初始化" class="headerlink" title="4.1 初始化"></a>4.1 初始化</h3><p>创建hexo目录，右键选择Git bash，执行以下命令：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">hexo init</div><div class="line">npm install</div></pre></td></tr></table></figure>
+<h3 id="4-2-创建文章"><a href="#4-2-创建文章" class="headerlink" title="4.2 创建文章"></a>4.2 创建文章</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo new "my new post"</div></pre></td></tr></table></figure>
+<p>会生成my new post.md文件，可以进行编辑。</p>
+<h3 id="4-3-生成"><a href="#4-3-生成" class="headerlink" title="4.3 生成"></a>4.3 生成</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo generate</div></pre></td></tr></table></figure>
+<h3 id="4-4-部署"><a href="#4-4-部署" class="headerlink" title="4.4 部署"></a>4.4 部署</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo deploy</div></pre></td></tr></table></figure>
+<h3 id="4-5-配置"><a href="#4-5-配置" class="headerlink" title="4.5 配置"></a>4.5 配置</h3><p>_config.yml是其配置文件，记一下踩的坑吧：</p>
+<ul>
+<li>某项修改时，冒号后面格式为：一个半角空格+value，例如title: MyBlog，空格多或少都会报错</li>
+<li>Hexo 3的deploy配置：<br>deploy:<br>type: git<br>repository: git@github.com:username/username.github.io.git<br>branch: master</li>
+</ul>
+<p>另外Hexo没有删除命令，如果要删除某文章，直接到source中把文件删掉即可。</p>
+<hr>
+<h2 id="5-绑定域名，设置DNS"><a href="#5-绑定域名，设置DNS" class="headerlink" title="5. 绑定域名，设置DNS"></a>5. 绑定域名，设置DNS</h2><h3 id="5-1-DNSPod"><a href="#5-1-DNSPod" class="headerlink" title="5.1 DNSPod"></a>5.1 DNSPod</h3><p>使用<a href="https://www.dnspod.cn" target="_blank" rel="external">DNSPod</a>，注册后添加两条A记录和一条CNAME记录，其中A的两条记录指向的ip地址是github Pages的提供的ip，可在<a href="https://help.github.com/articles/tips-for-configuring-an-a-record-with-your-dns-provider/" target="_blank" rel="external">Github Pages</a>查看。CNAME记录中记录值为username.github.io。<br><img src="/images/9-6-2015 10-28-17.png"></p>
+<h3 id="5-2-Godday"><a href="#5-2-Godday" class="headerlink" title="5.2 Godday"></a>5.2 Godday</h3><p>登录后找到域名 –&gt; Manage –&gt; Nameservers，更改godaddy的Nameservers为DNSpod的NameServers f1g1ns1.dnspod.net、f1g1ns2.dnspod.net。<br><img src="/images/9-6-2015 10-43-03.png"></p>
+<h3 id="5-3-Github"><a href="#5-3-Github" class="headerlink" title="5.3 Github"></a>5.3 Github</h3><p>在hexo的source目录下创建CNAME文件，内容为要绑定的域名，然后hexo deploy提交到github上去。</p>
+<p>配置完后等待域名解析生效即可。</p>
+<p>参考：<br><a href="http://zipperary.com/2013/05/28/hexo-guide-2/" target="_blank" rel="external">hexo系列教程：（二）搭建hexo博客</a><br><a href="http://www.cnblogs.com/zhcncn/p/4097881.html" target="_blank" rel="external">Hexo搭建Github静态博客</a><br><a href="http://blog.csdn.net/poem_of_sunshine/article/details/29369785/" target="_blank" rel="external">如何搭建一个独立博客——简明Github Pages与Hexo教程</a><br><a href="http://zhaofei.tk/2014/11/30/jekyll_to_hexo/" target="_blank" rel="external">更换博客系统——从jekyll到hexo</a></p>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/hexo/" rel="tag">#hexo</a>
+          
+            <a href="/tags/github/" rel="tag">#github</a>
+          
+            <a href="/tags/blog/" rel="tag">#blog</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/09/22/Groovy文件处理/" rel="prev" title="Groovy文件处理">
+                Groovy文件处理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2015/09/01/使用Hexo在Github搭建博客/"
+     data-title="使用Hexo在Github搭建博客"
+     data-content=""
+     data-url="http://www.jumpbeandev.com/2015/09/01/使用Hexo在Github搭建博客/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/09/01/使用Hexo在Github搭建博客/"
+           data-title="使用Hexo在Github搭建博客" data-url="http://www.jumpbeandev.com/2015/09/01/使用Hexo在Github搭建博客/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/default_avatar.jpg"
+               alt="Jump Bean" />
+          <p class="site-author-name" itemprop="name">Jump Bean</p>
+          <p class="site-description motion-element" itemprop="description">God helps those who help themselves</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="http://creativecommons.org/licenses/by-sa/4.0" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-购买域名"><span class="nav-number">1.</span> <span class="nav-text">1. 购买域名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-GitHub注册账号，创建username-github-io"><span class="nav-number">2.</span> <span class="nav-text">2. GitHub注册账号，创建username.github.io</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-安装git，nodejs，hexo"><span class="nav-number">3.</span> <span class="nav-text">3. 安装git，nodejs，hexo</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-Node-js"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 Node.js</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-1-安装"><span class="nav-number">3.1.1.</span> <span class="nav-text">3.1.1 安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-2-验证"><span class="nav-number">3.1.2.</span> <span class="nav-text">3.1.2 验证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-3-npm配置"><span class="nav-number">3.1.3.</span> <span class="nav-text">3.1.3 npm配置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-Git"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 Git</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-检查SSH-keys的设置"><span class="nav-number">3.2.1.</span> <span class="nav-text">3.2.1 检查SSH keys的设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-备份和移除原来的ssh-key设置"><span class="nav-number">3.2.2.</span> <span class="nav-text">3.2.2 备份和移除原来的ssh key设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-3-生成新的SSH-Key"><span class="nav-number">3.2.3.</span> <span class="nav-text">3.2.3 生成新的SSH Key</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-4-添加SSH-Key到GitHub"><span class="nav-number">3.2.4.</span> <span class="nav-text">3.2.4 添加SSH Key到GitHub</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-5-测试"><span class="nav-number">3.2.5.</span> <span class="nav-text">3.2.5 测试</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-Hexo"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 Hexo</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-创建hexo博客目录，新建文章并部署到github"><span class="nav-number">4.</span> <span class="nav-text">4. 创建hexo博客目录，新建文章并部署到github</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-初始化"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-创建文章"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 创建文章</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-生成"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 生成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-部署"><span class="nav-number">4.4.</span> <span class="nav-text">4.4 部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-配置"><span class="nav-number">4.5.</span> <span class="nav-text">4.5 配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-绑定域名，设置DNS"><span class="nav-number">5.</span> <span class="nav-text">5. 绑定域名，设置DNS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-DNSPod"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 DNSPod</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-Godday"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 Godday</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-Github"><span class="nav-number">5.3.</span> <span class="nav-text">5.3 Github</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jump Bean</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.0"></script>
+
+
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    motionMiddleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"jumpbeandev"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      <script type="text/javascript">
+        var duoshuo_user_ID = jbd;
+        var duoshuo_admin_nickname = "博主";
+      </script>
+      <script src="/vendors/ua-parser-js/dist/ua-parser.min.js"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("sr13ek7g52mCLgs6nmPMUd8w", "Ghzxedwuv2MQpkphQpa8i7pV");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+</body>
+</html>
