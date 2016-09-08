@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.jumpbeandev.com/"/>
-  <updated>2016-09-02T03:29:33.000Z</updated>
+  <updated>2016-09-08T07:29:52.000Z</updated>
   <id>http://www.jumpbeandev.com/</id>
   
   <author>
@@ -14,6 +14,107 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java编译和运行</title>
+    <link href="http://www.jumpbeandev.com/2016/09/07/javabuildandrun/"/>
+    <id>http://www.jumpbeandev.com/2016/09/07/javabuildandrun/</id>
+    <published>2016-09-07T02:26:00.000Z</published>
+    <updated>2016-09-08T07:29:52.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>整理一下Java编译和运行的大致过程。先上一张Java平台逻辑结构图：<br><img src="/images/2016/09/07/javaplatform.gif"><br><a id="more"></a></p>
+<hr>
+<h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><p><img src="/images/2016/09/07/1054.jpg"><br>如图， 从上至下分别是编译型语言，解释型语言，Java的执行模型。Java程序从源文件创建到程序运行要经过两大步骤：1、源文件由编译器编译成字节码（ByteCode） 2、字节码由java虚拟机解释运行。关于Javay属于编译型语言还是解释性语言，可以参照<a href="http://www.zhihu.com/question/19608553" target="_blank" rel="external">Java 是编译型语言还是解释型语言</a>。<br><img src="/images/2016/09/07/1110.png"></p>
+<hr>
+<h2 id="2-编译"><a href="#2-编译" class="headerlink" title="2. 编译"></a>2. 编译</h2><p>Java代码编译是由Java源码编译器来完成，流程图如下所示：<br><img src="/images/2016/09/07/1425.png"></p>
+<h3 id="2-1-编译机制"><a href="#2-1-编译机制" class="headerlink" title="2.1 编译机制"></a>2.1 编译机制</h3><p>Java 源码编译由以下三个过程组成：</p>
+<ul>
+<li>分析和输入到符号表</li>
+<li>注解处理</li>
+<li>语义分析和生成class文件</li>
+</ul>
+<p>最后生成的class文件由以下部分组成：</p>
+<ul>
+<li>结构信息。包括class文件格式版本号及各部分的数量与大小的信息</li>
+<li>元数据。对应于Java源码中声明与常量的信息。包含类/继承的超类/实现的接口的声明信息、域与方法声明信息和常量池</li>
+<li>方法信息。对应Java源码中语句和表达式对应的信息。包含字节码、异常处理器表、求值栈与局部变量区大小、求值栈的类型记录、调试符号信息</li>
+</ul>
+<h3 id="2-2-字节码"><a href="#2-2-字节码" class="headerlink" title="2.2 字节码"></a>2.2 字节码</h3><p>Class文件是8位字节流，按字节对齐。之所以称为字节码，是因为每条指令都只占据一个字节，所有的操作码和操作数都是按字节对齐的。<br>Java虚拟机规范中规定，Class文件格式采用一种类似C语言结构体的伪结构来存储，它只有两种数据类型</p>
+<ul>
+<li>无符号数（基本数据类型）<br>主要用于描述数字、索引引用、数量值、或UTF-8编码构成的字符串；<br>u1 – 1个字节<br>u2 – 2个字节<br>u4 – 4个字节<br>u8 – 8个字节</li>
+<li>表（符合数据类型）<br>用于描述有层次关系的符合结构的数据；习惯性以“_info”结尾</li>
+</ul>
+<p>更详细介绍可以参照;<br><a href="http://blog.csdn.net/chen8238065/article/details/50983260" target="_blank" rel="external">Java字节码小结</a><br><a href="http://ifeve.com/javacodetobytecode-partone/" target="_blank" rel="external">Java代码到字节码</a><br><a href="http://blog.csdn.net/silentbalanceyh/article/details/42640739" target="_blank" rel="external">Java字节码.class文件案例分析</a></p>
+<hr>
+<h2 id="3-运行"><a href="#3-运行" class="headerlink" title="3. 运行"></a>3. 运行</h2><p>Java字节码的执行是由JVM执行引擎来完成，流程图如下所示：<br><img src="/images/2016/09/07/1706.gif"></p>
+<h3 id="3-1-什么是JVM"><a href="#3-1-什么是JVM" class="headerlink" title="3.1 什么是JVM"></a>3.1 什么是JVM</h3><p>JVM是Java Virtual Machine（Java虚拟机）的缩写，JVM是一种用于计算设备的规范，它是一个虚构出来的计算机，是通过在实际的计算机上仿真模拟各种计算机功能来实现的。Java虚拟机包括一套字节码指令集、一组寄存器、一个栈、一个垃圾回收堆和一个存储方法域。JVM屏蔽了与具体操作系统平台相关的信息，使Java程序只需生成在Java虚拟机上运行的目标代码（字节码）,就可以在多种平台上不加修改地运行。JVM在执行字节码时，实际上最终还是把字节码解释成具体平台上的机器指令执行。<br>JVM规范参照：<a href="https://jcp.org/en/jsr/detail?id=924" target="_blank" rel="external">Java Virtual Machine Specification</a><br>中文版：<a href="http://files.cnblogs.com/files/zhuYears/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%A7%84%E8%8C%83%EF%BC%88JavaSE7%EF%BC%89.pdf" target="_blank" rel="external">Java虚拟机规范（JavaSE7）</a></p>
+<h3 id="3-2-JRE-JDK-JVM的关系"><a href="#3-2-JRE-JDK-JVM的关系" class="headerlink" title="3.2 JRE/JDK/JVM的关系"></a>3.2 JRE/JDK/JVM的关系</h3><ul>
+<li>JRE(JavaRuntimeEnvironment，Java运行环境)，也就是Java平台。所有的Java程序都要在JRE下才能运行。普通用户只需要运行已开发好的java程序，安装JRE即可。</li>
+<li>JDK(Java Development Kit)是程序开发者用来来编译、调试java程序用的开发工具包。JDK的工具也是Java程序，也需要JRE才能运行。为了保持JDK的独立性和完整性，在JDK的安装过程中，JRE也是 安装的一部分。所以，在JDK的安装目录下有一个名为jre的目录，用于存放JRE文件。</li>
+<li>JVM(JavaVirtualMachine，Java虚拟机)是JRE的一部分。它是一个虚构出来的计算机，是通过在实际的计算机上仿真模拟各种计算机功能来实现的。JVM有自己完善的硬件架构，如处理器、堆栈、寄存器等，还具有相应的指令系统。Java语言最重要的特点就是跨平台运行。使用JVM就是为了支持与操作系统无关，实现跨平台。</li>
+</ul>
+<h3 id="3-3-JVM架构"><a href="#3-3-JVM架构" class="headerlink" title="3.3 JVM架构"></a>3.3 JVM架构</h3><h4 id="3，3，1-JVM体系结构"><a href="#3，3，1-JVM体系结构" class="headerlink" title="3，3，1 JVM体系结构"></a>3，3，1 JVM体系结构</h4><p>JVM = 类加载器 classloader + 执行引擎 execution engine + 运行时数据区域 runtime data area</p>
+<ul>
+<li>类装载器（ClassLoader）（用来装载.class文件）</li>
+<li>执行引擎（执行字节码，或者执行本地方法）</li>
+<li>运行时数据区（方法区、堆、java栈、PC寄存器、本地方法栈）<br>JVM体系结构：<br><img src="/images/2016/09/07/1102.png"></li>
+</ul>
+<h4 id="3-3-2-classloader"><a href="#3-3-2-classloader" class="headerlink" title="3.3.2 classloader"></a>3.3.2 classloader</h4><p>classloader作用是装载.class文件。<br>classloader 有两种装载class的方式（时机）：</p>
+<ol>
+<li>隐式：运行过程中，碰到new方式生成对象时，隐式调用classLoader到JVM</li>
+<li>显式：通过class.forname()动态加载<br>类的层次关系和加载顺序可以由下图来描述：<br><img src="/images/2016/09/07/1123.png"></li>
+</ol>
+<p>1）Bootstrap ClassLoader<br>负责加载 $JAVA_HOME中jre/lib/rt.jar里所有的class，由C++实现，不是ClassLoader子类<br>2）Extension ClassLoader<br>负责加载java平台中扩展功能的一些jar包，包括$JAVA_HOME中jre/lib/*.jar或-Djava.ext.dirs指定目录下的jar包<br>3）App ClassLoader<br>负责记载classpath中指定的jar包及目录中class<br>4）Custom ClassLoader<br>属于应用程序根据自身需要自定义的ClassLoader，如tomcat、jboss都会根据j2ee规范自行实现ClassLoader<br>加载过程中会先检查类是否被已加载，检查顺序是自底向上，从Custom ClassLoader到BootStrap ClassLoader逐层检查，只要某个classloader已加载就视为已加载此类，保证此类只所有ClassLoader加载一次。而加载的顺序是自顶向下，也就是由上层来逐层尝试加载此类。</p>
+<h4 id="3-3-3-执行引擎"><a href="#3-3-3-执行引擎" class="headerlink" title="3.3.3 执行引擎"></a>3.3.3 执行引擎</h4><p>执行字节码，或者执行本地方法。类被加载到虚拟机内存中开始，到卸载出内存为主，它的整个生命周期包括：加载（Loading）、验证（Verification）、准备（Preparation）、解析（Resolution）、初始化（Initialization）、使用（Using）和卸载（Unloading）7个阶段。其中验证、准备、解析3个阶段称为连接（Linking）。</p>
+<h4 id="3-3-4-运行时数据区"><a href="#3-3-4-运行时数据区" class="headerlink" title="3.3.4 运行时数据区"></a>3.3.4 运行时数据区</h4><p>JVM运行时数据区：<br><img src="/images/2016/09/07/1022.png"></p>
+<ol>
+<li><p><strong>PC程序计数器</strong>：一块较小的内存空间，可以看做是当前线程所执行的字节码的行号指示器, NAMELY存储每个线程下一步将执行的JVM指令，如该方法为native的，则PC寄存器中不存储任何信息。Java 的多线程机制离不开程序计数器，每个线程都有一个自己的PC，以便完成不同线程上下文环境的切换。</p>
+</li>
+<li><p><strong>java虚拟机栈</strong>：与PC 一样，java虚拟机栈也是线程私有的。每一个JVM线程都有自己的java虚拟机栈，这个栈与线程同时创建，它的生命周期与线程相同。虚拟机栈描述的是Java 方法执行的内存模型：每个方法被执行的时候都会同时创建一个栈帧（Stack Frame）用于存储局部基本类型的变量（java中定义的八种基本类型：boolean、char、byte、short、int、long、float、double）、部分的返回结果以及Stack Frame，非基本类型的对象在JVM栈上仅存放一个指向堆上的地址。。每一个方法被调用直至执行完成的过程就对应着一个栈帧在虚拟机栈中从入栈到出栈的过程。</p>
+</li>
+<li><p><strong>堆（Heap）</strong>:它是JVM用来存储对象实例以及数组值的区域，可以认为Java中所有通过new创建的对象的内存都在此分配，Heap中的对象的内存需要等待GC进行回收。<br><img src="/images/2016/09/07/1450.png"><br>1）堆是JVM中所有线程共享的，因此在其上进行对象内存的分配均需要进行加锁，这也导致了new对象的开销是比较大的<br>2）Sun Hotspot JVM为了提升对象内存分配的效率，对于所创建的线程都会分配一块独立的空间TLAB（Thread Local Allocation Buffer），其大小由JVM根据运行的情况计算而得，在TLAB上分配对象时不需要加锁，因此JVM在给线程的对象分配内存时会尽量的在TLAB上分配，在这种情况下JVM中分配对象内存的性能和C基本是一样高效的，但如果对象过大的话则仍然是直接使用堆空间分配<br>3）TLAB仅作用于新生代的Eden Space，因此在编写Java程序时，通常多个小的对象比大的对象分配起来更加高效。<br>4）所有新创建的Object 都将会存储在新生代Yong Generation中。如果Young Generation的数据在一次或多次GC后存活下来，那么将被转移到OldGeneration。新的Object总是创建在Eden Space。</p>
+</li>
+<li><p><strong>方法区域（Method Area）</strong><br>1）在Sun JDK中这块区域对应的为PermanetGeneration，又称为持久代。<br>2）方法区域存放了所加载的类的信息（名称、修饰符等）、类中的静态变量、类中定义为final类型的常量、类中的Field信息、类中的方法信息，当开发人员在程序中通过Class对象中的getName、isInterface等方法来获取信息时，这些数据都来源于方法区域，同时方法区域也是全局共享的，在一定的条件下它也会被GC，当方法区域需要使用的内存超过其允许的大小时，会抛出OutOfMemory的错误信息。</p>
+</li>
+<li><p><strong>运行时常量池（Runtime Constant Pool）</strong><br>存放的为类中的固定的常量信息、方法和Field的引用信息等，其空间从方法区域中分配。</p>
+</li>
+<li><p><strong>本地方法堆栈（Native Method Stacks）</strong><br>JVM采用本地方法堆栈来支持native方法的执行，此区域用于存储每个native方法调用的状态。</p>
+</li>
+</ol>
+<h3 id="3-3-JVM垃圾回收"><a href="#3-3-JVM垃圾回收" class="headerlink" title="3.3 JVM垃圾回收"></a>3.3 JVM垃圾回收</h3><p>这里对垃圾回收作简单介绍，后面再详细展开。<br>GC (Garbage Collection)的基本原理：将内存中不再被使用的对象进行回收，GC中用于回收的方法称为收集器，由于GC需要消耗一些资源和时间，Java在对对象的生命周期特征进行分析后，按照新生代、旧生代的方式来对对象进行收集，以尽可能的缩短GC对应用造成的暂停。<br>1）对新生代的对象的收集称为minor GC；<br>2）对旧生代的对象的收集称为Full GC；<br>3）程序中主动调用System.gc()强制执行的GC为Full GC。</p>
+<p>不同的对象引用类型， GC会采用不同的方法进行回收，JVM对象的引用分为了四种类型：<br>1）强引用：默认情况下，对象采用的均为强引用（这个对象的实例没有其他对象引用，GC时才会被回收）<br>2）软引用：软引用是Java中提供的一种比较适合于缓存场景的应用（只有在内存不够用的情况下才会被GC）<br>3）弱引用：在GC时一定会被GC回收<br>4）虚引用：由于虚引用只是用来得知对象是否被GC</p>
+<hr>
+<h2 id="4-实例"><a href="#4-实例" class="headerlink" title="4. 实例"></a>4. 实例</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//MainApp.java  </span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainApp</span> </span>&#123;  </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;  </div><div class="line">        Animal animal = <span class="keyword">new</span> Animal(<span class="string">"Puppy"</span>);  </div><div class="line">        animal.printName();  </div><div class="line">    &#125;  </div><div class="line">&#125;  </div><div class="line"><span class="comment">//Animal.java  </span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Animal</span> </span>&#123;  </div><div class="line">    <span class="keyword">public</span> String name;  </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Animal</span><span class="params">(String name)</span> </span>&#123;  </div><div class="line">        <span class="keyword">this</span>.name = name;  </div><div class="line">    &#125;  </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printName</span><span class="params">()</span> </span>&#123;  </div><div class="line">        System.out.println(<span class="string">"Animal ["</span>+name+<span class="string">"]"</span>);  </div><div class="line">    &#125;  </div><div class="line">&#125; </div></pre></td></tr></table></figure>
+<p>第一步(编译): 创建完源文件之后，程序会先被编译为.class文件。Java编译一个类时，如果这个类所依赖的类还没有被编译，编译器就会先编译这个被依赖的类，然后引用，否则直接引用，这个有点象make。如果java编译器在指定目录下找不到该类所其依赖的类的.class文件或者.java源文件的话，编译器话报“cant find symbol”的错误。</p>
+<p>编译后的字节码文件格式主要分为两部分：常量池和方法字节码。常量池记录的是代码出现过的所有token(类名，成员变量名等等)以及符号引用（方法引用，成员变量引用等等）；方法字节码放的是类中各个方法的字节码。下面是MainApp.class通过反汇编的结果，我们可以清楚看到.class文件的结构：<br>MainApp类常量池:<br><img src="/images/2016/09/07/1520.png"><br>MainApp类方法字节码:<br><img src="/images/2016/09/07/1521.png"></p>
+<p>第二步（运行）：java类运行的过程大概可分为两个过程：1、类的加载 2、类的执行。需要说明的是：JVM主要在程序第一次主动使用类的时候，才会去加载该类。也就是说，JVM并不是在一开始就把一个程序就所有的类都加载到内存中，而是到不得不用的时候才把它加载进来，而且只加载一次。<br>下面是程序运行的详细步骤： </p>
+<ol>
+<li>在编译好java程序得到MainApp.class文件后，在命令行上敲java AppMain。系统就会启动一个jvm进程，jvm进程从classpath路径中找到一个名为AppMain.class的二进制文件，将MainApp的类信息加载到运行时数据区的方法区内，这个过程叫做MainApp类的加载。 </li>
+<li>然后JVM找到AppMain的主函数入口，开始执行main函数。 </li>
+<li>main函数的第一条命令是Animal animal = new Animal(“Puppy”);就是让JVM创建一个Animal对象，但是这时候方法区中没有Animal类的信息，所以JVM马上加载Animal类，把Animal类的类型信息放到方法区中。 </li>
+<li>加载完Animal类之后，Java虚拟机做的第一件事情就是在堆区中为一个新的Animal实例分配内存, 然后调用构造函数初始化Animal实例，这个Animal实例持有着指向方法区的Animal类的类型信息（其中包含有方法表，java动态绑定的底层实现）的引用。 </li>
+<li>当使用animal.printName()的时候，JVM根据animal引用找到Animal对象，然后根据Animal对象持有的引用定位到方法区中Animal类的类型信息的方法表，获得printName()函数的字节码的地址。 </li>
+<li>开始运行printName()函数。</li>
+</ol>
+<p><img src="/images/2016/09/07/1522.png"></p>
+<hr>
+<p>参照资料：<br><a href="https://segmentfault.com/a/1190000002579346" target="_blank" rel="external">JVM的工作原理，层次结构以及GC工作原理</a><br><a href="http://www.cnblogs.com/sunada2005/p/3577799.html" target="_blank" rel="external">JVM介绍</a><br><a href="http://blog.csdn.net/mccand1234/article/details/52013918" target="_blank" rel="external">Java代码编译和执行过程</a><br><a href="http://blog.csdn.net/cutesource/article/details/5904542" target="_blank" rel="external">JVM学习笔记（二）——Java代码编译和执行的整个过程</a><br><a href="http://blog.jamesdbloom.com/JVMInternals.html" target="_blank" rel="external">JVM Internals</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;整理一下Java编译和运行的大致过程。先上一张Java平台逻辑结构图：&lt;br&gt;&lt;img src=&quot;/images/2016/09/07/javaplatform.gif&quot;&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Java" scheme="http://www.jumpbeandev.com/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="http://www.jumpbeandev.com/tags/Java/"/>
+    
+      <category term="JVM" scheme="http://www.jumpbeandev.com/tags/JVM/"/>
+    
+  </entry>
   
   <entry>
     <title>windows下搭建python开发环境</title>
