@@ -1,0 +1,952 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="kkGprphURMECAzNy_CxcrGPEV7H59jJooQIlxZBjW-g" />
+
+
+
+
+  <meta name="baidu-site-verification" content="Cffxnkwm8V" />
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+    <link href='//fonts.lug.ustc.edu.cn/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+  
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="CI,Kubernetes,Docker," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="JumpBean's Blog" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.0" />
+
+
+
+
+
+
+<meta name="description" content="1. Sonar概述Sonar是一个用于代码质量管理的开放平台。通过插件机制，Sonar可以集成不同的测试工具，代码分析工具，以及持续集成工具。与持续集成工具（例如Hudson/Jenkins等）不同，Sonar并不是简单地把不同的代码检查工具结果（例如FindBugs，PMD等）直接显示在Web页面上，而是通过不同的插件对这些结果进行再加工处理，通过量化的方式度量代码质量的变化，从而可以方便地对">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kubernetes + Docker搭建Sonarqube">
+<meta property="og:url" content="http://www.jumpbeandev.com/2017/01/03/sonarqube/index.html">
+<meta property="og:site_name" content="JumpBean's Blog">
+<meta property="og:description" content="1. Sonar概述Sonar是一个用于代码质量管理的开放平台。通过插件机制，Sonar可以集成不同的测试工具，代码分析工具，以及持续集成工具。与持续集成工具（例如Hudson/Jenkins等）不同，Sonar并不是简单地把不同的代码检查工具结果（例如FindBugs，PMD等）直接显示在Web页面上，而是通过不同的插件对这些结果进行再加工处理，通过量化的方式度量代码质量的变化，从而可以方便地对">
+<meta property="og:image" content="http://www.jumpbeandev.com/images/2017/01/03/1809.png">
+<meta property="og:image" content="http://www.jumpbeandev.com/images/2017/01/03/1810.png">
+<meta property="og:image" content="http://www.jumpbeandev.com/images/2017/01/06/1725.png">
+<meta property="og:image" content="http://www.jumpbeandev.com/images/2017/01/06/1849.png">
+<meta property="og:image" content="http://www.jumpbeandev.com/images/2017/01/09/1033.png">
+<meta property="og:image" content="http://www.jumpbeandev.com/images/2017/01/09/1050.png">
+<meta property="og:image" content="http://www.jumpbeandev.com/images/2017/01/09/1356.png">
+<meta property="og:image" content="http://www.jumpbeandev.com/images/2017/01/09/1443.png">
+<meta property="og:image" content="http://www.jumpbeandev.com/images/2017/01/09/1444.png">
+<meta property="og:image" content="http://www.jumpbeandev.com/images/2017/01/09/1454.png">
+<meta property="og:image" content="http://www.jumpbeandev.com/images/2017/01/09/1455.png">
+<meta property="og:updated_time" content="2017-01-09T07:06:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kubernetes + Docker搭建Sonarqube">
+<meta name="twitter:description" content="1. Sonar概述Sonar是一个用于代码质量管理的开放平台。通过插件机制，Sonar可以集成不同的测试工具，代码分析工具，以及持续集成工具。与持续集成工具（例如Hudson/Jenkins等）不同，Sonar并不是简单地把不同的代码检查工具结果（例如FindBugs，PMD等）直接显示在Web页面上，而是通过不同的插件对这些结果进行再加工处理，通过量化的方式度量代码质量的变化，从而可以方便地对">
+<meta name="twitter:image" content="http://www.jumpbeandev.com/images/2017/01/03/1809.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: '[object Object]',
+    fancybox: true,
+    motion: true
+  };
+</script>
+
+  <title> Kubernetes + Docker搭建Sonarqube | JumpBean's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', '70327159-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?9d9fd342838aa23531cdd1cf6f24dd63";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">JumpBean's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">天道酬勤</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+      
+      
+        <li class="menu-item menu-item-search">
+          <a href="#" class="st-search-show-outputs">
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', '3zykFxDwyyp4cjyjoJea','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Kubernetes + Docker搭建Sonarqube
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-01-03T17:57:14+08:00" content="2017-01-03">
+              2017-01-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/CI/" itemprop="url" rel="index">
+                    <span itemprop="name">CI</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/01/03/sonarqube/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/03/sonarqube/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/01/03/sonarqube/" class="leancloud_visitors" data-flag-title="Kubernetes + Docker搭建Sonarqube">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-Sonar概述"><a href="#1-Sonar概述" class="headerlink" title="1. Sonar概述"></a>1. Sonar概述</h2><p>Sonar是一个用于代码质量管理的开放平台。通过插件机制，Sonar可以集成不同的测试工具，代码分析工具，以及持续集成工具。<br>与持续集成工具（例如Hudson/Jenkins等）不同，Sonar并不是简单地把不同的代码检查工具结果（例如FindBugs，PMD等）直接显示在Web页面上，而是通过不同的插件对这些结果进行再加工处理，通过量化的方式度量代码质量的变化，从而可以方便地对不同规模和种类的工程进行代码质量管理。<br>在对其他工具的支持方面，Sonar不仅提供了对IDE的支持，可以在Eclipse和IntelliJ IDEA这些工具里联机查看结果；同时Sonar 还对大量的持续集成工具提供了接口支持，可以很方便地在持续集成中使用Sonar。<br>此外，Sonar的插件对Java/PHP/C/C++/Python等编程语言提供支持，对国际化以及报告文档化也有良好的支持。<br>官网：<a href="https://www.sonarqube.org/" target="_blank" rel="external">Sonarqube</a><br><a id="more"></a></p>
+<hr>
+<h2 id="2-Snoar结构与集成"><a href="#2-Snoar结构与集成" class="headerlink" title="2. Snoar结构与集成"></a>2. Snoar结构与集成</h2><p>结构图：<br><img src="/images/2017/01/03/1809.png"></p>
+<p>与其他ALM工具集成：<br><img src="/images/2017/01/03/1810.png"></p>
+<hr>
+<h2 id="3-Sonar的Kubernetes部署"><a href="#3-Sonar的Kubernetes部署" class="headerlink" title="3. Sonar的Kubernetes部署"></a>3. Sonar的Kubernetes部署</h2><h3 id="3-1-事前准备"><a href="#3-1-事前准备" class="headerlink" title="3.1 事前准备"></a>3.1 事前准备</h3><p>集群构成：<br><img src="/images/2017/01/06/1725.png"><br>建议先将sonarqube镜像pull下来。不准备的话kubernetes创建RC的时候也会自动pull。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker pull sonarqube</div></pre></td></tr></table></figure></p>
+<h3 id="3-2-创建namespace"><a href="#3-2-创建namespace" class="headerlink" title="3.2 创建namespace"></a>3.2 创建namespace</h3><p>定义namespace.yaml：<br><figure class="highlight yaml"><figcaption><span>namespace.yaml</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="attr">apiVersion:</span> v1</div><div class="line"><span class="attr">kind:</span> Namespace</div><div class="line"><span class="attr">metadata:</span></div><div class="line"><span class="attr">  name:</span> sonar</div></pre></td></tr></table></figure><br>创建sonar命名空间：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">kubectl create -f namespace.yaml</div></pre></td></tr></table></figure><br><img src="/images/2017/01/06/1849.png"></p>
+<h3 id="3-3-启动mysql"><a href="#3-3-启动mysql" class="headerlink" title="3.3 启动mysql"></a>3.3 启动mysql</h3><p>首先要启动db，这里使用mysql。<br>注意：sonarqube6.2镜像要求mysql版本是5.6以上，所以mariadb不可以。另外max_allowed_packet需要设置的大一些，mysql镜像默认是4M。</p>
+<figure class="highlight yaml"><figcaption><span>rc-mysql56.yaml</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="attr">apiVersion:</span> v1</div><div class="line"><span class="attr">kind:</span> ReplicationController</div><div class="line"><span class="attr">metadata:</span></div><div class="line"><span class="attr">  name:</span> rc-mysql56</div><div class="line"><span class="attr">  namespace:</span> sonar</div><div class="line"><span class="attr">  labels:</span></div><div class="line"><span class="attr">    name:</span> mysql</div><div class="line"><span class="attr">    context:</span> ctpaas_staging_site</div><div class="line"><span class="attr">spec:</span></div><div class="line"><span class="attr">  replicas:</span> <span class="number">1</span></div><div class="line"><span class="attr">  template:</span></div><div class="line"><span class="attr">    metadata:</span></div><div class="line"><span class="attr">      labels:</span></div><div class="line"><span class="attr">        name:</span> mysql</div><div class="line"><span class="attr">    spec:</span></div><div class="line"><span class="attr">      containers:</span></div><div class="line"><span class="attr">      - name:</span> mysql</div><div class="line"><span class="attr">        image:</span> docker.io/mysql</div><div class="line"><span class="attr">        args:</span> [<span class="string">"--character-set-server=utf8mb4"</span>, <span class="string">"--collation-server=utf8mb4_unicode_ci"</span>, <span class="string">"--max_allowed_packet=32M"</span>]</div><div class="line"><span class="attr">        env:</span></div><div class="line"><span class="attr">          - name:</span> TZ</div><div class="line"><span class="attr">            value:</span> <span class="string">'Asia/Shanghai'</span></div><div class="line"><span class="attr">          - name:</span> LANG</div><div class="line"><span class="attr">            value:</span> <span class="string">'C.UTF-8'</span></div><div class="line"><span class="attr">          - name:</span> MYSQL_ROOT_PASSWORD</div><div class="line"><span class="attr">            value:</span> <span class="string">'password'</span></div><div class="line"><span class="attr">          - name:</span> MYSQL_DATABASE</div><div class="line"><span class="attr">            value:</span> <span class="string">'sonar'</span></div><div class="line"><span class="attr">        ports:</span></div><div class="line"><span class="attr">        - containerPort:</span> <span class="number">3306</span></div><div class="line"><span class="attr">        volumeMounts:</span></div><div class="line"><span class="attr">        - mountPath:</span> <span class="string">"/var/lib/mysql"</span></div><div class="line"><span class="attr">          name:</span> mysql-data-dir</div><div class="line"><span class="attr">      volumes:</span></div><div class="line"><span class="attr">        - name:</span> mysql-data-dir</div><div class="line"><span class="attr">          nfs:</span></div><div class="line"><span class="attr">            server:</span> <span class="number">192.168</span><span class="number">.205</span><span class="number">.77</span></div><div class="line"><span class="attr">            path:</span> <span class="string">"/nfs_share/mysql56/mysql_data"</span></div></pre></td></tr></table></figure>
+<figure class="highlight yaml"><figcaption><span>svc-mysql56.yaml</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="attr">apiVersion:</span> v1</div><div class="line"><span class="attr">kind:</span> Service</div><div class="line"><span class="attr">metadata:</span></div><div class="line"><span class="attr">  name:</span> svc-mysql56</div><div class="line"><span class="attr">  namespace:</span> sonar</div><div class="line"><span class="attr">spec:</span></div><div class="line"><span class="attr">  ports:</span></div><div class="line"><span class="attr">  - port:</span> <span class="number">3306</span> <span class="comment"># the port that this service should serve on</span></div><div class="line">    <span class="comment"># the container on each pod to connect to, can be a name</span></div><div class="line">    <span class="comment"># (e.g. 'www') or a number (e.g. 80)</span></div><div class="line"><span class="attr">    targetPort:</span> <span class="number">3306</span></div><div class="line"><span class="attr">    protocol:</span> TCP</div><div class="line"><span class="attr">    nodePort:</span> <span class="number">0</span></div><div class="line">  <span class="comment"># just like the selector in the replication controller,</span></div><div class="line">  <span class="comment"># but this time it identifies the set of pods to load balance</span></div><div class="line">  <span class="comment"># traffic to.</span></div><div class="line"><span class="attr">  selector:</span></div><div class="line"><span class="attr">    name:</span> mysql</div><div class="line"><span class="attr">  type:</span></div><div class="line">     NodePort</div></pre></td></tr></table></figure>
+<p>创建mysql rc和service：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">kubectl create -f rc-mysql56.yaml</div><div class="line">kubectl create -f svc-mysql56.yaml</div></pre></td></tr></table></figure></p>
+<h3 id="3-3-创建Sonar-RC-Service"><a href="#3-3-创建Sonar-RC-Service" class="headerlink" title="3.3 创建Sonar RC/Service"></a>3.3 创建Sonar RC/Service</h3><p>定义rc-sonar.yaml，db使用mysql的cluster ip：<br><figure class="highlight yaml"><figcaption><span>rc-sonar.yaml</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line"><span class="attr">apiVersion:</span> v1</div><div class="line"><span class="attr">kind:</span> ReplicationController</div><div class="line"><span class="attr">metadata:</span></div><div class="line"><span class="attr">  name:</span> rc-sonar</div><div class="line"><span class="attr">  namespace:</span> sonar</div><div class="line"><span class="attr">  labels:</span></div><div class="line"><span class="attr">    name:</span> sonar</div><div class="line"><span class="attr">spec:</span></div><div class="line"><span class="attr">  replicas:</span> <span class="number">1</span></div><div class="line"><span class="attr">  selector:</span></div><div class="line"><span class="attr">    name:</span> sonar</div><div class="line"><span class="attr">  template:</span></div><div class="line"><span class="attr">    metadata:</span></div><div class="line"><span class="attr">      labels:</span></div><div class="line"><span class="attr">        name:</span> sonar</div><div class="line"><span class="attr">    spec:</span></div><div class="line"><span class="attr">      containers:</span></div><div class="line"><span class="attr">      - name:</span> sonar</div><div class="line"><span class="attr">        image:</span> docker.io/sonarqube</div><div class="line"><span class="attr">        env:</span></div><div class="line"><span class="attr">        - name:</span> SONARQUBE_JDBC_USERNAME</div><div class="line"><span class="attr">          value:</span> user</div><div class="line"><span class="attr">        - name:</span> SONARQUBE_JDBC_PASSWORD</div><div class="line"><span class="attr">          value:</span> password</div><div class="line"><span class="attr">        - name:</span> SONARQUBE_JDBC_URL</div><div class="line"><span class="attr">          value:</span> <span class="string">'jdbc:mysql://10.254.130.11:3306/sonar?useUnicode=true&amp;amp;characterEncoding=utf8'</span></div><div class="line"><span class="attr">        ports:</span></div><div class="line"><span class="attr">        - containerPort:</span> <span class="number">9000</span></div><div class="line"><span class="attr">        volumeMounts:</span></div><div class="line"><span class="attr">        - mountPath:</span> <span class="string">"/opt/sonarqube/conf"</span></div><div class="line"><span class="attr">          name:</span> sonar-conf</div><div class="line"><span class="attr">        - mountPath:</span> <span class="string">"/opt/sonarqube/data"</span></div><div class="line"><span class="attr">          name:</span> sonar-data</div><div class="line"><span class="attr">        - mountPath:</span> <span class="string">"/opt/sonarqube/extensions"</span></div><div class="line"><span class="attr">          name:</span> sonar-extensions</div><div class="line"><span class="attr">        - mountPath:</span> <span class="string">"/opt/sonarqube/logs"</span></div><div class="line"><span class="attr">          name:</span> sonar-logs</div><div class="line"><span class="attr">      volumes:</span></div><div class="line"><span class="attr">        - name:</span> sonar-conf</div><div class="line"><span class="attr">          nfs:</span></div><div class="line"><span class="attr">            server:</span> <span class="number">192.168</span><span class="number">.205</span><span class="number">.77</span></div><div class="line"><span class="attr">            path:</span> <span class="string">"/nfs_share/sonar/conf"</span></div><div class="line"><span class="attr">        - name:</span> sonar-data</div><div class="line"><span class="attr">          nfs:</span></div><div class="line"><span class="attr">            server:</span> <span class="number">192.168</span><span class="number">.205</span><span class="number">.77</span></div><div class="line"><span class="attr">            path:</span> <span class="string">"/nfs_share/sonar/data"</span></div><div class="line"><span class="attr">        - name:</span> sonar-extensions</div><div class="line"><span class="attr">          nfs:</span></div><div class="line"><span class="attr">            server:</span> <span class="number">192.168</span><span class="number">.205</span><span class="number">.77</span></div><div class="line"><span class="attr">            path:</span> <span class="string">"/nfs_share/sonar/extensions"</span></div><div class="line"><span class="attr">        - name:</span> sonar-logs</div><div class="line"><span class="attr">          nfs:</span></div><div class="line"><span class="attr">            server:</span> <span class="number">192.168</span><span class="number">.205</span><span class="number">.77</span></div><div class="line"><span class="attr">            path:</span> <span class="string">"/nfs_share/sonar/logs"</span></div></pre></td></tr></table></figure><br>创建volumes，将数据、配置、插件、日志都放在volumes上，这样容器重新创建也不会受影响。</p>
+<p>定义svc-sonar.yaml:<br><figure class="highlight yaml"><figcaption><span>svc-sonar.yaml</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="attr">apiVersion:</span> v1</div><div class="line"><span class="attr">kind:</span> Service</div><div class="line"><span class="attr">metadata:</span></div><div class="line"><span class="attr">  name:</span> svc-sonar</div><div class="line"><span class="attr">  namespace:</span> sonar</div><div class="line"><span class="attr">spec:</span></div><div class="line"><span class="attr">  type:</span> NodePort</div><div class="line"><span class="attr">  ports:</span></div><div class="line"><span class="attr">  - port:</span> <span class="number">9000</span></div><div class="line"><span class="attr">    protocol:</span> TCP</div><div class="line"><span class="attr">    nodePort:</span> <span class="number">0</span></div><div class="line"><span class="attr">  selector:</span></div><div class="line"><span class="attr">    name:</span> sonar</div></pre></td></tr></table></figure></p>
+<p>创建sonar rc和service：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">kubectl create -f rc-sonar.yaml</div><div class="line">kubectl create -f svc-sonar.yaml</div></pre></td></tr></table></figure></p>
+<p>确认pod/rc/svc:<br><img src="/images/2017/01/09/1033.png"></p>
+<p>获取sonar service的NodePort:<br><img src="/images/2017/01/09/1050.png"></p>
+<p>确认是否可以正常打开：<br><img src="/images/2017/01/09/1356.png"></p>
+<hr>
+<h2 id="4-使用Sonar进行代码分析"><a href="#4-使用Sonar进行代码分析" class="headerlink" title="4. 使用Sonar进行代码分析"></a>4. 使用Sonar进行代码分析</h2><h3 id="4-1-安装Sonarqube-Scanner"><a href="#4-1-安装Sonarqube-Scanner" class="headerlink" title="4.1 安装Sonarqube Scanner"></a>4.1 安装Sonarqube Scanner</h3><p>参照<a href="http://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner" target="_blank" rel="external">Analyzing with SonarQube Scanner</a>:</p>
+<ul>
+<li>下载Scanner并解压</li>
+<li>修改install_directory/conf/sonar-scanner.properties中的sonar.host.url为搭建的sonar服务器地址，端口为NodePort</li>
+<li>将install_directory/bin加入path中</li>
+<li>运行sonar-scanner -h</li>
+</ul>
+<h3 id="4-2-创建sonar-project-properties"><a href="#4-2-创建sonar-project-properties" class="headerlink" title="4.2 创建sonar-project.properties"></a>4.2 创建sonar-project.properties</h3><p>在项目根目录下添加sonar-project.properties配置文件，模板如下：<br><figure class="highlight plain"><figcaption><span>sonar-project.properties</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">#required metadata</div><div class="line">#projectKey项目的唯一标识，不能重复。</div><div class="line">sonar.projectKey=pj_key</div><div class="line">#projectName值不能是中文，否则web页面部分是乱码</div><div class="line">sonar.projectName=pj_name</div><div class="line">sonar.projectVersion=1.0</div><div class="line">sonar.sourceEncoding=UTF-8</div><div class="line">sonar.modules=java-module,javascript-module,html-module</div><div class="line"># Java module</div><div class="line">java-module.sonar.projectName=pj_name_java</div><div class="line">java-module.sonar.language=java</div><div class="line"># .表示projectBaseDir指定的目录</div><div class="line">java-module.sonar.sources=JavaSource</div><div class="line">java-module.sonar.projectBaseDir=.</div><div class="line">#sonar.binaries=classes</div><div class="line"># JavaScript module</div><div class="line">javascript-module.sonar.projectName=pj_name_js</div><div class="line">javascript-module.sonar.language=js</div><div class="line">javascript-module.sonar.sources=WebContent</div><div class="line">javascript-module.sonar.projectBaseDir=.</div><div class="line"># Html module</div><div class="line">html-module.sonar.projectName=pj_name_html</div><div class="line">html-module.sonar.language=web</div><div class="line">html-module.sonar.sources=WebContent</div><div class="line">html-module.sonar.projectBaseDir=.</div></pre></td></tr></table></figure></p>
+<h3 id="4-3-分析并确认结果"><a href="#4-3-分析并确认结果" class="headerlink" title="4.3 分析并确认结果"></a>4.3 分析并确认结果</h3><p>在代码根目录运行sonar-scanner，结束后到sonar上确认结果：<br><img src="/images/2017/01/09/1443.png"></p>
+<hr>
+<h2 id="5-Jenkins集成Sonarqube"><a href="#5-Jenkins集成Sonarqube" class="headerlink" title="5. Jenkins集成Sonarqube"></a>5. Jenkins集成Sonarqube</h2><p>参照<a href="http://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Jenkins" target="_blank" rel="external">Analyzing with SonarQube Scanner for Jenkins</a>，在Jenkins上安装Sonarqube插件后进行配置。具体后面再开一篇说明。</p>
+<hr>
+<h2 id="6-Sonar常用插件"><a href="#6-Sonar常用插件" class="headerlink" title="6. Sonar常用插件"></a>6. Sonar常用插件</h2><p>目前安装的插件如下：<br><img src="/images/2017/01/09/1444.png"><br><img src="/images/2017/01/09/1454.png"><br><img src="/images/2017/01/09/1455.png"></p>
+<hr>
+<p>参照资料：<br><a href="http://blog.csdn.net/liumiaocn/article/details/52437132" target="_blank" rel="external">Kubernetes单Pod启动sonarqube</a><br><a href="http://container-solutions.com/pet-cattle-running-sonar-kubernetes/" target="_blank" rel="external">From Pet to Cattle – Running Sonar on Kubernetes</a><br><a href="https://github.com/SonarSource/sonar-examples/blob/master/projects/multi-module/sonar-runner/java-sonar-runner-modules-different-structures/sonar-project.properties" target="_blank" rel="external">sonar-examples</a><br><a href="http://docs.sonarqube.org/display/SONAR/Documentation" target="_blank" rel="external">SonarQube Documentation</a></p>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CI/" rel="tag">#CI</a>
+          
+            <a href="/tags/Kubernetes/" rel="tag">#Kubernetes</a>
+          
+            <a href="/tags/Docker/" rel="tag">#Docker</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/07/javabuildandrun/" rel="next" title="Java编译和运行">
+                <i class="fa fa-chevron-left"></i> Java编译和运行
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2017/01/03/sonarqube/"
+     data-title="Kubernetes + Docker搭建Sonarqube"
+     data-content=""
+     data-url="http://www.jumpbeandev.com/2017/01/03/sonarqube/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/01/03/sonarqube/"
+           data-title="Kubernetes + Docker搭建Sonarqube" data-url="http://www.jumpbeandev.com/2017/01/03/sonarqube/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/default_avatar.jpg"
+               alt="Jump Bean" />
+          <p class="site-author-name" itemprop="name">Jump Bean</p>
+          <p class="site-description motion-element" itemprop="description">God helps those who help themselves</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="http://creativecommons.org/licenses/by-sa/4.0" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Sonar概述"><span class="nav-number">1.</span> <span class="nav-text">1. Sonar概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Snoar结构与集成"><span class="nav-number">2.</span> <span class="nav-text">2. Snoar结构与集成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Sonar的Kubernetes部署"><span class="nav-number">3.</span> <span class="nav-text">3. Sonar的Kubernetes部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-事前准备"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 事前准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-创建namespace"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 创建namespace</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-启动mysql"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 启动mysql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-创建Sonar-RC-Service"><span class="nav-number">3.4.</span> <span class="nav-text">3.3 创建Sonar RC/Service</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-使用Sonar进行代码分析"><span class="nav-number">4.</span> <span class="nav-text">4. 使用Sonar进行代码分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-安装Sonarqube-Scanner"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 安装Sonarqube Scanner</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-创建sonar-project-properties"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 创建sonar-project.properties</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-分析并确认结果"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 分析并确认结果</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Jenkins集成Sonarqube"><span class="nav-number">5.</span> <span class="nav-text">5. Jenkins集成Sonarqube</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Sonar常用插件"><span class="nav-number">6.</span> <span class="nav-text">6. Sonar常用插件</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jump Bean</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  
+
+
+  
+
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.0"></script>
+
+
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    motionMiddleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+      if (CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"jumpbeandev"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      <script type="text/javascript">
+        var duoshuo_user_ID = jbd;
+        var duoshuo_admin_nickname = "博主";
+      </script>
+      <script src="/vendors/ua-parser-js/dist/ua-parser.min.js"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
+  
+
+
+
+
+
+  
+  
+
+  
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("sr13ek7g52mCLgs6nmPMUd8w", "Ghzxedwuv2MQpkphQpa8i7pV");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+</body>
+</html>
