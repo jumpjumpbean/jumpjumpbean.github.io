@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.jumpbeandev.com/"/>
-  <updated>2017-01-09T07:06:20.000Z</updated>
+  <updated>2017-02-03T10:06:34.000Z</updated>
   <id>http://www.jumpbeandev.com/</id>
   
   <author>
@@ -14,6 +14,128 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Ansible部署Kubernetes集群</title>
+    <link href="http://www.jumpbeandev.com/2017/02/03/k8sansible/"/>
+    <id>http://www.jumpbeandev.com/2017/02/03/k8sansible/</id>
+    <published>2017-02-03T08:19:16.000Z</published>
+    <updated>2017-02-03T10:06:34.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Kubernetes官网提供了多种场景的部署方案，例如kubeadm，参照：<a href="https://kubernetes.io/docs/getting-started-guides/" target="_blank" rel="external">Creating a Cluster</a>。但还是觉得ansible的部署最方便，k8s的contrib中提供了ansible部署脚本，使用方法参照：<a href="https://github.com/kubernetes/contrib/tree/master/ansible" target="_blank" rel="external">Kubernetes Ansible</a>。</p>
+<hr>
+<h2 id="1-服务器构成"><a href="#1-服务器构成" class="headerlink" title="1. 服务器构成"></a>1. 服务器构成</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">No</th>
+<th style="text-align:center">Type</th>
+<th style="text-align:center">IP</th>
+<th style="text-align:center">Hostname</th>
+<th style="text-align:center">OS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">master</td>
+<td style="text-align:center">192.168.34.52</td>
+<td style="text-align:center">cts1</td>
+<td style="text-align:center">Centos7</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">etcd</td>
+<td style="text-align:center">192.168.34.52</td>
+<td style="text-align:center">cts1</td>
+<td style="text-align:center">Centos7</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">minion</td>
+<td style="text-align:center">192.168.34.180</td>
+<td style="text-align:center">cts2</td>
+<td style="text-align:center">Centos7</td>
+</tr>
+</tbody>
+</table>
+<a id="more"></a>
+<hr>
+<h2 id="2-安装ansible"><a href="#2-安装ansible" class="headerlink" title="2. 安装ansible"></a>2. 安装ansible</h2><p>在master上安装ansible：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@cts1 ~]# yum -y install ansible</div></pre></td></tr></table></figure><br>安装后确认：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@cts1 ~]# ansible --version</div><div class="line">ansible 2.2.0.0</div><div class="line">  config file = /etc/ansible/ansible.cfg</div><div class="line">  configured module search path = Default w/o overrides</div></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="3-设置ssh"><a href="#3-设置ssh" class="headerlink" title="3. 设置ssh"></a>3. 设置ssh</h2><p>该部署方案需要使用ssh免密登录，在所有机器上生成ssh key:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@cts1 ~]# ssh-keygen</div><div class="line"></div><div class="line">[root@cts2 ~]# ssh-keygen</div></pre></td></tr></table></figure><br>可以通过hostname [newname]修改hostname，设定两台机器的/etc/hosts :<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[root@cts1 ~]# grep cts /etc/hosts</div><div class="line">192.168.34.52 cts1</div><div class="line">192.168.34.180 cts2</div><div class="line"></div><div class="line">[root@cts2 ~]# grep cts /etc/hosts</div><div class="line">192.168.34.52 cts1</div><div class="line">192.168.34.180 cts2</div></pre></td></tr></table></figure><br>在2台机器上都作如下设定，保证ssh可免密登录:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@cts1 ~]# ssh-copy-id -i cts1</div><div class="line">[root@cts1 ~]# ssh-copy-id -i cts2</div><div class="line"></div><div class="line">[root@cts2 ~]# ssh-copy-id -i cts1</div><div class="line">[root@cts2 ~]# ssh-copy-id -i cts2</div></pre></td></tr></table></figure><br>在ansible所安装的机器上，追加机器信息到/etc/ansible/hosts中:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@cts1 ~]# grep cts /etc/ansible/hosts</div><div class="line">cts1</div><div class="line">cts2</div></pre></td></tr></table></figure><br>确认ansible正常动作:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">[root@cts1 ~]# ansible cts1 -m ping</div><div class="line">cts1 | SUCCESS =&gt; &#123;</div><div class="line">    &quot;changed&quot;: false,</div><div class="line">    &quot;ping&quot;: &quot;pong&quot;</div><div class="line">&#125;</div><div class="line">[root@cts1 ~]# ansible cts2 -m ping</div><div class="line">cts2 | SUCCESS =&gt; &#123;</div><div class="line">    &quot;changed&quot;: false,</div><div class="line">    &quot;ping&quot;: &quot;pong&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="4-下载Contrib"><a href="#4-下载Contrib" class="headerlink" title="4. 下载Contrib"></a>4. 下载Contrib</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@cts1 ~]# git clone https://github.com/kubernetes/contrib.git</div></pre></td></tr></table></figure>
+<hr>
+<h2 id="5-创建inventory文件"><a href="#5-创建inventory文件" class="headerlink" title="5. 创建inventory文件"></a>5. 创建inventory文件</h2><p>按照contrib/ansible说明，在inventory目录下创建inventory文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">[root@cts1 inventory]# pwd</div><div class="line">/data/contrib/ansible/inventory</div><div class="line">[root@cts1 inventory]# vim inventory</div><div class="line"></div><div class="line">[masters]</div><div class="line">cts1</div><div class="line"></div><div class="line">[etcd:children]</div><div class="line">masters</div><div class="line"></div><div class="line">[nodes]</div><div class="line">cts2</div></pre></td></tr></table></figure><br>开始误把etcd:children的值也配成cts1了，setup时报出Syntax Error while loading YAML的错误。</p>
+<hr>
+<h2 id="6-安装所需package"><a href="#6-安装所需package" class="headerlink" title="6. 安装所需package"></a>6. 安装所需package</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@cts1 inventory]# yum -y install python-netaddr</div></pre></td></tr></table></figure>
+<hr>
+<h2 id="7-执行安装文件"><a href="#7-执行安装文件" class="headerlink" title="7. 执行安装文件"></a>7. 执行安装文件</h2><p>执行cd scripts/ &amp;&amp; ./deploy-cluster.sh时总是报出如下错误：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">TASK [kubernetes : Read back the CA certificate] </div><div class="line">fatal: [cts2 -&gt; cts1]: FAILED! =&gt; &#123;&quot;changed&quot;: false, &quot;failed&quot;: true, &quot;msg&quot;: &quot;file not found: /etc/kubernetes/certs/ca.crt&quot;&#125;</div></pre></td></tr></table></figure><br>于是按照Targeted runs逐个执行：<br><strong>Etcd:</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@cts1 scripts]# ./deploy-cluster.sh --tags=etcd</div><div class="line"></div><div class="line">cts1                       : ok=28   changed=2    unreachable=0    failed=0</div><div class="line">cts2                       : ok=6    changed=0    unreachable=0    failed=0</div></pre></td></tr></table></figure><br>确认etcd:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">[root@cts1 scripts]# etcd --version</div><div class="line">etcd Version: 3.0.15</div><div class="line">Git SHA: fc00305</div><div class="line">Go Version: go1.6.3</div><div class="line">Go OS/Arch: linux/amd64</div><div class="line">[root@cts1 scripts]# etcdctl --version</div><div class="line">etcdctl version: 3.0.15</div><div class="line">API version: 2</div></pre></td></tr></table></figure><br><strong>Kubernetes master:</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@cts1 scripts]# ./deploy-cluster.sh --tags=masters</div><div class="line"></div><div class="line">cts1                       : ok=67   changed=4    unreachable=0    failed=0</div><div class="line">cts2                       : ok=6    changed=0    unreachable=0    failed=0</div></pre></td></tr></table></figure><br><strong>Kubernetes nodes:</strong><br>目前contrib版本中Install fluentd时因fluentd-es.yaml地址已不存在，会出错，解决办法参照：<a href="https://github.com/kubernetes/contrib/pull/2174" target="_blank" rel="external">Support Fluentd migration to DaemonSet</a>，将如下文件进行修改：</p>
+<ul>
+<li>ansible/roles/kubernetes-addons/files/common/kube-addon-update.sh</li>
+<li>ansible/roles/kubernetes-addons/tasks/cluster-logging.yml</li>
+<li>ansible/roles/kubernetes-addons/templates/cluster-logging/fluentd-es-ds.yaml.j2</li>
+<li>ansible/roles/node/tasks/fluentd-install.yml</li>
+<li>ansible/roles/node/tasks/main.yml</li>
+</ul>
+<p>然后执行安装命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@cts1 scripts]# ./deploy-cluster.sh --tags=nodes</div><div class="line"></div><div class="line">cts1                       : ok=8    changed=0    unreachable=0    failed=0</div><div class="line">cts2                       : ok=57   changed=3    unreachable=0    failed=0</div></pre></td></tr></table></figure><br><strong>Addons:</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@cts1 scripts]# ./deploy-cluster.sh --tags=addons</div><div class="line"></div><div class="line">cts1                       : ok=58   changed=1    unreachable=0    failed=0</div><div class="line">cts2                       : ok=6    changed=0    unreachable=0    failed=0</div></pre></td></tr></table></figure></p>
+<hr>
+<h2 id="8-确认Kubernetes状况"><a href="#8-确认Kubernetes状况" class="headerlink" title="8. 确认Kubernetes状况"></a>8. 确认Kubernetes状况</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">[root@cts1 scripts]# kubectl get nodes</div><div class="line">NAME      STATUS    AGE</div><div class="line">cts2      Ready     2h</div><div class="line">[root@cts1 scripts]# kubectl get services</div><div class="line">NAME         CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE</div><div class="line">kubernetes   10.254.0.1   &lt;none&gt;        443/TCP   2h</div><div class="line">[root@cts1 scripts]# kubectl --version</div><div class="line">Kubernetes v1.4.0</div></pre></td></tr></table></figure>
+<hr>
+<p>参照资料：<br><a href="http://blog.csdn.net/liumiaocn/article/details/52068750" target="_blank" rel="external">Kubernetes 1.3 从入门到进阶 安装篇（2）</a><br><a href="https://github.com/kubernetes/contrib/tree/master/ansible" target="_blank" rel="external">Kubernetes Ansible</a><br><a href="https://github.com/kubernetes/contrib/pull/2174" target="_blank" rel="external">Support Fluentd migration to DaemonSet #2174</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Kubernetes官网提供了多种场景的部署方案，例如kubeadm，参照：&lt;a href=&quot;https://kubernetes.io/docs/getting-started-guides/&quot;&gt;Creating a Cluster&lt;/a&gt;。但还是觉得ansible的部署最方便，k8s的contrib中提供了ansible部署脚本，使用方法参照：&lt;a href=&quot;https://github.com/kubernetes/contrib/tree/master/ansible&quot;&gt;Kubernetes Ansible&lt;/a&gt;。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;1-服务器构成&quot;&gt;&lt;a href=&quot;#1-服务器构成&quot; class=&quot;headerlink&quot; title=&quot;1. 服务器构成&quot;&gt;&lt;/a&gt;1. 服务器构成&lt;/h2&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;No&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;Type&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;IP&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;Hostname&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;OS&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;1&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;master&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;192.168.34.52&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;cts1&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;Centos7&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;2&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;etcd&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;192.168.34.52&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;cts1&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;Centos7&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;3&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;minion&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;192.168.34.180&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;cts2&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;Centos7&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+    
+    </summary>
+    
+      <category term="k8s" scheme="http://www.jumpbeandev.com/categories/k8s/"/>
+    
+    
+      <category term="Kubernetes" scheme="http://www.jumpbeandev.com/tags/Kubernetes/"/>
+    
+      <category term="Docker" scheme="http://www.jumpbeandev.com/tags/Docker/"/>
+    
+      <category term="ansible" scheme="http://www.jumpbeandev.com/tags/ansible/"/>
+    
+  </entry>
   
   <entry>
     <title>Kubernetes + Docker搭建Sonarqube</title>
