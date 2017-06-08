@@ -84,7 +84,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="hexo," />
+  <meta name="keywords" content="mysql,mycat,Kubernetes,Docker," />
 
 
 
@@ -102,22 +102,21 @@
 
 
 
-<meta name="description" content="每次心血澎湃的换用新环境新工具后，总会迷失在选主题的漩涡中，不能摆脱，无法自拔。尝试了几款主题，本想用炫酷的yelee，一番挣扎后，还是决定使用next主题，感谢IIssNan。
-
-Next主题下载这里使用的是Next的双栏皮肤Pisces，因还未正式发布，所以在Branch Pisces中下载，解压后放到\Hexo\themes目录下，然后hexo的_config.yml中改为theme: ne">
+<meta name="description" content="Kubernetes一键部署一主一从，读写分离，自动切换的mycat+mysql架构，其中mycat配置文件、mysqsl数据文件的volume挂载未涉及，可根据实际情况进行修改。所有代码参照github k8smysqlcluster。后期进行双主双从、mycat高可用的扩展。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hexo的next主题">
-<meta property="og:url" content="http://www.jumpbeandev.com/2015/12/12/nexttheme/index.html">
+<meta property="og:title" content="Kubernetes部署Mycat+Mysql主从集群">
+<meta property="og:url" content="http://www.jumpbeandev.com/2017/06/01/mysqlcluster/index.html">
 <meta property="og:site_name" content="JumpBean's Blog">
-<meta property="og:description" content="每次心血澎湃的换用新环境新工具后，总会迷失在选主题的漩涡中，不能摆脱，无法自拔。尝试了几款主题，本想用炫酷的yelee，一番挣扎后，还是决定使用next主题，感谢IIssNan。
-
-Next主题下载这里使用的是Next的双栏皮肤Pisces，因还未正式发布，所以在Branch Pisces中下载，解压后放到\Hexo\themes目录下，然后hexo的_config.yml中改为theme: ne">
-<meta property="og:updated_time" content="2016-09-02T03:29:33.000Z">
+<meta property="og:description" content="Kubernetes一键部署一主一从，读写分离，自动切换的mycat+mysql架构，其中mycat配置文件、mysqsl数据文件的volume挂载未涉及，可根据实际情况进行修改。所有代码参照github k8smysqlcluster。后期进行双主双从、mycat高可用的扩展。">
+<meta property="og:image" content="http://www.jumpbeandev.com/images/2017/06/01/1044.png">
+<meta property="og:image" content="http://www.jumpbeandev.com/images/2017/06/01/1621.jpg">
+<meta property="og:image" content="http://www.jumpbeandev.com/images/2017/06/01/1623.png">
+<meta property="og:image" content="http://www.jumpbeandev.com/images/2017/06/01/1624.png">
+<meta property="og:updated_time" content="2017-06-08T08:33:46.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hexo的next主题">
-<meta name="twitter:description" content="每次心血澎湃的换用新环境新工具后，总会迷失在选主题的漩涡中，不能摆脱，无法自拔。尝试了几款主题，本想用炫酷的yelee，一番挣扎后，还是决定使用next主题，感谢IIssNan。
-
-Next主题下载这里使用的是Next的双栏皮肤Pisces，因还未正式发布，所以在Branch Pisces中下载，解压后放到\Hexo\themes目录下，然后hexo的_config.yml中改为theme: ne">
+<meta name="twitter:title" content="Kubernetes部署Mycat+Mysql主从集群">
+<meta name="twitter:description" content="Kubernetes一键部署一主一从，读写分离，自动切换的mycat+mysql架构，其中mycat配置文件、mysqsl数据文件的volume挂载未涉及，可根据实际情况进行修改。所有代码参照github k8smysqlcluster。后期进行双主双从、mycat高可用的扩展。">
+<meta name="twitter:image" content="http://www.jumpbeandev.com/images/2017/06/01/1044.png">
 
 
 
@@ -145,13 +144,13 @@ Next主题下载这里使用的是Next的双栏皮肤Pisces，因还未正式发
 
 
 
-  <link rel="canonical" href="http://www.jumpbeandev.com/2015/12/12/nexttheme/"/>
+  <link rel="canonical" href="http://www.jumpbeandev.com/2017/06/01/mysqlcluster/"/>
 
 
 
 
 
-  <title> hexo的next主题 | JumpBean's Blog </title>
+  <title> Kubernetes部署Mycat+Mysql主从集群 | JumpBean's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -316,7 +315,7 @@ Next主题下载这里使用的是Next的双栏皮肤Pisces，因还未正式发
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://www.jumpbeandev.com/2015/12/12/nexttheme/">
+  <link itemprop="mainEntityOfPage" href="http://www.jumpbeandev.com/2017/06/01/mysqlcluster/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Jump Bean">
@@ -340,7 +339,7 @@ Next主题下载这里使用的是Next的双栏皮肤Pisces，因还未正式发
             
             
               
-                hexo的next主题
+                Kubernetes部署Mycat+Mysql主从集群
               
             
           </h1>
@@ -355,8 +354,8 @@ Next主题下载这里使用的是Next的双栏皮肤Pisces，因还未正式发
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-12-12T13:26:23+08:00">
-                2015-12-12
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-01T15:28:05+08:00">
+                2017-06-01
               </time>
             
 
@@ -378,8 +377,8 @@ Next主题下载这里使用的是Next的双栏皮肤Pisces，因还未正式发
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">Hexo</span>
+                  <a href="/categories/k8s/" itemprop="url" rel="index">
+                    <span itemprop="name">k8s</span>
                   </a>
                 </span>
 
@@ -396,8 +395,8 @@ Next主题下载这里使用的是Next的双栏皮肤Pisces，因还未正式发
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2015/12/12/nexttheme/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/12/nexttheme/" itemprop="commentCount"></span>
+                <a href="/2017/06/01/mysqlcluster/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/06/01/mysqlcluster/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -407,7 +406,7 @@ Next主题下载这里使用的是Next的双栏皮肤Pisces，因还未正式发
 
           
           
-             <span id="/2015/12/12/nexttheme/" class="leancloud_visitors" data-flag-title="hexo的next主题">
+             <span id="/2017/06/01/mysqlcluster/" class="leancloud_visitors" data-flag-title="Kubernetes部署Mycat+Mysql主从集群">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -434,13 +433,48 @@ Next主题下载这里使用的是Next的双栏皮肤Pisces，因还未正式发
       
 
       
-        <p>每次心血澎湃的换用新环境新工具后，总会迷失在选主题的漩涡中，不能摆脱，无法自拔。尝试了几款主题，本想用炫酷的yelee，一番挣扎后，还是决定使用next主题，感谢<a href="http://notes.iissnan.com/" target="_blank" rel="external">IIssNan</a>。</p>
+        <p>Kubernetes一键部署一主一从，读写分离，自动切换的mycat+mysql架构，其中mycat配置文件、mysqsl数据文件的volume挂载未涉及，可根据实际情况进行修改。所有代码参照<a href="https://github.com/jumpjumpbean/k8smysqlcluster" target="_blank" rel="external">github k8smysqlcluster</a>。后期进行双主双从、mycat高可用的扩展。<br><a id="more"></a></p>
 <hr>
-<h2 id="Next主题下载"><a href="#Next主题下载" class="headerlink" title="Next主题下载"></a>Next主题下载</h2><p>这里使用的是Next的双栏皮肤Pisces，因还未正式发布，所以在<a href="https://github.com/iissnan/hexo-theme-next/tree/pisces" target="_blank" rel="external">Branch Pisces</a>中下载，解压后放到\Hexo\themes目录下，然后hexo的_config.yml中改为theme: next-pisces，重新生成即可。<br><a id="more"></a></p>
+<h2 id="1-Mysql复制原理"><a href="#1-Mysql复制原理" class="headerlink" title="1. Mysql复制原理"></a>1. Mysql复制原理</h2><p>Mysql内建的复制功能是构建大型，高性能应用程序的基础。将Mysql的数据分布到多个系统上去，这种分布的机制，是通过将Mysql的某一台主机的数据复制到其它主机（slaves）上，并重新执行一遍来实现的。复制过程中一个服务器充当主服务器，而一个或多个其它服务器充当从服务器。主服务器将更新写入二进制日志文件，并维护文件的一个索引以跟踪日志循环。这些日志可以记录发送到从服务器的更新。当一个从服务器连接主服务器时，它通知主服务器从服务器在日志中读取的最后一次成功更新的位置。从服务器接收从那时起发生的任何更新，然后封锁并等待主服务器通知新的更新。<br>请注意当你进行复制时，所有对复制中的表的更新必须在主服务器上进行。否则，你必须要小心，以避免用户对主服务器上的表进行的更新与对从服务器上的表所进行的更新之间的冲突。</p>
+<h3 id="1-1-mysql支持的复制类型："><a href="#1-1-mysql支持的复制类型：" class="headerlink" title="1.1 mysql支持的复制类型："></a>1.1 mysql支持的复制类型：</h3><ul>
+<li>基于语句的复制：在主服务器上执行的SQL语句，在从服务器上执行同样的语句。MySQL默认采用基于语句的复制，效率比较高。一旦发现没法精确复制时，   会自动选着基于行的复制。    </li>
+<li>基于行的复制：把改变的内容复制过去，而不是把命令在从服务器上执行一遍. 从mysql5.0开始支持</li>
+<li>混合类型的复制：默认采用基于语句的复制，一旦发现基于语句的无法精确的复制时，就会采用基于行的复制。</li>
+</ul>
+<h3 id="1-2-复制解决的问题"><a href="#1-2-复制解决的问题" class="headerlink" title="1.2 复制解决的问题"></a>1.2 复制解决的问题</h3><p>MySQL复制技术有以下一些特点：</p>
+<ul>
+<li>数据分布 (Data distribution )</li>
+<li>负载平衡(load balancing)</li>
+<li>备份(Backups) </li>
+<li>高可用性和容错行(High availability and failover)</li>
+</ul>
+<h3 id="1-3-复制如何工作"><a href="#1-3-复制如何工作" class="headerlink" title="1.3 复制如何工作"></a>1.3 复制如何工作</h3><p>整体上来说，复制有3个步骤：   </p>
+<ul>
+<li>master将改变记录到二进制日志(binary log)中（这些记录叫做二进制日志事件，binary log events）；</li>
+<li>slave将master的binary log events拷贝到它的中继日志(relay log)；</li>
+<li>slave重做中继日志中的事件，将改变反映它自己的数据。</li>
+</ul>
+<p>下图描述了复制的过程：<br><img src="/images/2017/06/01/1044.png"><br>该过程的第一部分就是master记录二进制日志。在每个事务更新数据完成之前，master在二日志记录这些改变。MySQL将事务串行的写入二进制日志，即使事务中的语句都是交叉执行的。在事件写入二进制日志完成后，master通知存储引擎提交事务。<br>下一步就是slave将master的binary log拷贝到它自己的中继日志。首先，slave开始一个工作线程——I/O线程。I/O线程在master上打开一个普通的连接，然后开始binlog dump process。Binlog dump process从master的二进制日志中读取事件，如果已经跟上master，它会睡眠并等待master产生新的事件。I/O线程将这些事件写入中继日志。<br>SQL slave thread（SQL从线程）处理该过程的最后一步。SQL线程从中继日志读取事件，并重放其中的事件而更新slave的数据，使其与master中的数据一致。只要该线程与I/O线程保持一致，中继日志通常会位于OS的缓存中，所以中继日志的开销很小。<br>此外，在master中也有一个工作线程：和其它MySQL的连接一样，slave在master中打开一个连接也会使得master开始一个线程。复制过程有一个很重要的限制——复制在slave上是串行化的，也就是说master上的并行更新操作不能在slave上并行操作。</p>
 <hr>
-<h2 id="Next配置"><a href="#Next配置" class="headerlink" title="Next配置"></a>Next配置</h2><p>配置基本都是参照主题的官方文档来的：<br><a href="http://theme-next.iissnan.com/" target="_blank" rel="external">http://theme-next.iissnan.com/</a><br>支持的比较全面，写的也很详细。<br>阅读次数需要注册LeanCloud，配置方法参照<a href="http://notes.xiamo.tk/2015-10-21-%E4%B8%BANexT%E4%B8%BB%E9%A2%98%E6%B7%BB%E5%8A%A0%E6%96%87%E7%AB%A0%E9%98%85%E8%AF%BB%E9%87%8F%E7%BB%9F%E8%AE%A1%E5%8A%9F%E8%83%BD.html" target="_blank" rel="external">这里</a>。<br>SEO优化参照<a href="http://www.arao.me/2015/hexo-next-theme-optimize-seo/" target="_blank" rel="external">arao的方法</a>。</p>
+<h2 id="2-Mycat介绍"><a href="#2-Mycat介绍" class="headerlink" title="2. Mycat介绍"></a>2. Mycat介绍</h2><p>从定义和分类来看，它是一个开源的分布式数据库系统，是一个实现了MySQL协议的服务器，前端用户可以把它看作是一个数据库代理，用MySQL客户端工具和命令行访问，而其后端可以用MySQL原生协议与多个MySQL服务器通信，也可以用JDBC协议与大多数主流数据库服务器通信，其核心功能是分表分库，即将一个大表水平分割为N个小表，存储在后端MySQL服务器里或者其他数据库里。</p>
+<p>MyCat发展到目前的版本，已经不是一个单纯的MySQL代理了，它的后端可以支持MySQL、SQL Server、Oracle、DB2、PostgreSQL等主流数据库，也支持MongoDB这种新型NoSQL方式的存储，未来还会支持更多类型的存储。而在最终用户看来，无论是那种存储方式，在MyCat里，都是一个传统的数据库表，支持标准的SQL语句进行数据的操作，这样一来，对前端业务系统来说，可以大幅降低开发难度，提升开发速度。<br><img src="/images/2017/06/01/1621.jpg"></p>
+<p>详细内容可参照<a href="http://www.mycat.io/" target="_blank" rel="external">Mycat官网</a>。<br>Mycat高可用方案：<br><img src="/images/2017/06/01/1623.png"></p>
+<p>Mycat双主架构：<br><img src="/images/2017/06/01/1624.png"></p>
 <hr>
-<p>一通配置后，基本就是现在的模样了。</p>
+<h2 id="3-Kubernetes部署基于Mycat的读写分离，自动切换的主从Mysql架构"><a href="#3-Kubernetes部署基于Mycat的读写分离，自动切换的主从Mysql架构" class="headerlink" title="3. Kubernetes部署基于Mycat的读写分离，自动切换的主从Mysql架构"></a>3. Kubernetes部署基于Mycat的读写分离，自动切换的主从Mysql架构</h2><p>Build出mysql-master和mysql-slave的镜像实现主从配置，build mycat镜像实现读写分离和自动切换配置，基于rc和svc yaml文件使用kubernetes进行快速部署。</p>
+<h3 id="3-1-mysql-master"><a href="#3-1-mysql-master" class="headerlink" title="3.1 mysql-master"></a>3.1 mysql-master</h3><p>基于官方mysql镜像，修改mysqld.cnf添加server-id和binlog，修改docker-entrypoint.sh在mysql上创建同步账号并授权。<br><figure class="highlight plain"><figcaption><span>mysql-master Dockerfile</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">FROM mysql</div><div class="line"></div><div class="line">RUN sed -i &apos;/\[mysqld\]/a server-id=1\nlog-bin=mysql-bin&apos; /etc/mysql/mysql.conf.d/mysqld.cnf</div><div class="line"></div><div class="line">RUN echo &quot;$(tac /usr/local/bin/docker-entrypoint.sh | sed &quot;28a echo \&apos;FLUSH PRIVILEGES;\&apos; | \&quot;\$\&#123;mysql\[@\]\&#125;\&quot;\necho \&quot;GRANT REPLICATION SLAVE ON *.* TO \&apos;\$MYSQL_REPLICATION_USER\&apos;@\&apos;%\&apos; IDENTIFIED BY \&apos;\$MYSQL_REPLICATION_PASSWORD\&apos;;\&quot; | \&quot;\$\&#123;mysql\[@\]\&#125;\&quot;&quot; | tac)&quot; &gt; /usr/local/bin/docker-entrypoint.sh</div></pre></td></tr></table></figure></p>
+<p>执行如下命令本地build mysql-master镜像;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker build -t mysql-master -f ./Dockerfile .</div></pre></td></tr></table></figure></p>
+<h3 id="3-2-mysql-slave"><a href="#3-2-mysql-slave" class="headerlink" title="3.2 mysql-slave"></a>3.2 mysql-slave</h3><p>基于官方mysql镜像，修改mysqld.cnf添加server-id和binlog，修改docker-entrypoint.sh添加主机信息并开启从机模式。<br><figure class="highlight plain"><figcaption><span>mysql-slave Dockerfile</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">FROM mysql</div><div class="line"></div><div class="line">RUN RAND=&quot;$(date +%s | rev | cut -c 1-2)$(echo $&#123;RANDOM&#125;)&quot; &amp;&amp; sed -i &apos;/\[mysqld\]/a server-id=&apos;$RAND&apos;\nlog-bin=mysql-bin&apos; /etc/mysql/mysql.conf.d/mysqld.cnf</div><div class="line"></div><div class="line">RUN echo &quot;$(tac /usr/local/bin/docker-entrypoint.sh | sed &quot;28a echo \&quot;START SLAVE;\&quot; | \&quot;\$\&#123;mysql\[@\]\&#125;\&quot;\necho \&quot;CHANGE MASTER TO master_host=\&apos;\$MYSQL_MASTER_SERVICE_HOST\&apos;, master_user=\&apos;\$MYSQL_REPLICATION_USER\&apos;, master_password=\&apos;\$MYSQL_REPLICATION_PASSWORD\&apos;;\&quot; | \&quot;\$\&#123;mysql\[@\]\&#125;\&quot;\necho \&quot;STOP SLAVE;\&quot; | \&quot;\$\&#123;mysql\[@\]\&#125;\&quot;&quot; | tac)&quot; &gt; /usr/local/bin/docker-entrypoint.sh</div></pre></td></tr></table></figure></p>
+<p>上面slave的配置中，master_host一项用的是$MYSQL_MASTER_SERVICE_HOST，这个环境变量（enviromnent variable）是由k8s生成的。<br>k8s的service创建后，会自动分配一个cluster ip，这个cluster ip是动态的，我们没法直接使用或硬编码，k8s为了service对容器的可见，生成了一组环境变量，这些环境变量用于记录service name到cluster ip地址的映射关系，这样容器中就可以使用这些变量来使用service。（类似的，Docker中提供了links。）</p>
+<p>举例：如果service的名称为foo，则生成的环境变量如下：<br>FOO_SERVICE_HOST<br>FOO_SERVICE_PORT<br>更多介绍请参考k8s官方资料：<a href="http://kubernetes.io/docs/user-guide/container-environment/" target="_blank" rel="external">http://kubernetes.io/docs/user-guide/container-environment/</a></p>
+<p>执行如下命令本地build mysql-slave镜像;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker build -t mysql-slave -f ./Dockerfile .</div></pre></td></tr></table></figure></p>
+<h3 id="3-3-mycat"><a href="#3-3-mycat" class="headerlink" title="3.3 mycat"></a>3.3 mycat</h3><p>基于gaven/mycat镜像，修改schema.xml进行一主一从读写分离自动切换配置，修改server.xml添加db用户名密码等。<br><figure class="highlight plain"><figcaption><span>mycat Dockerfile</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">FROM gaven/mycat</div><div class="line"></div><div class="line">COPY schema.xml /usr/local/mycat/conf/schema.xml</div><div class="line">COPY server.xml /usr/local/mycat/conf/server.xml</div><div class="line">COPY log4j2.xml /usr/local/mycat/conf/log4j2.xml</div><div class="line">COPY entrypoint.sh /root/</div><div class="line">CMD [&quot;/root/entrypoint.sh&quot;]</div></pre></td></tr></table></figure></p>
+<p>配置文件参照<a href="https://github.com/jumpjumpbean/k8smysqlcluster" target="_blank" rel="external">github k8smysqlcluster</a>。</p>
+<p>执行如下命令本地build mycat镜像;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">docker build -t jacob/mycat -f ./Dockerfile .</div></pre></td></tr></table></figure></p>
+<h3 id="3-4-kubernetes-files"><a href="#3-4-kubernetes-files" class="headerlink" title="3.4 kubernetes files"></a>3.4 kubernetes files</h3><p>rc和svc文件参照<a href="https://github.com/jumpjumpbean/k8smysqlcluster" target="_blank" rel="external">github k8smysqlcluster</a>。</p>
+<p>执行如下命令启动，注意顺序为先启动mysql-master，再启动mysql-slave，最后启动mycat;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">kubectl create -f ./rc-mysql-master</div><div class="line">kubectl create -f ./svc-mysql-master</div><div class="line">kubectl create -f ./rc-mysql-slave</div><div class="line">kubectl create -f ./svc-mysql-slave</div><div class="line">kubectl create -f ./rc-mycat</div><div class="line">kubectl create -f ./svc-mycat</div></pre></td></tr></table></figure></p>
+<hr>
+<p>参照资料：<br><a href="http://www.jianshu.com/p/509b65e9a4f5" target="_blank" rel="external">利用Kubernetes搭建mysql主从复制集群</a><br><a href="http://blog.yaodataking.com/2016/01/mycat_mysql_docker_sample1.html" target="_blank" rel="external">基于Mycat的MySQL主从读写分离及自动切换的docker实现</a><br><a href="http://blog.yaodataking.com/2016/03/mycat-haproxy-docker.html" target="_blank" rel="external">基于Docker容器的MyCat高可用方案</a><br><a href="https://www.xncoding.com/2016/09/16/linux/mysql-ha.html" target="_blank" rel="external">centos7配置mysql主从复制</a><br><a href="http://www.mycat.io/" target="_blank" rel="external">Mycat官网</a><br><a href="http://blog.csdn.net/yingxiake/article/details/51697651" target="_blank" rel="external">mycat实现mysql读写分离，热切换，集群</a><br><a href="http://blog.csdn.net/qq_33556185/article/details/52958403" target="_blank" rel="external">使用mycat实现mysql读写分离以及主备自动切换模式</a><br><a href="http://blog.csdn.net/per_son/article/details/52328244" target="_blank" rel="external">mycat读写分离配置</a></p>
 
       
     </div>
@@ -464,7 +498,13 @@ Next主题下载这里使用的是Next的双栏皮肤Pisces，因还未正式发
       
         <div class="post-tags">
           
-            <a href="/tags/hexo/" rel="tag"># hexo</a>
+            <a href="/tags/mysql/" rel="tag"># mysql</a>
+          
+            <a href="/tags/mycat/" rel="tag"># mycat</a>
+          
+            <a href="/tags/Kubernetes/" rel="tag"># Kubernetes</a>
+          
+            <a href="/tags/Docker/" rel="tag"># Docker</a>
           
         </div>
       
@@ -473,8 +513,8 @@ Next主题下载这里使用的是Next的双栏皮肤Pisces，因还未正式发
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/09/22/Groovy文件处理/" rel="next" title="Groovy文件处理">
-                <i class="fa fa-chevron-left"></i> Groovy文件处理
+              <a href="/2017/03/15/hyperledger/" rel="next" title="Hyperledger Hackathon">
+                <i class="fa fa-chevron-left"></i> Hyperledger Hackathon
               </a>
             
           </div>
@@ -482,10 +522,6 @@ Next主题下载这里使用的是Next的双栏皮肤Pisces，因还未正式发
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/01/06/wechatconfig/" rel="prev" title="微信支付开发配置">
-                微信支付开发配置 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -500,10 +536,10 @@ Next主题下载这里使用的是Next的双栏皮肤Pisces，因还未正式发
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/12/12/nexttheme/"
-     data-title="hexo的next主题"
+        <div class="ds-share flat" data-thread-key="2017/06/01/mysqlcluster/"
+     data-title="Kubernetes部署Mycat+Mysql主从集群"
      data-content=""
-     data-url="http://www.jumpbeandev.com/2015/12/12/nexttheme/">
+     data-url="http://www.jumpbeandev.com/2017/06/01/mysqlcluster/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -530,8 +566,8 @@ Next主题下载这里使用的是Next的双栏皮肤Pisces，因还未正式发
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/12/12/nexttheme/"
-           data-title="hexo的next主题" data-url="http://www.jumpbeandev.com/2015/12/12/nexttheme/">
+      <div class="ds-thread" data-thread-key="2017/06/01/mysqlcluster/"
+           data-title="Kubernetes部署Mycat+Mysql主从集群" data-url="http://www.jumpbeandev.com/2017/06/01/mysqlcluster/">
       </div>
     
   </div>
@@ -644,7 +680,7 @@ Next主题下载这里使用的是Next的双栏皮肤Pisces，因还未正式发
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Next主题下载"><span class="nav-number">1.</span> <span class="nav-text">Next主题下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Next配置"><span class="nav-number">2.</span> <span class="nav-text">Next配置</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Mysql复制原理"><span class="nav-number">1.</span> <span class="nav-text">1. Mysql复制原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-mysql支持的复制类型："><span class="nav-number">1.1.</span> <span class="nav-text">1.1 mysql支持的复制类型：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-复制解决的问题"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 复制解决的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-复制如何工作"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 复制如何工作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Mycat介绍"><span class="nav-number">2.</span> <span class="nav-text">2. Mycat介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Kubernetes部署基于Mycat的读写分离，自动切换的主从Mysql架构"><span class="nav-number">3.</span> <span class="nav-text">3. Kubernetes部署基于Mycat的读写分离，自动切换的主从Mysql架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-mysql-master"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 mysql-master</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-mysql-slave"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 mysql-slave</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-mycat"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 mycat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-kubernetes-files"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 kubernetes files</span></a></li></ol></li></ol></div>
             
 
           </div>
