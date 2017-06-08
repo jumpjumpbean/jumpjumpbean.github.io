@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.jumpbeandev.com/"/>
-  <updated>2017-06-08T08:33:46.000Z</updated>
+  <updated>2017-06-08T08:46:03.000Z</updated>
   <id>http://www.jumpbeandev.com/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Kubernetes部署Mycat+Mysql主从集群</title>
+    <title>Kubernetes一键部署Mycat+Mysql主从集群</title>
     <link href="http://www.jumpbeandev.com/2017/06/01/mysqlcluster/"/>
     <id>http://www.jumpbeandev.com/2017/06/01/mysqlcluster/</id>
     <published>2017-06-01T07:28:05.000Z</published>
-    <updated>2017-06-08T08:33:46.000Z</updated>
+    <updated>2017-06-08T08:46:03.000Z</updated>
     
     <content type="html"><![CDATA[<p>Kubernetes一键部署一主一从，读写分离，自动切换的mycat+mysql架构，其中mycat配置文件、mysqsl数据文件的volume挂载未涉及，可根据实际情况进行修改。所有代码参照<a href="https://github.com/jumpjumpbean/k8smysqlcluster" target="_blank" rel="external">github k8smysqlcluster</a>。后期进行双主双从、mycat高可用的扩展。<br><a id="more"></a></p>
 <hr>
@@ -75,13 +75,13 @@
       <category term="k8s" scheme="http://www.jumpbeandev.com/categories/k8s/"/>
     
     
-      <category term="mysql" scheme="http://www.jumpbeandev.com/tags/mysql/"/>
-    
-      <category term="mycat" scheme="http://www.jumpbeandev.com/tags/mycat/"/>
-    
       <category term="Kubernetes" scheme="http://www.jumpbeandev.com/tags/Kubernetes/"/>
     
       <category term="Docker" scheme="http://www.jumpbeandev.com/tags/Docker/"/>
+    
+      <category term="mysql" scheme="http://www.jumpbeandev.com/tags/mysql/"/>
+    
+      <category term="mycat" scheme="http://www.jumpbeandev.com/tags/mycat/"/>
     
   </entry>
   
@@ -323,11 +323,11 @@
       <category term="CI" scheme="http://www.jumpbeandev.com/categories/CI/"/>
     
     
+      <category term="CI" scheme="http://www.jumpbeandev.com/tags/CI/"/>
+    
       <category term="Kubernetes" scheme="http://www.jumpbeandev.com/tags/Kubernetes/"/>
     
       <category term="Docker" scheme="http://www.jumpbeandev.com/tags/Docker/"/>
-    
-      <category term="CI" scheme="http://www.jumpbeandev.com/tags/CI/"/>
     
   </entry>
   
