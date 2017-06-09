@@ -264,11 +264,11 @@
       <category term="k8s" scheme="http://www.jumpbeandev.com/categories/k8s/"/>
     
     
+      <category term="ansible" scheme="http://www.jumpbeandev.com/tags/ansible/"/>
+    
       <category term="Kubernetes" scheme="http://www.jumpbeandev.com/tags/Kubernetes/"/>
     
       <category term="Docker" scheme="http://www.jumpbeandev.com/tags/Docker/"/>
-    
-      <category term="ansible" scheme="http://www.jumpbeandev.com/tags/ansible/"/>
     
   </entry>
   
@@ -323,11 +323,11 @@
       <category term="CI" scheme="http://www.jumpbeandev.com/categories/CI/"/>
     
     
-      <category term="CI" scheme="http://www.jumpbeandev.com/tags/CI/"/>
-    
       <category term="Kubernetes" scheme="http://www.jumpbeandev.com/tags/Kubernetes/"/>
     
       <category term="Docker" scheme="http://www.jumpbeandev.com/tags/Docker/"/>
+    
+      <category term="CI" scheme="http://www.jumpbeandev.com/tags/CI/"/>
     
   </entry>
   
