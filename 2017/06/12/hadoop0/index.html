@@ -108,7 +108,7 @@
 <meta property="og:url" content="http://www.jumpbeandev.com/2017/06/12/hadoop0/index.html">
 <meta property="og:site_name" content="JumpBean's Blog">
 <meta property="og:description" content="本篇介绍安装前的准备工作。版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.0.2。以下操作都是以root用户进行，如需用户组和权限设定需自行配置。">
-<meta property="og:updated_time" content="2017-06-16T02:37:29.000Z">
+<meta property="og:updated_time" content="2017-06-21T06:18:13.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="搭建5节点hadoop+zookeeper+hbase+spark(0):准备">
 <meta name="twitter:description" content="本篇介绍安装前的准备工作。版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.0.2。以下操作都是以root用户进行，如需用户组和权限设定需自行配置。">
@@ -526,11 +526,11 @@
 </tr>
 <tr>
 <td style="text-align:center">hbase</td>
-<td style="text-align:center">YES</td>
-<td style="text-align:center">YES</td>
-<td style="text-align:center">YES</td>
-<td style="text-align:center">YES</td>
-<td style="text-align:center">YES</td>
+<td style="text-align:center">主Master</td>
+<td style="text-align:center">备份Master</td>
+<td style="text-align:center">RegionServer</td>
+<td style="text-align:center">RegionServer</td>
+<td style="text-align:center">RegionServer</td>
 </tr>
 <tr>
 <td style="text-align:center">spark</td>
@@ -737,7 +737,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

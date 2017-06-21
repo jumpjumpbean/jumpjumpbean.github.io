@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.jumpbeandev.com/"/>
-  <updated>2017-06-16T02:37:14.000Z</updated>
+  <updated>2017-06-21T06:22:11.000Z</updated>
   <id>http://www.jumpbeandev.com/</id>
   
   <author>
@@ -16,11 +16,183 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>搭建5节点hadoop+zookeeper+hbase+spark(3):Hbase</title>
+    <link href="http://www.jumpbeandev.com/2017/06/21/hadoop3/"/>
+    <id>http://www.jumpbeandev.com/2017/06/21/hadoop3/</id>
+    <published>2017-06-21T02:45:57.000Z</published>
+    <updated>2017-06-21T06:22:11.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>本篇介绍Hbase集群安装。<br>版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.0.2。<br>以下操作都是以root用户进行，如需用户组和权限设定需自行配置。<br><a id="more"></a></p>
+<hr>
+<h2 id="1-服务器信息及节点分配"><a href="#1-服务器信息及节点分配" class="headerlink" title="1. 服务器信息及节点分配"></a>1. 服务器信息及节点分配</h2><p>服务器信息：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">No</th>
+<th style="text-align:center">Hostname</th>
+<th style="text-align:center">内网IP</th>
+<th style="text-align:center">外网IP</th>
+<th style="text-align:center">OS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">node01</td>
+<td style="text-align:center">192.168.5.11</td>
+<td style="text-align:center">192.168.205.50</td>
+<td style="text-align:center">Centos7</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">node02</td>
+<td style="text-align:center">192.168.5.12</td>
+<td style="text-align:center">192.168.205.62</td>
+<td style="text-align:center">Centos7</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">node03</td>
+<td style="text-align:center">192.168.5.13</td>
+<td style="text-align:center">192.168.205.63</td>
+<td style="text-align:center">Centos7</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">node04</td>
+<td style="text-align:center">192.168.5.14</td>
+<td style="text-align:center">192.168.205.70</td>
+<td style="text-align:center">Centos7</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">node05</td>
+<td style="text-align:center">192.168.5.15</td>
+<td style="text-align:center">192.168.205.102</td>
+<td style="text-align:center">Centos7</td>
+</tr>
+</tbody>
+</table>
+<p>节点分配：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">节点</th>
+<th style="text-align:center">node01</th>
+<th style="text-align:center">node02</th>
+<th style="text-align:center">node03</th>
+<th style="text-align:center">node04</th>
+<th style="text-align:center">node05</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">namenode</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">NO</td>
+<td style="text-align:center">NO</td>
+<td style="text-align:center">NO</td>
+</tr>
+<tr>
+<td style="text-align:center">datanode</td>
+<td style="text-align:center">NO</td>
+<td style="text-align:center">NO</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+</tr>
+<tr>
+<td style="text-align:center">journalnode</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+</tr>
+<tr>
+<td style="text-align:center">zookeeper</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+</tr>
+<tr>
+<td style="text-align:center">hbase</td>
+<td style="text-align:center">主Master</td>
+<td style="text-align:center">备份Master</td>
+<td style="text-align:center">RegionServer</td>
+<td style="text-align:center">RegionServer</td>
+<td style="text-align:center">RegionServer</td>
+</tr>
+<tr>
+<td style="text-align:center">spark</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="2-安装Hbase"><a href="#2-安装Hbase" class="headerlink" title="2. 安装Hbase"></a>2. 安装Hbase</h2><h3 id="2-1-下载安装包"><a href="#2-1-下载安装包" class="headerlink" title="2.1 下载安装包"></a>2.1 下载安装包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget http://mirror.bit.edu.cn/apache/hbase/1.2.6/hbase-1.2.6-bin.tar.gz</div></pre></td></tr></table></figure>
+<h3 id="2-2-创建模板配置文件"><a href="#2-2-创建模板配置文件" class="headerlink" title="2.2 创建模板配置文件"></a>2.2 创建模板配置文件</h3><p>需要修改的配置文件为hbase-env.sh，hbase-site.xml，regionservers。</p>
+<h4 id="2-2-1-hbase-site-xml"><a href="#2-2-1-hbase-site-xml" class="headerlink" title="2.2.1 hbase-site.xml"></a>2.2.1 hbase-site.xml</h4><p>采用双HMaster配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div></pre></td><td class="code"><pre><div class="line">&lt;configuration&gt;</div><div class="line">    &lt;property&gt;</div><div class="line">        &lt;name&gt;hbase.rootdir&lt;/name&gt;</div><div class="line">        &lt;value&gt;hdfs://ctns/hbase&lt;/value&gt;&lt;!--这里必须跟core-site.xml中的fs.defaultFS键配置一样--&gt;</div><div class="line">    &lt;/property&gt;</div><div class="line">    &lt;!-- 开启分布式模式 --&gt;</div><div class="line">    &lt;property&gt;</div><div class="line">        &lt;name&gt;hbase.cluster.distributed&lt;/name&gt;</div><div class="line">        &lt;value&gt;true&lt;/value&gt;</div><div class="line">    &lt;/property&gt;</div><div class="line">    &lt;!--只配置端口，为了配置多个HMaster --&gt;</div><div class="line">    &lt;property&gt;</div><div class="line">        &lt;name&gt;hbase.master&lt;/name&gt;</div><div class="line">        &lt;value&gt;60000&lt;/value&gt;</div><div class="line">    &lt;/property&gt;</div><div class="line">    &lt;property&gt;</div><div class="line">        &lt;name&gt;hbase.tmp.dir&lt;/name&gt;</div><div class="line">        &lt;value&gt;/usr/hbase/tmp&lt;/value&gt;</div><div class="line">    &lt;/property&gt;</div><div class="line">    &lt;!--这里设置hbase API客户端侧缓存值，大于此值就进行一次提交，/opt/hbase-1.2.1/conf/hbase-site.xml统一配置为5M，对所有HTable都生效，那么客户端API就可不设置--&gt;</div><div class="line">    &lt;!--htable.setWriteBufferSize(5242880);//5M --&gt;</div><div class="line">    &lt;property&gt;</div><div class="line">        &lt;name&gt;hbase.client.write.buffer&lt;/name&gt;</div><div class="line">        &lt;value&gt;5242880&lt;/value&gt;</div><div class="line">    &lt;/property&gt;</div><div class="line">    &lt;!--这里设置Master并发最大线程数，经常有人设为300左右--&gt;</div><div class="line">    &lt;property&gt;</div><div class="line">        &lt;name&gt;hbase.regionserver.handler.count&lt;/name&gt;</div><div class="line">        &lt;value&gt;20&lt;/value&gt;</div><div class="line">    &lt;/property&gt;</div><div class="line">    &lt;!--</div><div class="line">    默认值    ：256M</div><div class="line">    说明        ：在当前ReigonServer上单个Reigon的最大存储空间，单个Region超过该值时，这个Region会被自动split成更小的region。</div><div class="line">    数据表创建时会预分区，每个预分区最大大小这里设置为10G，防止频繁的split阻塞数据读写，</div><div class="line">    只有当预分区超过10G时才会进行split，正式环境应该首先预测数据存储时间内的大致数据量，</div><div class="line">    然后如果每个预分区为10G，计算出分区数，建表时指定分区设置，防止后期频繁split</div><div class="line">    写法，如果你想设为128兆，但绝不可以写成128M这样，最安全的写法是128*1024*1024的数值，如下</div><div class="line">    --&gt;</div><div class="line">    &lt;property&gt;</div><div class="line">        &lt;name&gt;hbase.hregion.max.filesize&lt;/name&gt;</div><div class="line">        &lt;value&gt;134217728&lt;/value&gt;</div><div class="line">    &lt;/property&gt;</div><div class="line">    &lt;!--</div><div class="line">    hbase本质上可以说是HADOOP HDFS的客户端，虽然Hadoop的core-site.xml里设置了文件副本数，但是仍然是客户端传值优先，这里设置为2，</div><div class="line">    意思是一个文件，最终在Hadoop上总个数为2，正式环境最好设置为3，目前发现此值小于3时，</div><div class="line">    在遇到All datanodes xxx.xxx.xxx.xxx:port are bad. Aborting...错误信息时，如果某个DataNode宕机，原则上hbase调用的DFSClient会去其他Datanode</div><div class="line">    上重试写，但发现配置的值低于3就不会去尝试</div><div class="line">    --&gt;</div><div class="line">    &lt;property&gt;</div><div class="line">        &lt;name&gt;dfs.replication&lt;/name&gt;</div><div class="line">        &lt;value&gt;2&lt;/value&gt;</div><div class="line">    &lt;/property&gt;</div><div class="line">    &lt;!--</div><div class="line">    IncreasingToUpperBoundRegionSplitPolicy策略的意思是，数据表如果预分区为2，配置的memstore flush size=128M，那么下一次分裂大小是2的平方然后乘以128MB，即2*2*128M=512MB;</div><div class="line">    ConstantSizeRegionSplitPolicy策略的意思是按照上面指定的region大小超过30G才做分裂</div><div class="line">    --&gt;</div><div class="line">    &lt;property&gt;</div><div class="line">        &lt;name&gt;hbase.regionserver.region.split.policy&lt;/name&gt;</div><div class="line">        &lt;value&gt;org.apache.hadoop.hbase.regionserver.ConstantSizeRegionSplitPolicy&lt;/value&gt;</div><div class="line">    &lt;/property&gt;</div><div class="line">    &lt;!--一个edit版本在内存中的cache时长，默认3600000毫秒--&gt;</div><div class="line">    &lt;property&gt;</div><div class="line">        &lt;name&gt;hbase.regionserver.optionalcacheflushinterval&lt;/name&gt;</div><div class="line">        &lt;value&gt;7200000&lt;/value&gt;</div><div class="line">    &lt;/property&gt;</div><div class="line">    &lt;!--分配给HFile/StoreFile的block cache占最大堆(-Xmx setting)的比例。默认0.3意思是分配30%，设置为0就是禁用，但不推荐。--&gt;</div><div class="line">    &lt;property&gt;</div><div class="line">        &lt;name&gt;hfile.block.cache.size&lt;/name&gt;</div><div class="line">        &lt;value&gt;0.3&lt;/value&gt;</div><div class="line">    &lt;/property&gt;</div><div class="line">    &lt;!--当memstore的大小超过这个值的时候，会flush到磁盘。这个值被一个线程每隔hbase.server.thread.wakefrequency检查一下。--&gt;</div><div class="line">    &lt;property&gt;</div><div class="line">        &lt;name&gt;hbase.hregion.memstore.flush.size&lt;/name&gt;</div><div class="line">        &lt;value&gt;52428800&lt;/value&gt;</div><div class="line">    &lt;/property&gt;</div><div class="line">    &lt;!--</div><div class="line">    默认值    ：0.4/0.35</div><div class="line">    说明        ：hbase.hregion.memstore.flush.size 这个参数的作用是当单个Region内所有的memstore大小总和超过指定值时，flush该region的所有memstore</div><div class="line">    单个region server的全部memtores的最大值。超过这个值，一个新的update操作会被挂起，强制执行flush操作。</div><div class="line">    以前版本中是通过hbase.regionserver.global.memstore.upperLimit设置，老版本中含义是在hbase-env.sh中配置的HEAP_SIZE比如4G，</div><div class="line">    那么以该值4G乘以配置的0.5就是2G，意思是所有memstore总和达到2G值时，阻塞所有读写，现在1.2.1版本hbase中被hbase.regionserver.global.memstore.size替代，</div><div class="line">    计算方法仍然是HEAP_SIZE乘以配置的百分比比如下面的0.5，那么阻塞读写的阀值就为2G</div><div class="line">    --&gt;</div><div class="line">    &lt;property&gt;</div><div class="line">        &lt;name&gt;hbase.regionserver.global.memstore.size&lt;/name&gt;</div><div class="line">        &lt;value&gt;0.5&lt;/value&gt;</div><div class="line">    &lt;/property&gt;</div><div class="line">    &lt;!--</div><div class="line">    当强制执行flush操作的时候，当低于这个值的时候，flush会停止。</div><div class="line">    默认是堆大小的 35% . 如果这个值和 hbase.regionserver.global.memstore.upperLimit 相同就意味着当update操作因为内存限制被挂起时，</div><div class="line">    会尽量少的执行flush(译者注:一旦执行flush，值就会比下限要低，不再执行)。</div><div class="line">    在老版本中该值是通过hbase.regionserver.global.memstore.size.lower.limit设置，</div><div class="line">    计算方法是以hbase-env.sh的HEAP_SIZE乘以配置的百分比比如0.3就是HEAP_SIZE4G乘以0.3=1.2G，达到这个值的话就在所有memstore中选择最大的那个做flush动作，</div><div class="line">    新版本则完全不同了，首先是通过hbase.regionserver.global.memstore.lowerLimit设置，而且不是以HEAP_SIZE作为参考，</div><div class="line">    二是以配置的hbase.regionserver.global.memstore.size的值再乘以配置的比例比如0.5，如果HEAP_SIZE=4G，</div><div class="line">    hbase.regionserver.global.memstore.size配置为0.5，hbase.regionserver.global.memstore.size.lower.limit配置的为0.5，</div><div class="line">    则计算出来的值为4G乘以0.5再乘以0.5就是1G了，达到1G就先找最大的memstore触发flush</div><div class="line">    --&gt;</div><div class="line">    &lt;property&gt;</div><div class="line">        &lt;name&gt;hbase.regionserver.global.memstore.size.lower.limit&lt;/name&gt;</div><div class="line">        &lt;value&gt;0.5&lt;/value&gt;</div><div class="line">    &lt;/property&gt;</div><div class="line">    &lt;!--这里设置HDFS客户端最大超时时间，尽量改大，后期hbase经常会因为该问题频繁宕机--&gt;</div><div class="line">    &lt;property&gt;</div><div class="line">        &lt;name&gt;dfs.client.socket-timeout&lt;/name&gt;</div><div class="line">        &lt;value&gt;600000&lt;/value&gt;</div><div class="line">    &lt;/property&gt;</div><div class="line">    &lt;!--</div><div class="line">    hbase.table.sanity.checks是一个开关，主要用于hbase各种参数检查，当为true时候，检查步骤如下</div><div class="line">    1.check max file size，hbase.hregion.max.filesize，最小为2MB</div><div class="line">    2.check flush size，hbase.hregion.memstore.flush.size，最小为1MB</div><div class="line">    3.check that coprocessors and other specified plugin classes can be loaded</div><div class="line">    4.check compression can be loaded</div><div class="line">    5.check encryption can be loaded</div><div class="line">    6.Verify compaction policy</div><div class="line">    7.check that we have at least 1 CF</div><div class="line">    8.check blockSize</div><div class="line">    9.check versions</div><div class="line">    10.check minVersions &lt;= maxVerions</div><div class="line">    11.check replication scope</div><div class="line">    12.check data replication factor, it can be 0(default value) when user has not explicitly set the value, in this case we use default replication factor set in the file system.</div><div class="line">    详细情况可以去查看源代码org.apache.hadoop.hbase.master.HMaster的方法sanityCheckTableDescriptor，</div><div class="line">    该代码位于hbase源码的模块hbase-server下</div><div class="line">    --&gt;</div><div class="line">    &lt;property&gt;</div><div class="line">        &lt;name&gt;hbase.table.sanity.checks&lt;/name&gt;</div><div class="line">        &lt;value&gt;false&lt;/value&gt;</div><div class="line">    &lt;/property&gt;</div><div class="line">    &lt;!--ZooKeeper 会话超时.HBase把这个值传递改zk集群，向他推荐一个会话的最大超时时间--&gt;</div><div class="line">    &lt;property&gt;</div><div class="line">    &lt;!--every 30s,the master will check regionser is working --&gt;</div><div class="line">        &lt;name&gt;zookeeper.session.timeout&lt;/name&gt;</div><div class="line">        &lt;value&gt;30000&lt;/value&gt;</div><div class="line">    &lt;/property&gt;</div><div class="line">    &lt;!--</div><div class="line">    Hbase的外置zk集群时，使用下面的zk端口。因为我这5台机子打算都安装hbase，所以都指定zookeeper。</div><div class="line">     --&gt;</div><div class="line">    &lt;property&gt;</div><div class="line">        &lt;name&gt;hbase.zookeeper.quorum&lt;/name&gt;</div><div class="line">        &lt;value&gt;node01:2181,node02:2181,node03:2181,node04:2181,node05:2181&lt;/value&gt;</div><div class="line">    &lt;/property&gt;</div><div class="line">    &lt;property&gt;</div><div class="line">        &lt;name&gt;hbase.zookeeper.property.dataDir&lt;/name&gt;</div><div class="line">        &lt;value&gt;/usr/zookeeper/data&lt;/value&gt;</div><div class="line">    &lt;/property&gt;</div><div class="line">&lt;/configuration&gt;</div></pre></td></tr></table></figure></p>
+<h4 id="2-2-2-hbase-env-sh"><a href="#2-2-2-hbase-env-sh" class="headerlink" title="2.2.2 hbase-env.sh"></a>2.2.2 hbase-env.sh</h4><p>添加如下变量：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-3.b12.el7_3.x86_64/jre</div><div class="line">export HBASE_CLASSPATH=/usr/hadoop/etc/hadoop</div><div class="line">export HBASE_MANAGES_ZK=false</div></pre></td></tr></table></figure></p>
+<h4 id="2-2-3-regionservers"><a href="#2-2-3-regionservers" class="headerlink" title="2.2.3 regionservers"></a>2.2.3 regionservers</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">node03</div><div class="line">node04</div><div class="line">node05</div></pre></td></tr></table></figure>
+<h3 id="2-3-安装部署"><a href="#2-3-安装部署" class="headerlink" title="2.3 安装部署"></a>2.3 安装部署</h3><p>部署时需要替换hbase的lib中版本不一致的hadoop相关jar包，如果使用了hadoop HA别名的话需要在hbase/conf下建立hdfs-site.xml和core-site.xml的软连接，写一个简易部署脚本：<br><figure class="highlight plain"><figcaption><span>hbase.sh</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line">#/bin/bash</div><div class="line"></div><div class="line">tar -xvf ./hbase-1.2.6-bin.tar.gz</div><div class="line">mv ./hbase-1.2.6 /usr/hbase</div><div class="line"></div><div class="line">mv /usr/hbase/lib/hadoop-annotations-2.5.1.jar /usr/hbase/lib/hadoop-annotations-2.5.1.jar.bak</div><div class="line">mv /usr/hbase/lib/hadoop-auth-2.5.1.jar /usr/hbase/lib/hadoop-auth-2.5.1.jar.bak</div><div class="line">mv /usr/hbase/lib/hadoop-common-2.5.1.jar /usr/hbase/lib/hadoop-common-2.5.1.jar.bak</div><div class="line">mv /usr/hbase/lib/hadoop-client-2.5.1.jar /usr/hbase/lib/hadoop-client-2.5.1.jar.bak</div><div class="line">mv /usr/hbase/lib/hadoop-hdfs-2.5.1.jar /usr/hbase/lib/hadoop-hdfs-2.5.1.jar.bak</div><div class="line">mv /usr/hbase/lib/hadoop-mapreduce-client-jobclient-2.5.1.jar /usr/hbase/lib/hadoop-mapreduce-client-jobclient-2.5.1.jar.bak</div><div class="line">mv /usr/hbase/lib/hadoop-mapreduce-client-app-2.5.1.jar /usr/hbase/lib/hadoop-mapreduce-client-app-2.5.1.jar.bak</div><div class="line">mv /usr/hbase/lib/hadoop-mapreduce-client-shuffle-2.5.1.jar /usr/hbase/lib/hadoop-mapreduce-client-shuffle-2.5.1.jar.bak</div><div class="line">mv /usr/hbase/lib/hadoop-mapreduce-client-common-2.5.1.jar /usr/hbase/lib/hadoop-mapreduce-client-common-2.5.1.jar.bak</div><div class="line">mv /usr/hbase/lib/hadoop-mapreduce-client-core-2.5.1.jar /usr/hbase/lib/hadoop-mapreduce-client-core-2.5.1.jar.bak</div><div class="line">mv /usr/hbase/lib/hadoop-yarn-server-common-2.5.1.jar /usr/hbase/lib/hadoop-yarn-server-common-2.5.1.jar.bak</div><div class="line">mv /usr/hbase/lib/hadoop-yarn-common-2.5.1.jar /usr/hbase/lib/hadoop-yarn-common-2.5.1.jar.bak</div><div class="line">mv /usr/hbase/lib/hadoop-yarn-api-2.5.1.jar /usr/hbase/lib/hadoop-yarn-api-2.5.1.jar.bak</div><div class="line">mv /usr/hbase/lib/hadoop-yarn-client-2.5.1.jar /usr/hbase/lib/hadoop-yarn-client-2.5.1.jar.bak</div><div class="line"></div><div class="line">cp /usr/hadoop/share/hadoop/common/lib/hadoop-auth-2.7.3.jar /usr/hbase/lib/hadoop-auth-2.7.3.jar</div><div class="line">cp /usr/hadoop/share/hadoop/common/lib/hadoop-annotations-2.7.3.jar /usr/hbase/lib/hadoop-annotations-2.7.3.jar</div><div class="line">cp /usr/hadoop/share/hadoop/common/hadoop-common-2.7.3.jar /usr/hbase/lib/hadoop-common-2.7.3.jar</div><div class="line">cp /usr/hadoop/share/hadoop/hdfs/hadoop-hdfs-2.7.3.jar /usr/hbase/lib/hadoop-hdfs-2.7.3.jar</div><div class="line">cp /usr/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-client-jobclient-2.7.3.jar /usr/hbase/lib/hadoop-mapreduce-client-jobclient-2.7.3.jar</div><div class="line">cp /usr/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-client-app-2.7.3.jar /usr/hbase/lib/hadoop-mapreduce-client-app-2.7.3.jar</div><div class="line">cp /usr/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-client-shuffle-2.7.3.jar /usr/hbase/lib/hadoop-mapreduce-client-shuffle-2.7.3.jar</div><div class="line">cp /usr/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-client-common-2.7.3.jar /usr/hbase/lib/hadoop-mapreduce-client-common-2.7.3.jar</div><div class="line">cp /usr/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-client-core-2.7.3.jar /usr/hbase/lib/hadoop-mapreduce-client-core-2.7.3.jar</div><div class="line">cp /usr/hadoop/share/hadoop/yarn/hadoop-yarn-server-common-2.7.3.jar /usr/hbase/lib/hadoop-yarn-server-common-2.7.3.jar</div><div class="line">cp /usr/hadoop/share/hadoop/yarn/hadoop-yarn-common-2.7.3.jar /usr/hbase/lib/hadoop-yarn-common-2.7.3.jar</div><div class="line">cp /usr/hadoop/share/hadoop/yarn/hadoop-yarn-api-2.7.3.jar /usr/hbase/lib/hadoop-yarn-api-2.7.3.jar</div><div class="line">cp /usr/hadoop/share/hadoop/yarn/hadoop-yarn-client-2.7.3.jar /usr/hbase/lib/hadoop-yarn-client-2.7.3.jar</div><div class="line">#移除HBase里面的不必要log4j的jar包</div><div class="line">mv /usr/hbase/lib/slf4j-log4j12-1.7.5.jar /usr/hbase/lib/slf4j-log4j12-1.7.5.jar.bak</div><div class="line"></div><div class="line">cp -rf ./hbase-env.sh /usr/hbase/conf/hbase-env.sh</div><div class="line">cp -rf ./hbase-site.xml /usr/hbase/conf/hbase-site.xml</div><div class="line">cp -rf ./regionservers /usr/hbase/conf/regionservers</div><div class="line"></div><div class="line">mkdir /usr/hbase/tmp</div><div class="line">#创建软连接，识别hadoop HA别名</div><div class="line">ln -s /usr/hadoop/etc/hadoop/hdfs-site.xml /usr/hbase/conf/hdfs-site.xml</div><div class="line">ln -s /usr/hadoop/etc/hadoop/core-site.xml /usr/hbase/conf/core-site.xml</div><div class="line"></div><div class="line">echo &quot;export HBASE_HOME=/usr/hbase&quot; &gt;&gt; /root/.bash_profile</div><div class="line">echo &quot;export PATH=\$HBASE_HOME/bin:\$PATH&quot; &gt;&gt; /root/.bash_profile</div></pre></td></tr></table></figure><br>修改权限并执行，执行时确保hbase-env.sh，hbase-site.xml，regionservers，hbase-1.2.6-bin.tar.gz，hbase.sh在同一目录下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">chmod +x ./hbase.sh</div><div class="line">./hbase.sh</div><div class="line">source /root/.bash_profile</div></pre></td></tr></table></figure></p>
+<h3 id="2-4-部署所有节点"><a href="#2-4-部署所有节点" class="headerlink" title="2.4 部署所有节点"></a>2.4 部署所有节点</h3><p>使用sftp将hbase-env.sh，hbase-site.xml，regionservers，hbase-1.2.6-bin.tar.gz，hbase.sh传到其他所有节点上并按照以上步骤进行部署。</p>
+<hr>
+<h2 id="3-Hbase启动"><a href="#3-Hbase启动" class="headerlink" title="3. Hbase启动"></a>3. Hbase启动</h2><p>在启动之前将ZooKeeper和Hadoop启动。</p>
+<h3 id="3-1-在node01执行以下命令"><a href="#3-1-在node01执行以下命令" class="headerlink" title="3.1 在node01执行以下命令"></a>3.1 在node01执行以下命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">start-hbase.sh</div></pre></td></tr></table></figure>
+<h3 id="3-2-在node02执行以下命令"><a href="#3-2-在node02执行以下命令" class="headerlink" title="3.2 在node02执行以下命令"></a>3.2 在node02执行以下命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hbase-daemon.sh start master</div></pre></td></tr></table></figure>
+<h3 id="3-3-查看相应进程"><a href="#3-3-查看相应进程" class="headerlink" title="3.3 查看相应进程"></a>3.3 查看相应进程</h3><p>在node01和node02上用jps查看是否有HMaster进程，在node03, node04和node05上用jps查看是否有HRegionServer进程。</p>
+<hr>
+<h2 id="4-测试验证"><a href="#4-测试验证" class="headerlink" title="4. 测试验证"></a>4. 测试验证</h2><h3 id="4-1-节点状态"><a href="#4-1-节点状态" class="headerlink" title="4.1 节点状态"></a>4.1 节点状态</h3><p>查看hbase状态<a href="http://192.168.205.50:16010/：" target="_blank" rel="external">http://192.168.205.50:16010/：</a><br><img src="/images/2017/06/21/1356.png"></p>
+<h3 id="4-2-hbase-shell测试"><a href="#4-2-hbase-shell测试" class="headerlink" title="4.2 hbase shell测试"></a>4.2 hbase shell测试</h3><h4 id="4-2-1-进入hbase-shell命令行："><a href="#4-2-1-进入hbase-shell命令行：" class="headerlink" title="4.2.1 进入hbase shell命令行："></a>4.2.1 进入hbase shell命令行：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hbase shell</div></pre></td></tr></table></figure>
+<p><img src="/images/2017/06/21/1357.png"></p>
+<h4 id="4-2-2-建立一个表-具有三个列族member-id-、address、info："><a href="#4-2-2-建立一个表-具有三个列族member-id-、address、info：" class="headerlink" title="4.2.2 建立一个表,具有三个列族member_id 、address、info："></a>4.2.2 建立一个表,具有三个列族member_id 、address、info：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">create &apos;member&apos;,&apos;member_id&apos;,&apos;address&apos;,&apos;info&apos;</div></pre></td></tr></table></figure>
+<p><img src="/images/2017/06/21/1358.png"></p>
+<h4 id="4-2-3-查看当前HBase中具有哪些表："><a href="#4-2-3-查看当前HBase中具有哪些表：" class="headerlink" title="4.2.3 查看当前HBase中具有哪些表："></a>4.2.3 查看当前HBase中具有哪些表：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">list</div></pre></td></tr></table></figure>
+<p><img src="/images/2017/06/21/1359.png"></p>
+<h4 id="4-2-4-查看表的构造："><a href="#4-2-4-查看表的构造：" class="headerlink" title="4.2.4 查看表的构造："></a>4.2.4 查看表的构造：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">describe &apos;member&apos; </div></pre></td></tr></table></figure>
+<p><img src="/images/2017/06/21/1400.png"><br><img src="/images/2017/06/21/1401.png"></p>
+<h4 id="4-2-5-删除member表："><a href="#4-2-5-删除member表：" class="headerlink" title="4.2.5 删除member表："></a>4.2.5 删除member表：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">disable &apos;member&apos; </div></pre></td></tr></table></figure>
+<p><img src="/images/2017/06/21/1402.png"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">drop &apos;member&apos; </div></pre></td></tr></table></figure><br><img src="/images/2017/06/21/1403.png"></p>
+<h4 id="4-2-6-退出shell："><a href="#4-2-6-退出shell：" class="headerlink" title="4.2.6 退出shell："></a>4.2.6 退出shell：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">exit</div></pre></td></tr></table></figure>
+<hr>
+<p>参照资料：<br><a href="http://blog.csdn.net/u011414200/article/details/50383512" target="_blank" rel="external">Hbase HA 分布式搭建</a><br><a href="http://www.voidcn.com/blog/darkdragonking/article/p-6630664.html" target="_blank" rel="external">在hadoop2.8的HA+zookeeper的环境下安装分布式HBase 1.2.5</a><br><a href="http://www.micmiu.com/bigdata/hbase/hbase-setup-full-distributed/" target="_blank" rel="external">HBase安装配置之完全分布式模式</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本篇介绍Hbase集群安装。&lt;br&gt;版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.0.2。&lt;br&gt;以下操作都是以root用户进行，如需用户组和权限设定需自行配置。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="bigdata" scheme="http://www.jumpbeandev.com/categories/bigdata/"/>
+    
+    
+      <category term="hadoop" scheme="http://www.jumpbeandev.com/tags/hadoop/"/>
+    
+      <category term="bigdata" scheme="http://www.jumpbeandev.com/tags/bigdata/"/>
+    
+      <category term="zookeeper" scheme="http://www.jumpbeandev.com/tags/zookeeper/"/>
+    
+      <category term="hbase" scheme="http://www.jumpbeandev.com/tags/hbase/"/>
+    
+      <category term="spark" scheme="http://www.jumpbeandev.com/tags/spark/"/>
+    
+  </entry>
+  
+  <entry>
     <title>搭建5节点hadoop+zookeeper+hbase+spark(2):Hadoop</title>
     <link href="http://www.jumpbeandev.com/2017/06/14/hadoop2/"/>
     <id>http://www.jumpbeandev.com/2017/06/14/hadoop2/</id>
     <published>2017-06-14T10:19:49.000Z</published>
-    <updated>2017-06-16T02:37:14.000Z</updated>
+    <updated>2017-06-21T06:17:49.000Z</updated>
     
     <content type="html"><![CDATA[<p>本篇介绍Hadoop集群安装。<br>版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.0.2。<br>以下操作都是以root用户进行，如需用户组和权限设定需自行配置。<br><a id="more"></a></p>
 <hr>
@@ -122,11 +294,11 @@
 </tr>
 <tr>
 <td style="text-align:center">hbase</td>
-<td style="text-align:center">YES</td>
-<td style="text-align:center">YES</td>
-<td style="text-align:center">YES</td>
-<td style="text-align:center">YES</td>
-<td style="text-align:center">YES</td>
+<td style="text-align:center">主Master</td>
+<td style="text-align:center">备份Master</td>
+<td style="text-align:center">RegionServer</td>
+<td style="text-align:center">RegionServer</td>
+<td style="text-align:center">RegionServer</td>
 </tr>
 <tr>
 <td style="text-align:center">spark</td>
@@ -194,7 +366,7 @@
     <link href="http://www.jumpbeandev.com/2017/06/12/hadoop1/"/>
     <id>http://www.jumpbeandev.com/2017/06/12/hadoop1/</id>
     <published>2017-06-12T07:58:14.000Z</published>
-    <updated>2017-06-16T02:37:22.000Z</updated>
+    <updated>2017-06-21T06:18:15.000Z</updated>
     
     <content type="html"><![CDATA[<p>本篇介绍Zookeeper集群安装。<br>版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.0.2。<br>以下操作都是以root用户进行，如需用户组和权限设定需自行配置。<br><a id="more"></a></p>
 <hr>
@@ -294,11 +466,11 @@
 </tr>
 <tr>
 <td style="text-align:center">hbase</td>
-<td style="text-align:center">YES</td>
-<td style="text-align:center">YES</td>
-<td style="text-align:center">YES</td>
-<td style="text-align:center">YES</td>
-<td style="text-align:center">YES</td>
+<td style="text-align:center">主Master</td>
+<td style="text-align:center">备份Master</td>
+<td style="text-align:center">RegionServer</td>
+<td style="text-align:center">RegionServer</td>
+<td style="text-align:center">RegionServer</td>
 </tr>
 <tr>
 <td style="text-align:center">spark</td>
@@ -351,7 +523,7 @@
     <link href="http://www.jumpbeandev.com/2017/06/12/hadoop0/"/>
     <id>http://www.jumpbeandev.com/2017/06/12/hadoop0/</id>
     <published>2017-06-12T06:16:11.000Z</published>
-    <updated>2017-06-16T02:37:29.000Z</updated>
+    <updated>2017-06-21T06:18:13.000Z</updated>
     
     <content type="html"><![CDATA[<p>本篇介绍安装前的准备工作。<br>版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.0.2。<br>以下操作都是以root用户进行，如需用户组和权限设定需自行配置。<br><a id="more"></a></p>
 <hr>
@@ -451,11 +623,11 @@
 </tr>
 <tr>
 <td style="text-align:center">hbase</td>
-<td style="text-align:center">YES</td>
-<td style="text-align:center">YES</td>
-<td style="text-align:center">YES</td>
-<td style="text-align:center">YES</td>
-<td style="text-align:center">YES</td>
+<td style="text-align:center">主Master</td>
+<td style="text-align:center">备份Master</td>
+<td style="text-align:center">RegionServer</td>
+<td style="text-align:center">RegionServer</td>
+<td style="text-align:center">RegionServer</td>
 </tr>
 <tr>
 <td style="text-align:center">spark</td>
@@ -767,11 +939,11 @@
       <category term="k8s" scheme="http://www.jumpbeandev.com/categories/k8s/"/>
     
     
-      <category term="ansible" scheme="http://www.jumpbeandev.com/tags/ansible/"/>
-    
       <category term="Kubernetes" scheme="http://www.jumpbeandev.com/tags/Kubernetes/"/>
     
       <category term="Docker" scheme="http://www.jumpbeandev.com/tags/Docker/"/>
+    
+      <category term="ansible" scheme="http://www.jumpbeandev.com/tags/ansible/"/>
     
   </entry>
   
@@ -826,11 +998,11 @@
       <category term="CI" scheme="http://www.jumpbeandev.com/categories/CI/"/>
     
     
+      <category term="CI" scheme="http://www.jumpbeandev.com/tags/CI/"/>
+    
       <category term="Kubernetes" scheme="http://www.jumpbeandev.com/tags/Kubernetes/"/>
     
       <category term="Docker" scheme="http://www.jumpbeandev.com/tags/Docker/"/>
-    
-      <category term="CI" scheme="http://www.jumpbeandev.com/tags/CI/"/>
     
   </entry>
   
