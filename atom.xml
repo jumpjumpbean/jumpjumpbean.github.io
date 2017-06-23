@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.jumpbeandev.com/"/>
-  <updated>2017-06-21T06:22:11.000Z</updated>
+  <updated>2017-06-23T06:27:18.000Z</updated>
   <id>http://www.jumpbeandev.com/</id>
   
   <author>
@@ -16,13 +16,178 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>搭建5节点hadoop+zookeeper+hbase+spark(4):Spark</title>
+    <link href="http://www.jumpbeandev.com/2017/06/23/hadoop4/"/>
+    <id>http://www.jumpbeandev.com/2017/06/23/hadoop4/</id>
+    <published>2017-06-23T01:59:41.000Z</published>
+    <updated>2017-06-23T06:27:18.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>本篇介绍Spark集群安装。<br>版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。<br>以下操作都是以root用户进行，如需用户组和权限设定需自行配置。<br><a id="more"></a></p>
+<hr>
+<h2 id="1-服务器信息及节点分配"><a href="#1-服务器信息及节点分配" class="headerlink" title="1. 服务器信息及节点分配"></a>1. 服务器信息及节点分配</h2><p>服务器信息：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">No</th>
+<th style="text-align:center">Hostname</th>
+<th style="text-align:center">内网IP</th>
+<th style="text-align:center">外网IP</th>
+<th style="text-align:center">OS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">node01</td>
+<td style="text-align:center">192.168.5.11</td>
+<td style="text-align:center">192.168.205.50</td>
+<td style="text-align:center">Centos7</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">node02</td>
+<td style="text-align:center">192.168.5.12</td>
+<td style="text-align:center">192.168.205.62</td>
+<td style="text-align:center">Centos7</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">node03</td>
+<td style="text-align:center">192.168.5.13</td>
+<td style="text-align:center">192.168.205.63</td>
+<td style="text-align:center">Centos7</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">node04</td>
+<td style="text-align:center">192.168.5.14</td>
+<td style="text-align:center">192.168.205.70</td>
+<td style="text-align:center">Centos7</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">node05</td>
+<td style="text-align:center">192.168.5.15</td>
+<td style="text-align:center">192.168.205.102</td>
+<td style="text-align:center">Centos7</td>
+</tr>
+</tbody>
+</table>
+<p>节点分配：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">节点</th>
+<th style="text-align:center">node01</th>
+<th style="text-align:center">node02</th>
+<th style="text-align:center">node03</th>
+<th style="text-align:center">node04</th>
+<th style="text-align:center">node05</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">namenode</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">NO</td>
+<td style="text-align:center">NO</td>
+<td style="text-align:center">NO</td>
+</tr>
+<tr>
+<td style="text-align:center">datanode</td>
+<td style="text-align:center">NO</td>
+<td style="text-align:center">NO</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+</tr>
+<tr>
+<td style="text-align:center">journalnode</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+</tr>
+<tr>
+<td style="text-align:center">zookeeper</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+</tr>
+<tr>
+<td style="text-align:center">hbase</td>
+<td style="text-align:center">主Master</td>
+<td style="text-align:center">备份Master</td>
+<td style="text-align:center">RegionServer</td>
+<td style="text-align:center">RegionServer</td>
+<td style="text-align:center">RegionServer</td>
+</tr>
+<tr>
+<td style="text-align:center">spark</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="2-安装Scala"><a href="#2-安装Scala" class="headerlink" title="2. 安装Scala"></a>2. 安装Scala</h2><h3 id="2-1-下载安装包"><a href="#2-1-下载安装包" class="headerlink" title="2.1 下载安装包"></a>2.1 下载安装包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget https://downloads.lightbend.com/scala/2.12.2/scala-2.12.2.tgz</div></pre></td></tr></table></figure>
+<h3 id="2-2-安装"><a href="#2-2-安装" class="headerlink" title="2.2 安装"></a>2.2 安装</h3><p>写一个简易部署脚本：<br><figure class="highlight plain"><figcaption><span>scala.sh</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#/bin/bash</div><div class="line"></div><div class="line">tar -xvf ./scala-2.12.2.tgz</div><div class="line">mv ./scala-2.12.2 /usr/scala</div><div class="line"></div><div class="line">echo &quot;export SCALA_HOME=/usr/scala&quot; &gt;&gt; /root/.bash_profile</div><div class="line">echo &quot;export PATH=\$SCALA_HOME/bin:\$PATH&quot; &gt;&gt; /root/.bash_profile</div></pre></td></tr></table></figure><br>修改权限并执行，执行时确保scala-2.12.2.tgz，scala.sh在同一目录下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">chmod +x ./scala.sh</div><div class="line">./scala.sh</div><div class="line">source /root/.bash_profile</div></pre></td></tr></table></figure></p>
+<h3 id="2-3-安装所有节点"><a href="#2-3-安装所有节点" class="headerlink" title="2.3 安装所有节点"></a>2.3 安装所有节点</h3><p>使用sftp将scala-2.12.2.tgz，scala.sh传到其他所有节点上并按照以上步骤进行部署。</p>
+<hr>
+<h2 id="3-安装Spark"><a href="#3-安装Spark" class="headerlink" title="3. 安装Spark"></a>3. 安装Spark</h2><h3 id="3-1-下载安装包"><a href="#3-1-下载安装包" class="headerlink" title="3.1 下载安装包"></a>3.1 下载安装包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget http://mirror.bit.edu.cn/apache/spark/spark-2.1.1/spark-2.1.1-bin-hadoop2.7.tgz</div></pre></td></tr></table></figure>
+<h3 id="3-2-创建模板配置文件"><a href="#3-2-创建模板配置文件" class="headerlink" title="3.2 创建模板配置文件"></a>3.2 创建模板配置文件</h3><p>需要修改的配置文件为spark-env.sh，slaves。</p>
+<h4 id="3-2-1-spark-env-sh"><a href="#3-2-1-spark-env-sh" class="headerlink" title="3.2.1 spark-env.sh"></a>3.2.1 spark-env.sh</h4><p>添加以下环境变量：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-3.b12.el7_3.x86_64/jre</div><div class="line">export SCALA_HOME=/usr/scala</div><div class="line">export HADOOP_HOME=/usr/hadoop</div><div class="line">export HADOOP_CONF_DIR=/usr/hadoop/etc/hadoop</div><div class="line">export SPARK_DAEMON_Java_OPTS=&quot;-Dspark.deploy.recoveryMode=ZOOKEEPER -Dspark.deploy.zookeeper.url=node01:2181,node02:2181,node03:2181,node04:2181,node05:2181 -Dspark.deploy.zookeeper.dir=/spark&quot;</div><div class="line">export SPARK_EXECUTOR_MEMORY=1G</div><div class="line">export SPARK_WORKER_CORES=1</div><div class="line">export SPARK_WORKER_INSTANCES=1</div><div class="line">export SPARK_WORKER_MEMORY=1G</div><div class="line">export SPARK_HOME=/usr/spark</div></pre></td></tr></table></figure></p>
+<h4 id="3-2-1-slaves"><a href="#3-2-1-slaves" class="headerlink" title="3.2.1 slaves"></a>3.2.1 slaves</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">node01</div><div class="line">node02</div><div class="line">node03</div><div class="line">node04</div><div class="line">node05</div></pre></td></tr></table></figure>
+<h3 id="3-3-安装部署"><a href="#3-3-安装部署" class="headerlink" title="3.3 安装部署"></a>3.3 安装部署</h3><p>写一个简易部署脚本：<br><figure class="highlight plain"><figcaption><span>spark.sh</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#/bin/bash</div><div class="line"></div><div class="line">tar -xvf spark-2.1.1-bin-hadoop2.7.tgz</div><div class="line">mv ./spark-2.1.1-bin-hadoop2.7 /usr/spark</div><div class="line"></div><div class="line">cp -rf ./spark-env.sh /usr/spark/conf/spark-env.sh</div><div class="line">cp -rf ./slaves /usr/spark/conf/slaves</div><div class="line"></div><div class="line">echo &quot;export SPARK_HOME=/usr/spark&quot; &gt;&gt; /root/.bash_profile</div><div class="line">echo &quot;export PATH=\$SPARK_HOME/bin:\$PATH&quot; &gt;&gt; /root/.bash_profile</div></pre></td></tr></table></figure><br>修改权限并执行，执行时确保spark-env.sh，slaves，spark-2.1.1-bin-hadoop2.7.tgz，spark.sh在同一目录下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">chmod +x ./spark.sh</div><div class="line">./spark.sh</div><div class="line">source /root/.bash_profile</div></pre></td></tr></table></figure></p>
+<h3 id="3-4-部署所有节点"><a href="#3-4-部署所有节点" class="headerlink" title="3.4 部署所有节点"></a>3.4 部署所有节点</h3><p>使用sftp将spark-env.sh，slaves，spark-2.1.1-bin-hadoop2.7.tgz，spark.sh传到其他所有节点上并按照以上步骤进行部署。</p>
+<hr>
+<h2 id="4-Spark启动"><a href="#4-Spark启动" class="headerlink" title="4. Spark启动"></a>4. Spark启动</h2><p>node02作为备用master，基于zookeeper来自动选举active机器。</p>
+<h3 id="4-1-在node01执行以下命令"><a href="#4-1-在node01执行以下命令" class="headerlink" title="4.1 在node01执行以下命令"></a>4.1 在node01执行以下命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/usr/spark/sbin/start-all.sh</div></pre></td></tr></table></figure>
+<h3 id="4-2-在node02执行以下命令"><a href="#4-2-在node02执行以下命令" class="headerlink" title="4.2 在node02执行以下命令"></a>4.2 在node02执行以下命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/usr/spark/sbin/start-master.sh</div></pre></td></tr></table></figure>
+<hr>
+<h2 id="5-测试验证"><a href="#5-测试验证" class="headerlink" title="5. 测试验证"></a>5. 测试验证</h2><h3 id="5-1-通过浏览器查看Spark信息"><a href="#5-1-通过浏览器查看Spark信息" class="headerlink" title="5.1 通过浏览器查看Spark信息"></a>5.1 通过浏览器查看Spark信息</h3><p>打开<a href="http://192.168.205.50:8080/：" target="_blank" rel="external">http://192.168.205.50:8080/：</a><br><img src="/images/2017/06/23/1322.png"></p>
+<h3 id="5-2-通过jps查看进程"><a href="#5-2-通过jps查看进程" class="headerlink" title="5.2 通过jps查看进程"></a>5.2 通过jps查看进程</h3><p><img src="/images/2017/06/23/1323.png"></p>
+<h3 id="5-3-运行Spark提供的计算圆周率的示例程序"><a href="#5-3-运行Spark提供的计算圆周率的示例程序" class="headerlink" title="5.3 运行Spark提供的计算圆周率的示例程序"></a>5.3 运行Spark提供的计算圆周率的示例程序</h3><p>进入node01的/usr/spark目录，基于local master运行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@node01 spark]# ./bin/spark-submit --class  org.apache.spark.examples.SparkPi  --master local  ./examples/jars/spark-examples_2.11-2.1.1.jar</div></pre></td></tr></table></figure><br><img src="/images/2017/06/23/1416.png"><br>基于spark on yarn运行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@node01 spark]# ./bin/spark-submit --class  org.apache.spark.examples.SparkPi  --master yarn --deploy-mode cluster  ./examples/jars/spark-examples_2.11-2.1.1.jar</div></pre></td></tr></table></figure><br><img src="/images/2017/06/23/1419.png"></p>
+<hr>
+<p>参照资料：<br><a href="http://www.cnblogs.com/liugh/p/6624923.html" target="_blank" rel="external">Spark2.1.0分布式集群安装</a><br><a href="http://blog.csdn.net/pucao_cug/article/details/72353701" target="_blank" rel="external">Linux安装Spark集群(CentOS7+Spark2.1.1+Hadoop2.8.0)</a><br><a href="http://blog.csdn.net/pucao_cug/article/details/72453382" target="_blank" rel="external">Spark2.1.1中用各种模式运行计算圆周率的官方Demo</a><br><a href="http://www.cnblogs.com/zengxiaoliang/p/6478859.html" target="_blank" rel="external">Hadoop2.7.3+Spark2.1.0完全分布式集群搭建过程</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本篇介绍Spark集群安装。&lt;br&gt;版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。&lt;br&gt;以下操作都是以root用户进行，如需用户组和权限设定需自行配置。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="bigdata" scheme="http://www.jumpbeandev.com/categories/bigdata/"/>
+    
+    
+      <category term="hadoop" scheme="http://www.jumpbeandev.com/tags/hadoop/"/>
+    
+      <category term="bigdata" scheme="http://www.jumpbeandev.com/tags/bigdata/"/>
+    
+      <category term="zookeeper" scheme="http://www.jumpbeandev.com/tags/zookeeper/"/>
+    
+      <category term="hbase" scheme="http://www.jumpbeandev.com/tags/hbase/"/>
+    
+      <category term="spark" scheme="http://www.jumpbeandev.com/tags/spark/"/>
+    
+  </entry>
+  
+  <entry>
     <title>搭建5节点hadoop+zookeeper+hbase+spark(3):Hbase</title>
     <link href="http://www.jumpbeandev.com/2017/06/21/hadoop3/"/>
     <id>http://www.jumpbeandev.com/2017/06/21/hadoop3/</id>
     <published>2017-06-21T02:45:57.000Z</published>
-    <updated>2017-06-21T06:22:11.000Z</updated>
+    <updated>2017-06-23T03:02:08.000Z</updated>
     
-    <content type="html"><![CDATA[<p>本篇介绍Hbase集群安装。<br>版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.0.2。<br>以下操作都是以root用户进行，如需用户组和权限设定需自行配置。<br><a id="more"></a></p>
+    <content type="html"><![CDATA[<p>本篇介绍Hbase集群安装。<br>版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。<br>以下操作都是以root用户进行，如需用户组和权限设定需自行配置。<br><a id="more"></a></p>
 <hr>
 <h2 id="1-服务器信息及节点分配"><a href="#1-服务器信息及节点分配" class="headerlink" title="1. 服务器信息及节点分配"></a>1. 服务器信息及节点分配</h2><p>服务器信息：</p>
 <table>
@@ -168,7 +333,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;本篇介绍Hbase集群安装。&lt;br&gt;版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.0.2。&lt;br&gt;以下操作都是以root用户进行，如需用户组和权限设定需自行配置。&lt;br&gt;
+      &lt;p&gt;本篇介绍Hbase集群安装。&lt;br&gt;版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。&lt;br&gt;以下操作都是以root用户进行，如需用户组和权限设定需自行配置。&lt;br&gt;
     
     </summary>
     
@@ -192,9 +357,9 @@
     <link href="http://www.jumpbeandev.com/2017/06/14/hadoop2/"/>
     <id>http://www.jumpbeandev.com/2017/06/14/hadoop2/</id>
     <published>2017-06-14T10:19:49.000Z</published>
-    <updated>2017-06-21T06:17:49.000Z</updated>
+    <updated>2017-06-23T03:02:07.000Z</updated>
     
-    <content type="html"><![CDATA[<p>本篇介绍Hadoop集群安装。<br>版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.0.2。<br>以下操作都是以root用户进行，如需用户组和权限设定需自行配置。<br><a id="more"></a></p>
+    <content type="html"><![CDATA[<p>本篇介绍Hadoop集群安装。<br>版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。<br>以下操作都是以root用户进行，如需用户组和权限设定需自行配置。<br><a id="more"></a></p>
 <hr>
 <h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><p>hadoop2中NameNode可以有多个（目前只支持2个）。每一个都有相同的职能。一个是active状态的，一个是standby状态的。当集群运行时，只有active状态的NameNode是正常工作的，standby状态的NameNode是处于待命状态的，时刻同步active状态NameNode的数据。一旦active状态的NameNode不能工作，standby状态的NameNode就可以转变为active状态的，就可以继续工作了。<br>2个NameNode的数据其实是实时共享的。新HDFS采用了一种共享机制，Quorum Journal Node（JournalNode）集群或者Nnetwork File System（NFS）进行共享。NFS是操作系统层面的，JournalNode是hadoop层面的，我们这里使用JournalNode集群进行数据共享（这也是主流的做法）。JournalNode的架构图如下：<br><img src="/images/2017/06/14/1020.png"><br>两个NameNode为了数据同步，会通过一组称作JournalNodes的独立进程进行相互通信。当active状态的NameNode的命名空间有任何修改时，会告知大部分的JournalNodes进程。standby状态的NameNode有能力读取JNs中的变更信息，并且一直监控edit log的变化，把变化应用于自己的命名空间。standby可以确保在集群出错时，命名空间状态已经完全同步了。<br>对于HA集群而言，确保同一时刻只有一个NameNode处于active状态是至关重要的。否则，两个NameNode的数据状态就会产生分歧，可能丢失数据，或者产生错误的结果。为了保证这点，这就需要利用使用ZooKeeper了。首先HDFS集群中的两个NameNode都在ZooKeeper中注册，当active状态的NameNode出故障时，ZooKeeper能检测到这种情况，它就会自动把standby状态的NameNode切换为active状态。</p>
 <hr>
@@ -342,7 +507,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;本篇介绍Hadoop集群安装。&lt;br&gt;版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.0.2。&lt;br&gt;以下操作都是以root用户进行，如需用户组和权限设定需自行配置。&lt;br&gt;
+      &lt;p&gt;本篇介绍Hadoop集群安装。&lt;br&gt;版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。&lt;br&gt;以下操作都是以root用户进行，如需用户组和权限设定需自行配置。&lt;br&gt;
     
     </summary>
     
@@ -366,9 +531,9 @@
     <link href="http://www.jumpbeandev.com/2017/06/12/hadoop1/"/>
     <id>http://www.jumpbeandev.com/2017/06/12/hadoop1/</id>
     <published>2017-06-12T07:58:14.000Z</published>
-    <updated>2017-06-21T06:18:15.000Z</updated>
+    <updated>2017-06-23T03:02:06.000Z</updated>
     
-    <content type="html"><![CDATA[<p>本篇介绍Zookeeper集群安装。<br>版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.0.2。<br>以下操作都是以root用户进行，如需用户组和权限设定需自行配置。<br><a id="more"></a></p>
+    <content type="html"><![CDATA[<p>本篇介绍Zookeeper集群安装。<br>版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。<br>以下操作都是以root用户进行，如需用户组和权限设定需自行配置。<br><a id="more"></a></p>
 <hr>
 <h2 id="1-服务器信息及节点分配"><a href="#1-服务器信息及节点分配" class="headerlink" title="1. 服务器信息及节点分配"></a>1. 服务器信息及节点分配</h2><p>服务器信息：</p>
 <table>
@@ -499,7 +664,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;本篇介绍Zookeeper集群安装。&lt;br&gt;版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.0.2。&lt;br&gt;以下操作都是以root用户进行，如需用户组和权限设定需自行配置。&lt;br&gt;
+      &lt;p&gt;本篇介绍Zookeeper集群安装。&lt;br&gt;版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。&lt;br&gt;以下操作都是以root用户进行，如需用户组和权限设定需自行配置。&lt;br&gt;
     
     </summary>
     
@@ -523,9 +688,9 @@
     <link href="http://www.jumpbeandev.com/2017/06/12/hadoop0/"/>
     <id>http://www.jumpbeandev.com/2017/06/12/hadoop0/</id>
     <published>2017-06-12T06:16:11.000Z</published>
-    <updated>2017-06-21T06:18:13.000Z</updated>
+    <updated>2017-06-23T03:02:05.000Z</updated>
     
-    <content type="html"><![CDATA[<p>本篇介绍安装前的准备工作。<br>版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.0.2。<br>以下操作都是以root用户进行，如需用户组和权限设定需自行配置。<br><a id="more"></a></p>
+    <content type="html"><![CDATA[<p>本篇介绍安装前的准备工作。<br>版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。<br>以下操作都是以root用户进行，如需用户组和权限设定需自行配置。<br><a id="more"></a></p>
 <hr>
 <h2 id="1-服务器信息及节点分配"><a href="#1-服务器信息及节点分配" class="headerlink" title="1. 服务器信息及节点分配"></a>1. 服务器信息及节点分配</h2><p>服务器信息：</p>
 <table>
@@ -671,7 +836,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;本篇介绍安装前的准备工作。&lt;br&gt;版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.0.2。&lt;br&gt;以下操作都是以root用户进行，如需用户组和权限设定需自行配置。&lt;br&gt;
+      &lt;p&gt;本篇介绍安装前的准备工作。&lt;br&gt;版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。&lt;br&gt;以下操作都是以root用户进行，如需用户组和权限设定需自行配置。&lt;br&gt;
     
     </summary>
     

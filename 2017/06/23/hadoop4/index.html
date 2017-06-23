@@ -102,16 +102,21 @@
 
 
 
-<meta name="description" content="本篇介绍安装前的准备工作。版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。以下操作都是以root用户进行，如需用户组和权限设定需自行配置。">
+<meta name="description" content="本篇介绍Spark集群安装。版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。以下操作都是以root用户进行，如需用户组和权限设定需自行配置。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="搭建5节点hadoop+zookeeper+hbase+spark(0):准备">
-<meta property="og:url" content="http://www.jumpbeandev.com/2017/06/12/hadoop0/index.html">
+<meta property="og:title" content="搭建5节点hadoop+zookeeper+hbase+spark(4):Spark">
+<meta property="og:url" content="http://www.jumpbeandev.com/2017/06/23/hadoop4/index.html">
 <meta property="og:site_name" content="JumpBean's Blog">
-<meta property="og:description" content="本篇介绍安装前的准备工作。版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。以下操作都是以root用户进行，如需用户组和权限设定需自行配置。">
-<meta property="og:updated_time" content="2017-06-23T03:02:05.000Z">
+<meta property="og:description" content="本篇介绍Spark集群安装。版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。以下操作都是以root用户进行，如需用户组和权限设定需自行配置。">
+<meta property="og:image" content="http://www.jumpbeandev.com/images/2017/06/23/1322.png">
+<meta property="og:image" content="http://www.jumpbeandev.com/images/2017/06/23/1323.png">
+<meta property="og:image" content="http://www.jumpbeandev.com/images/2017/06/23/1416.png">
+<meta property="og:image" content="http://www.jumpbeandev.com/images/2017/06/23/1419.png">
+<meta property="og:updated_time" content="2017-06-23T06:27:18.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="搭建5节点hadoop+zookeeper+hbase+spark(0):准备">
-<meta name="twitter:description" content="本篇介绍安装前的准备工作。版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。以下操作都是以root用户进行，如需用户组和权限设定需自行配置。">
+<meta name="twitter:title" content="搭建5节点hadoop+zookeeper+hbase+spark(4):Spark">
+<meta name="twitter:description" content="本篇介绍Spark集群安装。版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。以下操作都是以root用户进行，如需用户组和权限设定需自行配置。">
+<meta name="twitter:image" content="http://www.jumpbeandev.com/images/2017/06/23/1322.png">
 
 
 
@@ -139,13 +144,13 @@
 
 
 
-  <link rel="canonical" href="http://www.jumpbeandev.com/2017/06/12/hadoop0/"/>
+  <link rel="canonical" href="http://www.jumpbeandev.com/2017/06/23/hadoop4/"/>
 
 
 
 
 
-  <title> 搭建5节点hadoop+zookeeper+hbase+spark(0):准备 | JumpBean's Blog </title>
+  <title> 搭建5节点hadoop+zookeeper+hbase+spark(4):Spark | JumpBean's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -310,7 +315,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://www.jumpbeandev.com/2017/06/12/hadoop0/">
+  <link itemprop="mainEntityOfPage" href="http://www.jumpbeandev.com/2017/06/23/hadoop4/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Jump Bean">
@@ -334,7 +339,7 @@
             
             
               
-                搭建5节点hadoop+zookeeper+hbase+spark(0):准备
+                搭建5节点hadoop+zookeeper+hbase+spark(4):Spark
               
             
           </h1>
@@ -349,8 +354,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-12T14:16:11+08:00">
-                2017-06-12
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-23T09:59:41+08:00">
+                2017-06-23
               </time>
             
 
@@ -390,8 +395,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/06/12/hadoop0/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/12/hadoop0/" itemprop="commentCount"></span>
+                <a href="/2017/06/23/hadoop4/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/06/23/hadoop4/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -401,7 +406,7 @@
 
           
           
-             <span id="/2017/06/12/hadoop0/" class="leancloud_visitors" data-flag-title="搭建5节点hadoop+zookeeper+hbase+spark(0):准备">
+             <span id="/2017/06/23/hadoop4/" class="leancloud_visitors" data-flag-title="搭建5节点hadoop+zookeeper+hbase+spark(4):Spark">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -428,7 +433,7 @@
       
 
       
-        <p>本篇介绍安装前的准备工作。<br>版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。<br>以下操作都是以root用户进行，如需用户组和权限设定需自行配置。<br><a id="more"></a></p>
+        <p>本篇介绍Spark集群安装。<br>版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。<br>以下操作都是以root用户进行，如需用户组和权限设定需自行配置。<br><a id="more"></a></p>
 <hr>
 <h2 id="1-服务器信息及节点分配"><a href="#1-服务器信息及节点分配" class="headerlink" title="1. 服务器信息及节点分配"></a>1. 服务器信息及节点分配</h2><p>服务器信息：</p>
 <table>
@@ -543,33 +548,26 @@
 </tbody>
 </table>
 <hr>
-<h2 id="2-修改hosts文件和主机名"><a href="#2-修改hosts文件和主机名" class="headerlink" title="2. 修改hosts文件和主机名"></a>2. 修改hosts文件和主机名</h2><p>分别修改5个服务器的hosts文件和主机名。</p>
-<h3 id="2-1-修改hosts文件"><a href="#2-1-修改hosts文件" class="headerlink" title="2.1 修改hosts文件"></a>2.1 修改hosts文件</h3><p>编辑hosts文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vi /etc/hosts</div></pre></td></tr></table></figure><br>添加下面内容，注意使用内网ip，浮动ip可能导致端口无法绑定：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">192.168.5.11 node01</div><div class="line">192.168.5.12 node02</div><div class="line">192.168.5.13 node03</div><div class="line">192.168.5.14 node04</div><div class="line">192.168.5.15 node05</div></pre></td></tr></table></figure></p>
-<h3 id="2-2-修改主机名"><a href="#2-2-修改主机名" class="headerlink" title="2.2 修改主机名"></a>2.2 修改主机名</h3><p>使用hostname修改主机名为node01/node02/node03/node04/node05。注意主机名和hosts文件中设置的名称应当保持一致，否则会产生意外的错误。</p>
+<h2 id="2-安装Scala"><a href="#2-安装Scala" class="headerlink" title="2. 安装Scala"></a>2. 安装Scala</h2><h3 id="2-1-下载安装包"><a href="#2-1-下载安装包" class="headerlink" title="2.1 下载安装包"></a>2.1 下载安装包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget https://downloads.lightbend.com/scala/2.12.2/scala-2.12.2.tgz</div></pre></td></tr></table></figure>
+<h3 id="2-2-安装"><a href="#2-2-安装" class="headerlink" title="2.2 安装"></a>2.2 安装</h3><p>写一个简易部署脚本：<br><figure class="highlight plain"><figcaption><span>scala.sh</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#/bin/bash</div><div class="line"></div><div class="line">tar -xvf ./scala-2.12.2.tgz</div><div class="line">mv ./scala-2.12.2 /usr/scala</div><div class="line"></div><div class="line">echo &quot;export SCALA_HOME=/usr/scala&quot; &gt;&gt; /root/.bash_profile</div><div class="line">echo &quot;export PATH=\$SCALA_HOME/bin:\$PATH&quot; &gt;&gt; /root/.bash_profile</div></pre></td></tr></table></figure><br>修改权限并执行，执行时确保scala-2.12.2.tgz，scala.sh在同一目录下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">chmod +x ./scala.sh</div><div class="line">./scala.sh</div><div class="line">source /root/.bash_profile</div></pre></td></tr></table></figure></p>
+<h3 id="2-3-安装所有节点"><a href="#2-3-安装所有节点" class="headerlink" title="2.3 安装所有节点"></a>2.3 安装所有节点</h3><p>使用sftp将scala-2.12.2.tgz，scala.sh传到其他所有节点上并按照以上步骤进行部署。</p>
 <hr>
-<h2 id="3-关闭防火墙"><a href="#3-关闭防火墙" class="headerlink" title="3. 关闭防火墙"></a>3. 关闭防火墙</h2><h3 id="3-1-关闭命令"><a href="#3-1-关闭命令" class="headerlink" title="3.1 关闭命令"></a>3.1 关闭命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">service iptables stop</div><div class="line">chkconfig iptables off</div></pre></td></tr></table></figure>
-<h3 id="3-2-查看防火墙状态"><a href="#3-2-查看防火墙状态" class="headerlink" title="3.2 查看防火墙状态"></a>3.2 查看防火墙状态</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">service iptables status </div></pre></td></tr></table></figure>
+<h2 id="3-安装Spark"><a href="#3-安装Spark" class="headerlink" title="3. 安装Spark"></a>3. 安装Spark</h2><h3 id="3-1-下载安装包"><a href="#3-1-下载安装包" class="headerlink" title="3.1 下载安装包"></a>3.1 下载安装包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget http://mirror.bit.edu.cn/apache/spark/spark-2.1.1/spark-2.1.1-bin-hadoop2.7.tgz</div></pre></td></tr></table></figure>
+<h3 id="3-2-创建模板配置文件"><a href="#3-2-创建模板配置文件" class="headerlink" title="3.2 创建模板配置文件"></a>3.2 创建模板配置文件</h3><p>需要修改的配置文件为spark-env.sh，slaves。</p>
+<h4 id="3-2-1-spark-env-sh"><a href="#3-2-1-spark-env-sh" class="headerlink" title="3.2.1 spark-env.sh"></a>3.2.1 spark-env.sh</h4><p>添加以下环境变量：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-3.b12.el7_3.x86_64/jre</div><div class="line">export SCALA_HOME=/usr/scala</div><div class="line">export HADOOP_HOME=/usr/hadoop</div><div class="line">export HADOOP_CONF_DIR=/usr/hadoop/etc/hadoop</div><div class="line">export SPARK_DAEMON_Java_OPTS=&quot;-Dspark.deploy.recoveryMode=ZOOKEEPER -Dspark.deploy.zookeeper.url=node01:2181,node02:2181,node03:2181,node04:2181,node05:2181 -Dspark.deploy.zookeeper.dir=/spark&quot;</div><div class="line">export SPARK_EXECUTOR_MEMORY=1G</div><div class="line">export SPARK_WORKER_CORES=1</div><div class="line">export SPARK_WORKER_INSTANCES=1</div><div class="line">export SPARK_WORKER_MEMORY=1G</div><div class="line">export SPARK_HOME=/usr/spark</div></pre></td></tr></table></figure></p>
+<h4 id="3-2-1-slaves"><a href="#3-2-1-slaves" class="headerlink" title="3.2.1 slaves"></a>3.2.1 slaves</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">node01</div><div class="line">node02</div><div class="line">node03</div><div class="line">node04</div><div class="line">node05</div></pre></td></tr></table></figure>
+<h3 id="3-3-安装部署"><a href="#3-3-安装部署" class="headerlink" title="3.3 安装部署"></a>3.3 安装部署</h3><p>写一个简易部署脚本：<br><figure class="highlight plain"><figcaption><span>spark.sh</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#/bin/bash</div><div class="line"></div><div class="line">tar -xvf spark-2.1.1-bin-hadoop2.7.tgz</div><div class="line">mv ./spark-2.1.1-bin-hadoop2.7 /usr/spark</div><div class="line"></div><div class="line">cp -rf ./spark-env.sh /usr/spark/conf/spark-env.sh</div><div class="line">cp -rf ./slaves /usr/spark/conf/slaves</div><div class="line"></div><div class="line">echo &quot;export SPARK_HOME=/usr/spark&quot; &gt;&gt; /root/.bash_profile</div><div class="line">echo &quot;export PATH=\$SPARK_HOME/bin:\$PATH&quot; &gt;&gt; /root/.bash_profile</div></pre></td></tr></table></figure><br>修改权限并执行，执行时确保spark-env.sh，slaves，spark-2.1.1-bin-hadoop2.7.tgz，spark.sh在同一目录下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">chmod +x ./spark.sh</div><div class="line">./spark.sh</div><div class="line">source /root/.bash_profile</div></pre></td></tr></table></figure></p>
+<h3 id="3-4-部署所有节点"><a href="#3-4-部署所有节点" class="headerlink" title="3.4 部署所有节点"></a>3.4 部署所有节点</h3><p>使用sftp将spark-env.sh，slaves，spark-2.1.1-bin-hadoop2.7.tgz，spark.sh传到其他所有节点上并按照以上步骤进行部署。</p>
 <hr>
-<h2 id="4-设置NTP时间同步"><a href="#4-设置NTP时间同步" class="headerlink" title="4. 设置NTP时间同步"></a>4. 设置NTP时间同步</h2><p>为了保证集群内的时间是一致的，我们可以将其中的一台主机作为时间服务器，其他主机设置定时任务每天与时间服务器同步一次时间。</p>
-<h3 id="4-1-配置某台主机为ntp时间服务器"><a href="#4-1-配置某台主机为ntp时间服务器" class="headerlink" title="4.1 配置某台主机为ntp时间服务器"></a>4.1 配置某台主机为ntp时间服务器</h3><h4 id="4-1-1-安装ntp"><a href="#4-1-1-安装ntp" class="headerlink" title="4.1.1 安装ntp"></a>4.1.1 安装ntp</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum -y install ntp</div></pre></td></tr></table></figure>
-<h4 id="4-1-2-修改配置文件-etc-ntp-conf"><a href="#4-1-2-修改配置文件-etc-ntp-conf" class="headerlink" title="4.1.2 修改配置文件/etc/ntp.conf"></a>4.1.2 修改配置文件/etc/ntp.conf</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#允许192.*.*.*的主机进行时间同步</div><div class="line">restrict 192.0.0.0 mask 255.0.0.0 nomodify notrap</div></pre></td></tr></table></figure>
-<h4 id="4-1-3-手动同步"><a href="#4-1-3-手动同步" class="headerlink" title="4.1.3 手动同步"></a>4.1.3 手动同步</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ntpdate 0.asia.pool.ntp.org</div></pre></td></tr></table></figure>
-<h4 id="4-1-4-启动服务"><a href="#4-1-4-启动服务" class="headerlink" title="4.1.4 启动服务"></a>4.1.4 启动服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">service ntpd start</div></pre></td></tr></table></figure>
-<h4 id="4-1-5-开机启动"><a href="#4-1-5-开机启动" class="headerlink" title="4.1.5 开机启动"></a>4.1.5 开机启动</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chkconfig ntpd on</div></pre></td></tr></table></figure>
-<h3 id="4-2-配置其他主机为ntp客户端"><a href="#4-2-配置其他主机为ntp客户端" class="headerlink" title="4.2 配置其他主机为ntp客户端"></a>4.2 配置其他主机为ntp客户端</h3><h4 id="4-2-1-安装ntp"><a href="#4-2-1-安装ntp" class="headerlink" title="4.2.1 安装ntp"></a>4.2.1 安装ntp</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum -y install ntp</div></pre></td></tr></table></figure>
-<h4 id="4-2-2-修改配置文件-etc-ntp-conf"><a href="#4-2-2-修改配置文件-etc-ntp-conf" class="headerlink" title="4.2.2 修改配置文件/etc/ntp.conf"></a>4.2.2 修改配置文件/etc/ntp.conf</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#注释默认配置，添加刚刚创建的ntpserver</div><div class="line">#server 0.centos.pool.ntp.org iburst</div><div class="line">#server 1.centos.pool.ntp.org iburst</div><div class="line">#server 2.centos.pool.ntp.org iburst</div><div class="line">#server 3.centos.pool.ntp.org iburst</div><div class="line">server 192.168.5.11</div></pre></td></tr></table></figure>
-<h4 id="4-2-3-编辑定时器任务"><a href="#4-2-3-编辑定时器任务" class="headerlink" title="4.2.3 编辑定时器任务"></a>4.2.3 编辑定时器任务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo crontab -e</div></pre></td></tr></table></figure>
-<p>添加如下内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">0 0 * * * /usr/sbin/ntpdate 192.168.5.11 &gt;&gt; /usr/hadoop/logs/ntpd.log</div></pre></td></tr></table></figure></p>
+<h2 id="4-Spark启动"><a href="#4-Spark启动" class="headerlink" title="4. Spark启动"></a>4. Spark启动</h2><p>node02作为备用master，基于zookeeper来自动选举active机器。</p>
+<h3 id="4-1-在node01执行以下命令"><a href="#4-1-在node01执行以下命令" class="headerlink" title="4.1 在node01执行以下命令"></a>4.1 在node01执行以下命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/usr/spark/sbin/start-all.sh</div></pre></td></tr></table></figure>
+<h3 id="4-2-在node02执行以下命令"><a href="#4-2-在node02执行以下命令" class="headerlink" title="4.2 在node02执行以下命令"></a>4.2 在node02执行以下命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/usr/spark/sbin/start-master.sh</div></pre></td></tr></table></figure>
 <hr>
-<h2 id="5-配置SSH免登录"><a href="#5-配置SSH免登录" class="headerlink" title="5. 配置SSH免登录"></a>5. 配置SSH免登录</h2><h3 id="5-1-生成SSH的公钥"><a href="#5-1-生成SSH的公钥" class="headerlink" title="5.1 生成SSH的公钥"></a>5.1 生成SSH的公钥</h3><p>所有节点执行以下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-keygen</div></pre></td></tr></table></figure></p>
-<h3 id="5-2-设置免登录"><a href="#5-2-设置免登录" class="headerlink" title="5.2 设置免登录"></a>5.2 设置免登录</h3><p>所有节点执行以下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">ssh-copy-id -i node01</div><div class="line">ssh-copy-id -i node02</div><div class="line">ssh-copy-id -i node03</div><div class="line">ssh-copy-id -i node04</div><div class="line">ssh-copy-id -i node05</div></pre></td></tr></table></figure></p>
-<h3 id="5-3-验证"><a href="#5-3-验证" class="headerlink" title="5.3 验证"></a>5.3 验证</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh node02</div></pre></td></tr></table></figure>
+<h2 id="5-测试验证"><a href="#5-测试验证" class="headerlink" title="5. 测试验证"></a>5. 测试验证</h2><h3 id="5-1-通过浏览器查看Spark信息"><a href="#5-1-通过浏览器查看Spark信息" class="headerlink" title="5.1 通过浏览器查看Spark信息"></a>5.1 通过浏览器查看Spark信息</h3><p>打开<a href="http://192.168.205.50:8080/：" target="_blank" rel="external">http://192.168.205.50:8080/：</a><br><img src="/images/2017/06/23/1322.png"></p>
+<h3 id="5-2-通过jps查看进程"><a href="#5-2-通过jps查看进程" class="headerlink" title="5.2 通过jps查看进程"></a>5.2 通过jps查看进程</h3><p><img src="/images/2017/06/23/1323.png"></p>
+<h3 id="5-3-运行Spark提供的计算圆周率的示例程序"><a href="#5-3-运行Spark提供的计算圆周率的示例程序" class="headerlink" title="5.3 运行Spark提供的计算圆周率的示例程序"></a>5.3 运行Spark提供的计算圆周率的示例程序</h3><p>进入node01的/usr/spark目录，基于local master运行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@node01 spark]# ./bin/spark-submit --class  org.apache.spark.examples.SparkPi  --master local  ./examples/jars/spark-examples_2.11-2.1.1.jar</div></pre></td></tr></table></figure><br><img src="/images/2017/06/23/1416.png"><br>基于spark on yarn运行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@node01 spark]# ./bin/spark-submit --class  org.apache.spark.examples.SparkPi  --master yarn --deploy-mode cluster  ./examples/jars/spark-examples_2.11-2.1.1.jar</div></pre></td></tr></table></figure><br><img src="/images/2017/06/23/1419.png"></p>
 <hr>
-<h2 id="6-安装jdk"><a href="#6-安装jdk" class="headerlink" title="6. 安装jdk"></a>6. 安装jdk</h2><h3 id="6-1-yum安装openjdk"><a href="#6-1-yum安装openjdk" class="headerlink" title="6.1 yum安装openjdk"></a>6.1 yum安装openjdk</h3><p>所有节点执行以下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">yum install java-1.8.0-openjdk.x86_64</div><div class="line">yum install java-1.8.0-openjdk-devel.x86_64</div></pre></td></tr></table></figure><br>完成后执行以下命令验证：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@node01 ~]# java -version</div><div class="line">openjdk version &quot;1.8.0_131&quot;</div><div class="line">OpenJDK Runtime Environment (build 1.8.0_131-b12)</div><div class="line">OpenJDK 64-Bit Server VM (build 25.131-b12, mixed mode)</div></pre></td></tr></table></figure></p>
-<h3 id="6-2-设置环境变量"><a href="#6-2-设置环境变量" class="headerlink" title="6.2 设置环境变量"></a>6.2 设置环境变量</h3><p>以bash为例，打开/root下的.bash_profile：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi /root/.bash_profile</div></pre></td></tr></table></figure><br>添加JAVA_HOME：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.131-3.b12.el7_3.x86_64/jre</div><div class="line">export PATH=$JAVA_HOME/bin:$PATH</div></pre></td></tr></table></figure><br>执行以下命令生效：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">source /root/.bash_profile</div></pre></td></tr></table></figure></p>
-<p>至此准备工作基本完成，下篇开始安装组件。</p>
-<hr>
-<p>参照资料：<br><a href="http://blog.csdn.net/trigl/article/details/52401847" target="_blank" rel="external">hadoop、zookeeper、hbase、spark集群环境搭建</a></p>
+<p>参照资料：<br><a href="http://www.cnblogs.com/liugh/p/6624923.html" target="_blank" rel="external">Spark2.1.0分布式集群安装</a><br><a href="http://blog.csdn.net/pucao_cug/article/details/72353701" target="_blank" rel="external">Linux安装Spark集群(CentOS7+Spark2.1.1+Hadoop2.8.0)</a><br><a href="http://blog.csdn.net/pucao_cug/article/details/72453382" target="_blank" rel="external">Spark2.1.1中用各种模式运行计算圆周率的官方Demo</a><br><a href="http://www.cnblogs.com/zengxiaoliang/p/6478859.html" target="_blank" rel="external">Hadoop2.7.3+Spark2.1.0完全分布式集群搭建过程</a></p>
 
       
     </div>
@@ -610,8 +608,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/01/mysqlcluster/" rel="next" title="Kubernetes一键部署Mycat+Mysql主从集群">
-                <i class="fa fa-chevron-left"></i> Kubernetes一键部署Mycat+Mysql主从集群
+              <a href="/2017/06/21/hadoop3/" rel="next" title="搭建5节点hadoop+zookeeper+hbase+spark(3):Hbase">
+                <i class="fa fa-chevron-left"></i> 搭建5节点hadoop+zookeeper+hbase+spark(3):Hbase
               </a>
             
           </div>
@@ -619,10 +617,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/06/12/hadoop1/" rel="prev" title="搭建5节点hadoop+zookeeper+hbase+spark(1):Zookeeper">
-                搭建5节点hadoop+zookeeper+hbase+spark(1):Zookeeper <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -803,7 +797,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-服务器信息及节点分配"><span class="nav-number">1.</span> <span class="nav-text">1. 服务器信息及节点分配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-修改hosts文件和主机名"><span class="nav-number">2.</span> <span class="nav-text">2. 修改hosts文件和主机名</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-修改hosts文件"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 修改hosts文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-修改主机名"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 修改主机名</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-关闭防火墙"><span class="nav-number">3.</span> <span class="nav-text">3. 关闭防火墙</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-关闭命令"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 关闭命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-查看防火墙状态"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 查看防火墙状态</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-设置NTP时间同步"><span class="nav-number">4.</span> <span class="nav-text">4. 设置NTP时间同步</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-配置某台主机为ntp时间服务器"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 配置某台主机为ntp时间服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-1-安装ntp"><span class="nav-number">4.1.1.</span> <span class="nav-text">4.1.1 安装ntp</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-2-修改配置文件-etc-ntp-conf"><span class="nav-number">4.1.2.</span> <span class="nav-text">4.1.2 修改配置文件/etc/ntp.conf</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-3-手动同步"><span class="nav-number">4.1.3.</span> <span class="nav-text">4.1.3 手动同步</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-4-启动服务"><span class="nav-number">4.1.4.</span> <span class="nav-text">4.1.4 启动服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-5-开机启动"><span class="nav-number">4.1.5.</span> <span class="nav-text">4.1.5 开机启动</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-配置其他主机为ntp客户端"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 配置其他主机为ntp客户端</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-1-安装ntp"><span class="nav-number">4.2.1.</span> <span class="nav-text">4.2.1 安装ntp</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-2-修改配置文件-etc-ntp-conf"><span class="nav-number">4.2.2.</span> <span class="nav-text">4.2.2 修改配置文件/etc/ntp.conf</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-3-编辑定时器任务"><span class="nav-number">4.2.3.</span> <span class="nav-text">4.2.3 编辑定时器任务</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-配置SSH免登录"><span class="nav-number">5.</span> <span class="nav-text">5. 配置SSH免登录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-生成SSH的公钥"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 生成SSH的公钥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-设置免登录"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 设置免登录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-验证"><span class="nav-number">5.3.</span> <span class="nav-text">5.3 验证</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-安装jdk"><span class="nav-number">6.</span> <span class="nav-text">6. 安装jdk</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-yum安装openjdk"><span class="nav-number">6.1.</span> <span class="nav-text">6.1 yum安装openjdk</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-设置环境变量"><span class="nav-number">6.2.</span> <span class="nav-text">6.2 设置环境变量</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-服务器信息及节点分配"><span class="nav-number">1.</span> <span class="nav-text">1. 服务器信息及节点分配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-安装Scala"><span class="nav-number">2.</span> <span class="nav-text">2. 安装Scala</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-下载安装包"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 下载安装包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-安装"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-安装所有节点"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 安装所有节点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-安装Spark"><span class="nav-number">3.</span> <span class="nav-text">3. 安装Spark</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-下载安装包"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 下载安装包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-创建模板配置文件"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 创建模板配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-spark-env-sh"><span class="nav-number">3.2.1.</span> <span class="nav-text">3.2.1 spark-env.sh</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-slaves"><span class="nav-number">3.2.2.</span> <span class="nav-text">3.2.1 slaves</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-安装部署"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 安装部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-部署所有节点"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 部署所有节点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Spark启动"><span class="nav-number">4.</span> <span class="nav-text">4. Spark启动</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-在node01执行以下命令"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 在node01执行以下命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-在node02执行以下命令"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 在node02执行以下命令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-测试验证"><span class="nav-number">5.</span> <span class="nav-text">5. 测试验证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-通过浏览器查看Spark信息"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 通过浏览器查看Spark信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-通过jps查看进程"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 通过jps查看进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-3-运行Spark提供的计算圆周率的示例程序"><span class="nav-number">5.3.</span> <span class="nav-text">5.3 运行Spark提供的计算圆周率的示例程序</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -935,9 +929,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'jumpbean';
-      var disqus_identifier = '2017/06/12/hadoop0/';
+      var disqus_identifier = '2017/06/23/hadoop4/';
 
-      var disqus_title = "搭建5节点hadoop+zookeeper+hbase+spark(0):准备";
+      var disqus_title = "搭建5节点hadoop+zookeeper+hbase+spark(4):Spark";
 
 
       function run_disqus_script(disqus_script) {
