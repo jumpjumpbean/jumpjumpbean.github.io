@@ -87,7 +87,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="hadoop,bigdata,zookeeper,hbase,spark," />
+  <meta name="keywords" content="hadoop,bigdata,zookeeper,hbase,spark,kafka,storm," />
 
 
 
@@ -105,20 +105,20 @@
 
 
 
-<meta name="description" content="本篇介绍Hadoop集群安装。版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。以下操作都是以root用户进行，如需用户组和权限设定需自行配置。">
+<meta name="description" content="本篇介绍Hadoop集群安装。版本：java 1.8，Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2，Kafka 0.10.2.1，Storm 1.1.0。以下操作都是以root用户进行，如需用户组和权限设定需自行配置。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="搭建5节点hadoop+zookeeper+hbase+spark(2):Hadoop">
+<meta property="og:title" content="搭建5节点hadoop+zookeeper+hbase+spark+kafka+storm(2):Hadoop">
 <meta property="og:url" content="http://www.jumpbeandev.com/2017/06/14/hadoop2/index.html">
 <meta property="og:site_name" content="JumpBean's Blog">
-<meta property="og:description" content="本篇介绍Hadoop集群安装。版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。以下操作都是以root用户进行，如需用户组和权限设定需自行配置。">
+<meta property="og:description" content="本篇介绍Hadoop集群安装。版本：java 1.8，Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2，Kafka 0.10.2.1，Storm 1.1.0。以下操作都是以root用户进行，如需用户组和权限设定需自行配置。">
 <meta property="og:image" content="http://www.jumpbeandev.com/images/2017/06/14/1020.png">
 <meta property="og:image" content="http://www.jumpbeandev.com/images/2017/06/14/1869.png">
 <meta property="og:image" content="http://www.jumpbeandev.com/images/2017/06/14/1868.png">
 <meta property="og:image" content="http://www.jumpbeandev.com/images/2017/06/14/1011.png">
-<meta property="og:updated_time" content="2017-06-23T03:02:07.000Z">
+<meta property="og:updated_time" content="2017-06-26T06:04:52.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="搭建5节点hadoop+zookeeper+hbase+spark(2):Hadoop">
-<meta name="twitter:description" content="本篇介绍Hadoop集群安装。版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。以下操作都是以root用户进行，如需用户组和权限设定需自行配置。">
+<meta name="twitter:title" content="搭建5节点hadoop+zookeeper+hbase+spark+kafka+storm(2):Hadoop">
+<meta name="twitter:description" content="本篇介绍Hadoop集群安装。版本：java 1.8，Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2，Kafka 0.10.2.1，Storm 1.1.0。以下操作都是以root用户进行，如需用户组和权限设定需自行配置。">
 <meta name="twitter:image" content="http://www.jumpbeandev.com/images/2017/06/14/1020.png">
 
 
@@ -153,7 +153,7 @@
 
 
 
-  <title> 搭建5节点hadoop+zookeeper+hbase+spark(2):Hadoop | JumpBean's Blog </title>
+  <title> 搭建5节点hadoop+zookeeper+hbase+spark+kafka+storm(2):Hadoop | JumpBean's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -356,7 +356,7 @@
             
             
               
-                搭建5节点hadoop+zookeeper+hbase+spark(2):Hadoop
+                搭建5节点hadoop+zookeeper+hbase+spark+kafka+storm(2):Hadoop
               
             
           </h1>
@@ -422,7 +422,7 @@
 
           
           
-             <span id="/2017/06/14/hadoop2/" class="leancloud_visitors" data-flag-title="搭建5节点hadoop+zookeeper+hbase+spark(2):Hadoop">
+             <span id="/2017/06/14/hadoop2/" class="leancloud_visitors" data-flag-title="搭建5节点hadoop+zookeeper+hbase+spark+kafka+storm(2):Hadoop">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -451,7 +451,7 @@
       
 
       
-        <p>本篇介绍Hadoop集群安装。<br>版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。<br>以下操作都是以root用户进行，如需用户组和权限设定需自行配置。<br><a id="more"></a></p>
+        <p>本篇介绍Hadoop集群安装。<br>版本：java 1.8，Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2，Kafka 0.10.2.1，Storm 1.1.0。<br>以下操作都是以root用户进行，如需用户组和权限设定需自行配置。<br><a id="more"></a></p>
 <hr>
 <h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><p>hadoop2中NameNode可以有多个（目前只支持2个）。每一个都有相同的职能。一个是active状态的，一个是standby状态的。当集群运行时，只有active状态的NameNode是正常工作的，standby状态的NameNode是处于待命状态的，时刻同步active状态NameNode的数据。一旦active状态的NameNode不能工作，standby状态的NameNode就可以转变为active状态的，就可以继续工作了。<br>2个NameNode的数据其实是实时共享的。新HDFS采用了一种共享机制，Quorum Journal Node（JournalNode）集群或者Nnetwork File System（NFS）进行共享。NFS是操作系统层面的，JournalNode是hadoop层面的，我们这里使用JournalNode集群进行数据共享（这也是主流的做法）。JournalNode的架构图如下：<br><img src="/images/2017/06/14/1020.png"><br>两个NameNode为了数据同步，会通过一组称作JournalNodes的独立进程进行相互通信。当active状态的NameNode的命名空间有任何修改时，会告知大部分的JournalNodes进程。standby状态的NameNode有能力读取JNs中的变更信息，并且一直监控edit log的变化，把变化应用于自己的命名空间。standby可以确保在集群出错时，命名空间状态已经完全同步了。<br>对于HA集群而言，确保同一时刻只有一个NameNode处于active状态是至关重要的。否则，两个NameNode的数据状态就会产生分歧，可能丢失数据，或者产生错误的结果。为了保证这点，这就需要利用使用ZooKeeper了。首先HDFS集群中的两个NameNode都在ZooKeeper中注册，当active状态的NameNode出故障时，ZooKeeper能检测到这种情况，它就会自动把standby状态的NameNode切换为active状态。</p>
 <hr>
@@ -565,6 +565,22 @@
 <td style="text-align:center">YES</td>
 <td style="text-align:center">YES</td>
 </tr>
+<tr>
+<td style="text-align:center">kafka</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+</tr>
+<tr>
+<td style="text-align:center">storm</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+</tr>
 </tbody>
 </table>
 <hr>
@@ -634,6 +650,10 @@
           
             <a href="/tags/spark/" rel="tag"># spark</a>
           
+            <a href="/tags/kafka/" rel="tag"># kafka</a>
+          
+            <a href="/tags/storm/" rel="tag"># storm</a>
+          
         </div>
       
 
@@ -645,8 +665,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/12/hadoop1/" rel="next" title="搭建5节点hadoop+zookeeper+hbase+spark(1):Zookeeper">
-                <i class="fa fa-chevron-left"></i> 搭建5节点hadoop+zookeeper+hbase+spark(1):Zookeeper
+              <a href="/2017/06/12/hadoop1/" rel="next" title="搭建5节点hadoop+zookeeper+hbase+spark+kafka+storm(1):Zookeeper">
+                <i class="fa fa-chevron-left"></i> 搭建5节点hadoop+zookeeper+hbase+spark+kafka+storm(1):Zookeeper
               </a>
             
           </div>
@@ -655,8 +675,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/06/21/hadoop3/" rel="prev" title="搭建5节点hadoop+zookeeper+hbase+spark(3):Hbase">
-                搭建5节点hadoop+zookeeper+hbase+spark(3):Hbase <i class="fa fa-chevron-right"></i>
+              <a href="/2017/06/21/hadoop3/" rel="prev" title="搭建5节点hadoop+zookeeper+hbase+spark+kafka+storm(3):Hbase">
+                搭建5节点hadoop+zookeeper+hbase+spark+kafka+storm(3):Hbase <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -769,7 +789,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -791,7 +811,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

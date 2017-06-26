@@ -87,7 +87,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="hadoop,bigdata,zookeeper,hbase,spark," />
+  <meta name="keywords" content="hadoop,bigdata,zookeeper,hbase,spark,kafka,storm," />
 
 
 
@@ -105,16 +105,16 @@
 
 
 
-<meta name="description" content="本篇介绍安装前的准备工作。版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。以下操作都是以root用户进行，如需用户组和权限设定需自行配置。">
+<meta name="description" content="本篇介绍安装前的准备工作。版本：java 1.8，Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2，Kafka 0.10.2.1，Storm 1.1.0。以下操作都是以root用户进行，如需用户组和权限设定需自行配置。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="搭建5节点hadoop+zookeeper+hbase+spark(0):准备">
+<meta property="og:title" content="搭建5节点hadoop+zookeeper+hbase+spark+kafka+storm(0):准备">
 <meta property="og:url" content="http://www.jumpbeandev.com/2017/06/12/hadoop0/index.html">
 <meta property="og:site_name" content="JumpBean's Blog">
-<meta property="og:description" content="本篇介绍安装前的准备工作。版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。以下操作都是以root用户进行，如需用户组和权限设定需自行配置。">
-<meta property="og:updated_time" content="2017-06-23T03:02:05.000Z">
+<meta property="og:description" content="本篇介绍安装前的准备工作。版本：java 1.8，Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2，Kafka 0.10.2.1，Storm 1.1.0。以下操作都是以root用户进行，如需用户组和权限设定需自行配置。">
+<meta property="og:updated_time" content="2017-06-26T06:04:35.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="搭建5节点hadoop+zookeeper+hbase+spark(0):准备">
-<meta name="twitter:description" content="本篇介绍安装前的准备工作。版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。以下操作都是以root用户进行，如需用户组和权限设定需自行配置。">
+<meta name="twitter:title" content="搭建5节点hadoop+zookeeper+hbase+spark+kafka+storm(0):准备">
+<meta name="twitter:description" content="本篇介绍安装前的准备工作。版本：java 1.8，Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2，Kafka 0.10.2.1，Storm 1.1.0。以下操作都是以root用户进行，如需用户组和权限设定需自行配置。">
 
 
 
@@ -148,7 +148,7 @@
 
 
 
-  <title> 搭建5节点hadoop+zookeeper+hbase+spark(0):准备 | JumpBean's Blog </title>
+  <title> 搭建5节点hadoop+zookeeper+hbase+spark+kafka+storm(0):准备 | JumpBean's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -351,7 +351,7 @@
             
             
               
-                搭建5节点hadoop+zookeeper+hbase+spark(0):准备
+                搭建5节点hadoop+zookeeper+hbase+spark+kafka+storm(0):准备
               
             
           </h1>
@@ -417,7 +417,7 @@
 
           
           
-             <span id="/2017/06/12/hadoop0/" class="leancloud_visitors" data-flag-title="搭建5节点hadoop+zookeeper+hbase+spark(0):准备">
+             <span id="/2017/06/12/hadoop0/" class="leancloud_visitors" data-flag-title="搭建5节点hadoop+zookeeper+hbase+spark+kafka+storm(0):准备">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -446,7 +446,7 @@
       
 
       
-        <p>本篇介绍安装前的准备工作。<br>版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。<br>以下操作都是以root用户进行，如需用户组和权限设定需自行配置。<br><a id="more"></a></p>
+        <p>本篇介绍安装前的准备工作。<br>版本：java 1.8，Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2，Kafka 0.10.2.1，Storm 1.1.0。<br>以下操作都是以root用户进行，如需用户组和权限设定需自行配置。<br><a id="more"></a></p>
 <hr>
 <h2 id="1-服务器信息及节点分配"><a href="#1-服务器信息及节点分配" class="headerlink" title="1. 服务器信息及节点分配"></a>1. 服务器信息及节点分配</h2><p>服务器信息：</p>
 <table>
@@ -558,6 +558,22 @@
 <td style="text-align:center">YES</td>
 <td style="text-align:center">YES</td>
 </tr>
+<tr>
+<td style="text-align:center">kafka</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+</tr>
+<tr>
+<td style="text-align:center">storm</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+</tr>
 </tbody>
 </table>
 <hr>
@@ -627,6 +643,10 @@
           
             <a href="/tags/spark/" rel="tag"># spark</a>
           
+            <a href="/tags/kafka/" rel="tag"># kafka</a>
+          
+            <a href="/tags/storm/" rel="tag"># storm</a>
+          
         </div>
       
 
@@ -648,8 +668,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/06/12/hadoop1/" rel="prev" title="搭建5节点hadoop+zookeeper+hbase+spark(1):Zookeeper">
-                搭建5节点hadoop+zookeeper+hbase+spark(1):Zookeeper <i class="fa fa-chevron-right"></i>
+              <a href="/2017/06/12/hadoop1/" rel="prev" title="搭建5节点hadoop+zookeeper+hbase+spark+kafka+storm(1):Zookeeper">
+                搭建5节点hadoop+zookeeper+hbase+spark+kafka+storm(1):Zookeeper <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -762,7 +782,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -784,7 +804,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

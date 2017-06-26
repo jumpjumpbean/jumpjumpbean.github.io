@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.jumpbeandev.com/"/>
-  <updated>2017-06-23T06:27:18.000Z</updated>
+  <updated>2017-06-26T06:29:14.000Z</updated>
   <id>http://www.jumpbeandev.com/</id>
   
   <author>
@@ -16,13 +16,13 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>搭建5节点hadoop+zookeeper+hbase+spark(4):Spark</title>
-    <link href="http://www.jumpbeandev.com/2017/06/23/hadoop4/"/>
-    <id>http://www.jumpbeandev.com/2017/06/23/hadoop4/</id>
-    <published>2017-06-23T01:59:41.000Z</published>
-    <updated>2017-06-23T06:27:18.000Z</updated>
+    <title>搭建5节点hadoop+zookeeper+hbase+spark+kafka+storm(5):Kafka</title>
+    <link href="http://www.jumpbeandev.com/2017/06/26/hadoop5/"/>
+    <id>http://www.jumpbeandev.com/2017/06/26/hadoop5/</id>
+    <published>2017-06-26T05:02:37.000Z</published>
+    <updated>2017-06-26T06:29:14.000Z</updated>
     
-    <content type="html"><![CDATA[<p>本篇介绍Spark集群安装。<br>版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。<br>以下操作都是以root用户进行，如需用户组和权限设定需自行配置。<br><a id="more"></a></p>
+    <content type="html"><![CDATA[<p>本篇介绍Kafka集群安装。<br>版本：java 1.8，Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2，Kafka 0.10.2.1，Storm 1.1.0。<br>以下操作都是以root用户进行，如需用户组和权限设定需自行配置。<br><a id="more"></a></p>
 <hr>
 <h2 id="1-服务器信息及节点分配"><a href="#1-服务器信息及节点分配" class="headerlink" title="1. 服务器信息及节点分配"></a>1. 服务器信息及节点分配</h2><p>服务器信息：</p>
 <table>
@@ -128,6 +128,206 @@
 </tr>
 <tr>
 <td style="text-align:center">spark</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+</tr>
+<tr>
+<td style="text-align:center">kafka</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+</tr>
+<tr>
+<td style="text-align:center">storm</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="2-安装Kafka"><a href="#2-安装Kafka" class="headerlink" title="2. 安装Kafka"></a>2. 安装Kafka</h2><h3 id="2-1-下载安装包"><a href="#2-1-下载安装包" class="headerlink" title="2.1 下载安装包"></a>2.1 下载安装包</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget http://mirrors.tuna.tsinghua.edu.cn/apache/kafka/0.10.2.1/kafka_2.12-0.10.2.1.tgz </div></pre></td></tr></table></figure>
+<h3 id="2-2-创建模板配置文件"><a href="#2-2-创建模板配置文件" class="headerlink" title="2.2 创建模板配置文件"></a>2.2 创建模板配置文件</h3><p>需要修改的配置文件为server.properties。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div></pre></td><td class="code"><pre><div class="line">############################# Server Basics #############################</div><div class="line"></div><div class="line"># The id of the broker. This must be set to a unique integer for each broker.</div><div class="line">broker.id=1</div><div class="line"></div><div class="line"># Switch to enable topic deletion or not, default value is false</div><div class="line">#delete.topic.enable=true</div><div class="line"></div><div class="line">############################# Socket Server Settings #############################</div><div class="line"></div><div class="line"># The address the socket server listens on. It will get the value returned from</div><div class="line"># java.net.InetAddress.getCanonicalHostName() if not configured.</div><div class="line">#   FORMAT:</div><div class="line">#     listeners = listener_name://host_name:port</div><div class="line">#   EXAMPLE:</div><div class="line">#     listeners = PLAINTEXT://your.host.name:9092</div><div class="line">listeners=PLAINTEXT://node01:9092</div><div class="line"></div><div class="line"># Hostname and port the broker will advertise to producers and consumers. If not set,</div><div class="line"># it uses the value for &quot;listeners&quot; if configured.  Otherwise, it will use the value</div><div class="line"># returned from java.net.InetAddress.getCanonicalHostName().</div><div class="line">#advertised.listeners=PLAINTEXT://node01:9092</div><div class="line"></div><div class="line"># Maps listener names to security protocols, the default is for them to be the same. See the config documentation for more details</div><div class="line">#listener.security.protocol.map=PLAINTEXT:PLAINTEXT,SSL:SSL,SASL_PLAINTEXT:SASL_PLAINTEXT,SASL_SSL:SASL_SSL</div><div class="line"></div><div class="line"># The number of threads handling network requests</div><div class="line">num.network.threads=3</div><div class="line"></div><div class="line"># The number of threads doing disk I/O</div><div class="line">num.io.threads=8</div><div class="line"></div><div class="line"># The send buffer (SO_SNDBUF) used by the socket server</div><div class="line">socket.send.buffer.bytes=102400</div><div class="line"></div><div class="line"># The receive buffer (SO_RCVBUF) used by the socket server</div><div class="line">socket.receive.buffer.bytes=102400</div><div class="line"></div><div class="line"># The maximum size of a request that the socket server will accept (protection against OOM)</div><div class="line">socket.request.max.bytes=104857600</div><div class="line"></div><div class="line"></div><div class="line">############################# Log Basics #############################</div><div class="line"></div><div class="line"># A comma seperated list of directories under which to store log files</div><div class="line">log.dirs=/tmp/kafka-logs</div><div class="line"></div><div class="line"># The default number of log partitions per topic. More partitions allow greater</div><div class="line"># parallelism for consumption, but this will also result in more files across</div><div class="line"># the brokers.</div><div class="line">num.partitions=1</div><div class="line"></div><div class="line"># The number of threads per data directory to be used for log recovery at startup and flushing at shutdown.</div><div class="line"># This value is recommended to be increased for installations with data dirs located in RAID array.</div><div class="line">num.recovery.threads.per.data.dir=1</div><div class="line"></div><div class="line">############################# Log Flush Policy #############################</div><div class="line"></div><div class="line"># Messages are immediately written to the filesystem but by default we only fsync() to sync</div><div class="line"># the OS cache lazily. The following configurations control the flush of data to disk.</div><div class="line"># There are a few important trade-offs here:</div><div class="line">#    1. Durability: Unflushed data may be lost if you are not using replication.</div><div class="line">#    2. Latency: Very large flush intervals may lead to latency spikes when the flush does occur as there will be a lot of data to flush.</div><div class="line">#    3. Throughput: The flush is generally the most expensive operation, and a small flush interval may lead to exceessive seeks.</div><div class="line"># The settings below allow one to configure the flush policy to flush data after a period of time or</div><div class="line"># every N messages (or both). This can be done globally and overridden on a per-topic basis.</div><div class="line"></div><div class="line"># The number of messages to accept before forcing a flush of data to disk</div><div class="line">#log.flush.interval.messages=10000</div><div class="line"></div><div class="line"># The maximum amount of time a message can sit in a log before we force a flush</div><div class="line">#log.flush.interval.ms=1000</div><div class="line"></div><div class="line">############################# Log Retention Policy #############################</div><div class="line"></div><div class="line"># The following configurations control the disposal of log segments. The policy can</div><div class="line"># be set to delete segments after a period of time, or after a given size has accumulated.</div><div class="line"># A segment will be deleted whenever *either* of these criteria are met. Deletion always happens</div><div class="line"># from the end of the log.</div><div class="line"></div><div class="line"># The minimum age of a log file to be eligible for deletion due to age</div><div class="line">log.retention.hours=168</div><div class="line"></div><div class="line"># A size-based retention policy for logs. Segments are pruned from the log as long as the remaining</div><div class="line"># segments don&apos;t drop below log.retention.bytes. Functions independently of log.retention.hours.</div><div class="line">#log.retention.bytes=1073741824</div><div class="line"></div><div class="line"># The maximum size of a log segment file. When this size is reached a new log segment will be created.</div><div class="line">log.segment.bytes=1073741824</div><div class="line"></div><div class="line"># The interval at which log segments are checked to see if they can be deleted according</div><div class="line"># to the retention policies</div><div class="line">log.retention.check.interval.ms=300000</div><div class="line"></div><div class="line">############################# Zookeeper #############################</div><div class="line"></div><div class="line"># Zookeeper connection string (see zookeeper docs for details).</div><div class="line"># This is a comma separated host:port pairs, each corresponding to a zk</div><div class="line"># server. e.g. &quot;127.0.0.1:3000,127.0.0.1:3001,127.0.0.1:3002&quot;.</div><div class="line"># You can also append an optional chroot string to the urls to specify the</div><div class="line"># root directory for all kafka znodes.</div><div class="line">zookeeper.connect=node01:2181,node02:2181,node03:2181,node04:2181,node05:2181</div><div class="line"></div><div class="line"># Timeout in ms for connecting to zookeeper</div><div class="line">zookeeper.connection.timeout.ms=6000</div></pre></td></tr></table></figure><br>其中：</p>
+<ul>
+<li>broker.id：broker的id，必需是一个全局(集群)唯一的整数值，即集群中每个kafka server的配置不能相同。此处按node01-1/node02-2/node03-3/node04-4/node05-5来配置。</li>
+<li>listeners：socket监听的地址，格式为listeners = security_protocol://host_name:port，端口默认为9092。</li>
+<li>log.dirs：日志保存目录</li>
+<li>zookeeper.connect：zookeeper连接地址</li>
+</ul>
+<h3 id="2-3-安装部署"><a href="#2-3-安装部署" class="headerlink" title="2.3 安装部署"></a>2.3 安装部署</h3><p>写一个简易部署脚本：<br><figure class="highlight plain"><figcaption><span>kafka.sh</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#/bin/bash</div><div class="line"></div><div class="line">tar -xvf ./kafka_2.12-0.10.2.1.tgz</div><div class="line">mv ./kafka_2.12-0.10.2.1 /usr/kafka</div><div class="line"></div><div class="line">cp -rf ./server.properties /usr/kafka/config/server.properties</div><div class="line"></div><div class="line">echo &quot;export KAFKA_HOME=/usr/kafka&quot; &gt;&gt; /root/.bash_profile</div><div class="line">echo &quot;export PATH=\$KAFKA_HOME/bin:\$PATH&quot; &gt;&gt; /root/.bash_profile</div></pre></td></tr></table></figure><br>修改权限并执行，执行时确保kafka_2.12-0.10.2.1.tgz，server.properties，kafka.sh在同一目录下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">chmod +x ./kafka.sh</div><div class="line">./kafka.sh</div><div class="line">source /root/.bash_profile</div></pre></td></tr></table></figure></p>
+<h3 id="2-4-部署所有节点"><a href="#2-4-部署所有节点" class="headerlink" title="2.4 部署所有节点"></a>2.4 部署所有节点</h3><p>使用sftp将kafka_2.12-0.10.2.1.tgz，server.properties，kafka.sh传到其他所有节点上并按照以上步骤进行部署，注意根据具体节点修改server.properties中的broker.id和listeners。</p>
+<hr>
+<h2 id="3-Kafka使用"><a href="#3-Kafka使用" class="headerlink" title="3. Kafka使用"></a>3. Kafka使用</h2><h3 id="3-1-启动Kafka集群"><a href="#3-1-启动Kafka集群" class="headerlink" title="3.1 启动Kafka集群"></a>3.1 启动Kafka集群</h3><p>在所有节点上执行命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">kafka-server-start.sh -daemon /usr/kafka/config/server.properties</div></pre></td></tr></table></figure></p>
+<h3 id="3-2-创建Topic"><a href="#3-2-创建Topic" class="headerlink" title="3.2 创建Topic"></a>3.2 创建Topic</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">kafka-topics.sh --zookeeper node01:2181 --create --replication-factor 1 --partitions 1 --topic test</div></pre></td></tr></table></figure>
+<h3 id="3-3-查看Topic"><a href="#3-3-查看Topic" class="headerlink" title="3.3 查看Topic"></a>3.3 查看Topic</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">kafka-topics.sh --zookeeper node01:2181 --list</div></pre></td></tr></table></figure>
+<h3 id="3-4-创建Producer"><a href="#3-4-创建Producer" class="headerlink" title="3.4 创建Producer"></a>3.4 创建Producer</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">kafka-console-producer.sh --broker-list node01:9092 --topic test</div></pre></td></tr></table></figure>
+<h3 id="3-5-创建Consumer"><a href="#3-5-创建Consumer" class="headerlink" title="3.5 创建Consumer"></a>3.5 创建Consumer</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">kafka-console-consumer.sh --bootstrap-server node01:9092 --topic test --from-beginning</div></pre></td></tr></table></figure>
+<h3 id="3-6-删除Topic"><a href="#3-6-删除Topic" class="headerlink" title="3.6 删除Topic"></a>3.6 删除Topic</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">kafka-topics.sh --zookeeper node01:2181 --delete --topic test</div></pre></td></tr></table></figure>
+<hr>
+<p>参照资料：<br><a href="http://www.cnblogs.com/liugh/p/6691589.html" target="_blank" rel="external">Kafka0.10.2.0分布式集群安装</a><br><a href="http://blog.csdn.net/gongxinju/article/details/53415051" target="_blank" rel="external">Kafka学习总结(五)——Kafka集群搭建</a><br><a href="http://www.cnblogs.com/luotianshuai/p/5206662.html" target="_blank" rel="external">Kafka【第一篇】Kafka集群搭建</a><br><a href="http://blog.csdn.net/zuoanyinxiang/article/details/50902425" target="_blank" rel="external">Kafka学习(三)：Kafka的内部机制深入(持久化，分布式，通讯协议)</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本篇介绍Kafka集群安装。&lt;br&gt;版本：java 1.8，Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2，Kafka 0.10.2.1，Storm 1.1.0。&lt;br&gt;以下操作都是以root用户进行，如需用户组和权限设定需自行配置。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="bigdata" scheme="http://www.jumpbeandev.com/categories/bigdata/"/>
+    
+    
+      <category term="hadoop" scheme="http://www.jumpbeandev.com/tags/hadoop/"/>
+    
+      <category term="bigdata" scheme="http://www.jumpbeandev.com/tags/bigdata/"/>
+    
+      <category term="zookeeper" scheme="http://www.jumpbeandev.com/tags/zookeeper/"/>
+    
+      <category term="hbase" scheme="http://www.jumpbeandev.com/tags/hbase/"/>
+    
+      <category term="spark" scheme="http://www.jumpbeandev.com/tags/spark/"/>
+    
+      <category term="kafka" scheme="http://www.jumpbeandev.com/tags/kafka/"/>
+    
+      <category term="storm" scheme="http://www.jumpbeandev.com/tags/storm/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>搭建5节点hadoop+zookeeper+hbase+spark+kafka+storm(4):Spark</title>
+    <link href="http://www.jumpbeandev.com/2017/06/23/hadoop4/"/>
+    <id>http://www.jumpbeandev.com/2017/06/23/hadoop4/</id>
+    <published>2017-06-23T01:59:41.000Z</published>
+    <updated>2017-06-26T06:05:11.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>本篇介绍Spark集群安装。<br>版本：java 1.8，Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2，Kafka 0.10.2.1，Storm 1.1.0。<br>以下操作都是以root用户进行，如需用户组和权限设定需自行配置。<br><a id="more"></a></p>
+<hr>
+<h2 id="1-服务器信息及节点分配"><a href="#1-服务器信息及节点分配" class="headerlink" title="1. 服务器信息及节点分配"></a>1. 服务器信息及节点分配</h2><p>服务器信息：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">No</th>
+<th style="text-align:center">Hostname</th>
+<th style="text-align:center">内网IP</th>
+<th style="text-align:center">外网IP</th>
+<th style="text-align:center">OS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">node01</td>
+<td style="text-align:center">192.168.5.11</td>
+<td style="text-align:center">192.168.205.50</td>
+<td style="text-align:center">Centos7</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">node02</td>
+<td style="text-align:center">192.168.5.12</td>
+<td style="text-align:center">192.168.205.62</td>
+<td style="text-align:center">Centos7</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">node03</td>
+<td style="text-align:center">192.168.5.13</td>
+<td style="text-align:center">192.168.205.63</td>
+<td style="text-align:center">Centos7</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">node04</td>
+<td style="text-align:center">192.168.5.14</td>
+<td style="text-align:center">192.168.205.70</td>
+<td style="text-align:center">Centos7</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">node05</td>
+<td style="text-align:center">192.168.5.15</td>
+<td style="text-align:center">192.168.205.102</td>
+<td style="text-align:center">Centos7</td>
+</tr>
+</tbody>
+</table>
+<p>节点分配：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">节点</th>
+<th style="text-align:center">node01</th>
+<th style="text-align:center">node02</th>
+<th style="text-align:center">node03</th>
+<th style="text-align:center">node04</th>
+<th style="text-align:center">node05</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">namenode</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">NO</td>
+<td style="text-align:center">NO</td>
+<td style="text-align:center">NO</td>
+</tr>
+<tr>
+<td style="text-align:center">datanode</td>
+<td style="text-align:center">NO</td>
+<td style="text-align:center">NO</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+</tr>
+<tr>
+<td style="text-align:center">journalnode</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+</tr>
+<tr>
+<td style="text-align:center">zookeeper</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+</tr>
+<tr>
+<td style="text-align:center">hbase</td>
+<td style="text-align:center">主Master</td>
+<td style="text-align:center">备份Master</td>
+<td style="text-align:center">RegionServer</td>
+<td style="text-align:center">RegionServer</td>
+<td style="text-align:center">RegionServer</td>
+</tr>
+<tr>
+<td style="text-align:center">spark</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+</tr>
+<tr>
+<td style="text-align:center">kafka</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+</tr>
+<tr>
+<td style="text-align:center">storm</td>
 <td style="text-align:center">YES</td>
 <td style="text-align:center">YES</td>
 <td style="text-align:center">YES</td>
@@ -161,7 +361,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;本篇介绍Spark集群安装。&lt;br&gt;版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。&lt;br&gt;以下操作都是以root用户进行，如需用户组和权限设定需自行配置。&lt;br&gt;
+      &lt;p&gt;本篇介绍Spark集群安装。&lt;br&gt;版本：java 1.8，Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2，Kafka 0.10.2.1，Storm 1.1.0。&lt;br&gt;以下操作都是以root用户进行，如需用户组和权限设定需自行配置。&lt;br&gt;
     
     </summary>
     
@@ -178,16 +378,20 @@
     
       <category term="spark" scheme="http://www.jumpbeandev.com/tags/spark/"/>
     
+      <category term="kafka" scheme="http://www.jumpbeandev.com/tags/kafka/"/>
+    
+      <category term="storm" scheme="http://www.jumpbeandev.com/tags/storm/"/>
+    
   </entry>
   
   <entry>
-    <title>搭建5节点hadoop+zookeeper+hbase+spark(3):Hbase</title>
+    <title>搭建5节点hadoop+zookeeper+hbase+spark+kafka+storm(3):Hbase</title>
     <link href="http://www.jumpbeandev.com/2017/06/21/hadoop3/"/>
     <id>http://www.jumpbeandev.com/2017/06/21/hadoop3/</id>
     <published>2017-06-21T02:45:57.000Z</published>
-    <updated>2017-06-23T03:02:08.000Z</updated>
+    <updated>2017-06-26T06:05:01.000Z</updated>
     
-    <content type="html"><![CDATA[<p>本篇介绍Hbase集群安装。<br>版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。<br>以下操作都是以root用户进行，如需用户组和权限设定需自行配置。<br><a id="more"></a></p>
+    <content type="html"><![CDATA[<p>本篇介绍Hbase集群安装。<br>版本：java 1.8，Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2，Kafka 0.10.2.1，Storm 1.1.0。<br>以下操作都是以root用户进行，如需用户组和权限设定需自行配置。<br><a id="more"></a></p>
 <hr>
 <h2 id="1-服务器信息及节点分配"><a href="#1-服务器信息及节点分配" class="headerlink" title="1. 服务器信息及节点分配"></a>1. 服务器信息及节点分配</h2><p>服务器信息：</p>
 <table>
@@ -293,6 +497,22 @@
 </tr>
 <tr>
 <td style="text-align:center">spark</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+</tr>
+<tr>
+<td style="text-align:center">kafka</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+</tr>
+<tr>
+<td style="text-align:center">storm</td>
 <td style="text-align:center">YES</td>
 <td style="text-align:center">YES</td>
 <td style="text-align:center">YES</td>
@@ -333,7 +553,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;本篇介绍Hbase集群安装。&lt;br&gt;版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。&lt;br&gt;以下操作都是以root用户进行，如需用户组和权限设定需自行配置。&lt;br&gt;
+      &lt;p&gt;本篇介绍Hbase集群安装。&lt;br&gt;版本：java 1.8，Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2，Kafka 0.10.2.1，Storm 1.1.0。&lt;br&gt;以下操作都是以root用户进行，如需用户组和权限设定需自行配置。&lt;br&gt;
     
     </summary>
     
@@ -350,16 +570,20 @@
     
       <category term="spark" scheme="http://www.jumpbeandev.com/tags/spark/"/>
     
+      <category term="kafka" scheme="http://www.jumpbeandev.com/tags/kafka/"/>
+    
+      <category term="storm" scheme="http://www.jumpbeandev.com/tags/storm/"/>
+    
   </entry>
   
   <entry>
-    <title>搭建5节点hadoop+zookeeper+hbase+spark(2):Hadoop</title>
+    <title>搭建5节点hadoop+zookeeper+hbase+spark+kafka+storm(2):Hadoop</title>
     <link href="http://www.jumpbeandev.com/2017/06/14/hadoop2/"/>
     <id>http://www.jumpbeandev.com/2017/06/14/hadoop2/</id>
     <published>2017-06-14T10:19:49.000Z</published>
-    <updated>2017-06-23T03:02:07.000Z</updated>
+    <updated>2017-06-26T06:04:52.000Z</updated>
     
-    <content type="html"><![CDATA[<p>本篇介绍Hadoop集群安装。<br>版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。<br>以下操作都是以root用户进行，如需用户组和权限设定需自行配置。<br><a id="more"></a></p>
+    <content type="html"><![CDATA[<p>本篇介绍Hadoop集群安装。<br>版本：java 1.8，Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2，Kafka 0.10.2.1，Storm 1.1.0。<br>以下操作都是以root用户进行，如需用户组和权限设定需自行配置。<br><a id="more"></a></p>
 <hr>
 <h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><p>hadoop2中NameNode可以有多个（目前只支持2个）。每一个都有相同的职能。一个是active状态的，一个是standby状态的。当集群运行时，只有active状态的NameNode是正常工作的，standby状态的NameNode是处于待命状态的，时刻同步active状态NameNode的数据。一旦active状态的NameNode不能工作，standby状态的NameNode就可以转变为active状态的，就可以继续工作了。<br>2个NameNode的数据其实是实时共享的。新HDFS采用了一种共享机制，Quorum Journal Node（JournalNode）集群或者Nnetwork File System（NFS）进行共享。NFS是操作系统层面的，JournalNode是hadoop层面的，我们这里使用JournalNode集群进行数据共享（这也是主流的做法）。JournalNode的架构图如下：<br><img src="/images/2017/06/14/1020.png"><br>两个NameNode为了数据同步，会通过一组称作JournalNodes的独立进程进行相互通信。当active状态的NameNode的命名空间有任何修改时，会告知大部分的JournalNodes进程。standby状态的NameNode有能力读取JNs中的变更信息，并且一直监控edit log的变化，把变化应用于自己的命名空间。standby可以确保在集群出错时，命名空间状态已经完全同步了。<br>对于HA集群而言，确保同一时刻只有一个NameNode处于active状态是至关重要的。否则，两个NameNode的数据状态就会产生分歧，可能丢失数据，或者产生错误的结果。为了保证这点，这就需要利用使用ZooKeeper了。首先HDFS集群中的两个NameNode都在ZooKeeper中注册，当active状态的NameNode出故障时，ZooKeeper能检测到这种情况，它就会自动把standby状态的NameNode切换为active状态。</p>
 <hr>
@@ -473,6 +697,22 @@
 <td style="text-align:center">YES</td>
 <td style="text-align:center">YES</td>
 </tr>
+<tr>
+<td style="text-align:center">kafka</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+</tr>
+<tr>
+<td style="text-align:center">storm</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+</tr>
 </tbody>
 </table>
 <hr>
@@ -507,7 +747,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;本篇介绍Hadoop集群安装。&lt;br&gt;版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。&lt;br&gt;以下操作都是以root用户进行，如需用户组和权限设定需自行配置。&lt;br&gt;
+      &lt;p&gt;本篇介绍Hadoop集群安装。&lt;br&gt;版本：java 1.8，Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2，Kafka 0.10.2.1，Storm 1.1.0。&lt;br&gt;以下操作都是以root用户进行，如需用户组和权限设定需自行配置。&lt;br&gt;
     
     </summary>
     
@@ -524,16 +764,20 @@
     
       <category term="spark" scheme="http://www.jumpbeandev.com/tags/spark/"/>
     
+      <category term="kafka" scheme="http://www.jumpbeandev.com/tags/kafka/"/>
+    
+      <category term="storm" scheme="http://www.jumpbeandev.com/tags/storm/"/>
+    
   </entry>
   
   <entry>
-    <title>搭建5节点hadoop+zookeeper+hbase+spark(1):Zookeeper</title>
+    <title>搭建5节点hadoop+zookeeper+hbase+spark+kafka+storm(1):Zookeeper</title>
     <link href="http://www.jumpbeandev.com/2017/06/12/hadoop1/"/>
     <id>http://www.jumpbeandev.com/2017/06/12/hadoop1/</id>
     <published>2017-06-12T07:58:14.000Z</published>
-    <updated>2017-06-23T03:02:06.000Z</updated>
+    <updated>2017-06-26T06:04:44.000Z</updated>
     
-    <content type="html"><![CDATA[<p>本篇介绍Zookeeper集群安装。<br>版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。<br>以下操作都是以root用户进行，如需用户组和权限设定需自行配置。<br><a id="more"></a></p>
+    <content type="html"><![CDATA[<p>本篇介绍Zookeeper集群安装。<br>版本：java 1.8，Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2，Kafka 0.10.2.1，Storm 1.1.0。<br>以下操作都是以root用户进行，如需用户组和权限设定需自行配置。<br><a id="more"></a></p>
 <hr>
 <h2 id="1-服务器信息及节点分配"><a href="#1-服务器信息及节点分配" class="headerlink" title="1. 服务器信息及节点分配"></a>1. 服务器信息及节点分配</h2><p>服务器信息：</p>
 <table>
@@ -639,6 +883,22 @@
 </tr>
 <tr>
 <td style="text-align:center">spark</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+</tr>
+<tr>
+<td style="text-align:center">kafka</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+</tr>
+<tr>
+<td style="text-align:center">storm</td>
 <td style="text-align:center">YES</td>
 <td style="text-align:center">YES</td>
 <td style="text-align:center">YES</td>
@@ -664,7 +924,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;本篇介绍Zookeeper集群安装。&lt;br&gt;版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。&lt;br&gt;以下操作都是以root用户进行，如需用户组和权限设定需自行配置。&lt;br&gt;
+      &lt;p&gt;本篇介绍Zookeeper集群安装。&lt;br&gt;版本：java 1.8，Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2，Kafka 0.10.2.1，Storm 1.1.0。&lt;br&gt;以下操作都是以root用户进行，如需用户组和权限设定需自行配置。&lt;br&gt;
     
     </summary>
     
@@ -681,16 +941,20 @@
     
       <category term="spark" scheme="http://www.jumpbeandev.com/tags/spark/"/>
     
+      <category term="kafka" scheme="http://www.jumpbeandev.com/tags/kafka/"/>
+    
+      <category term="storm" scheme="http://www.jumpbeandev.com/tags/storm/"/>
+    
   </entry>
   
   <entry>
-    <title>搭建5节点hadoop+zookeeper+hbase+spark(0):准备</title>
+    <title>搭建5节点hadoop+zookeeper+hbase+spark+kafka+storm(0):准备</title>
     <link href="http://www.jumpbeandev.com/2017/06/12/hadoop0/"/>
     <id>http://www.jumpbeandev.com/2017/06/12/hadoop0/</id>
     <published>2017-06-12T06:16:11.000Z</published>
-    <updated>2017-06-23T03:02:05.000Z</updated>
+    <updated>2017-06-26T06:04:35.000Z</updated>
     
-    <content type="html"><![CDATA[<p>本篇介绍安装前的准备工作。<br>版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。<br>以下操作都是以root用户进行，如需用户组和权限设定需自行配置。<br><a id="more"></a></p>
+    <content type="html"><![CDATA[<p>本篇介绍安装前的准备工作。<br>版本：java 1.8，Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2，Kafka 0.10.2.1，Storm 1.1.0。<br>以下操作都是以root用户进行，如需用户组和权限设定需自行配置。<br><a id="more"></a></p>
 <hr>
 <h2 id="1-服务器信息及节点分配"><a href="#1-服务器信息及节点分配" class="headerlink" title="1. 服务器信息及节点分配"></a>1. 服务器信息及节点分配</h2><p>服务器信息：</p>
 <table>
@@ -796,6 +1060,22 @@
 </tr>
 <tr>
 <td style="text-align:center">spark</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+</tr>
+<tr>
+<td style="text-align:center">kafka</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+</tr>
+<tr>
+<td style="text-align:center">storm</td>
 <td style="text-align:center">YES</td>
 <td style="text-align:center">YES</td>
 <td style="text-align:center">YES</td>
@@ -836,7 +1116,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;本篇介绍安装前的准备工作。&lt;br&gt;版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。&lt;br&gt;以下操作都是以root用户进行，如需用户组和权限设定需自行配置。&lt;br&gt;
+      &lt;p&gt;本篇介绍安装前的准备工作。&lt;br&gt;版本：java 1.8，Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2，Kafka 0.10.2.1，Storm 1.1.0。&lt;br&gt;以下操作都是以root用户进行，如需用户组和权限设定需自行配置。&lt;br&gt;
     
     </summary>
     
@@ -852,6 +1132,10 @@
       <category term="hbase" scheme="http://www.jumpbeandev.com/tags/hbase/"/>
     
       <category term="spark" scheme="http://www.jumpbeandev.com/tags/spark/"/>
+    
+      <category term="kafka" scheme="http://www.jumpbeandev.com/tags/kafka/"/>
+    
+      <category term="storm" scheme="http://www.jumpbeandev.com/tags/storm/"/>
     
   </entry>
   
@@ -915,13 +1199,13 @@
       <category term="k8s" scheme="http://www.jumpbeandev.com/categories/k8s/"/>
     
     
-      <category term="Kubernetes" scheme="http://www.jumpbeandev.com/tags/Kubernetes/"/>
-    
-      <category term="Docker" scheme="http://www.jumpbeandev.com/tags/Docker/"/>
-    
       <category term="mysql" scheme="http://www.jumpbeandev.com/tags/mysql/"/>
     
       <category term="mycat" scheme="http://www.jumpbeandev.com/tags/mycat/"/>
+    
+      <category term="Kubernetes" scheme="http://www.jumpbeandev.com/tags/Kubernetes/"/>
+    
+      <category term="Docker" scheme="http://www.jumpbeandev.com/tags/Docker/"/>
     
   </entry>
   
@@ -1163,11 +1447,11 @@
       <category term="CI" scheme="http://www.jumpbeandev.com/categories/CI/"/>
     
     
-      <category term="CI" scheme="http://www.jumpbeandev.com/tags/CI/"/>
-    
       <category term="Kubernetes" scheme="http://www.jumpbeandev.com/tags/Kubernetes/"/>
     
       <category term="Docker" scheme="http://www.jumpbeandev.com/tags/Docker/"/>
+    
+      <category term="CI" scheme="http://www.jumpbeandev.com/tags/CI/"/>
     
   </entry>
   

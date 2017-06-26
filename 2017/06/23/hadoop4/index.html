@@ -87,7 +87,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="hadoop,bigdata,zookeeper,hbase,spark," />
+  <meta name="keywords" content="hadoop,bigdata,zookeeper,hbase,spark,kafka,storm," />
 
 
 
@@ -105,20 +105,20 @@
 
 
 
-<meta name="description" content="本篇介绍Spark集群安装。版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。以下操作都是以root用户进行，如需用户组和权限设定需自行配置。">
+<meta name="description" content="本篇介绍Spark集群安装。版本：java 1.8，Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2，Kafka 0.10.2.1，Storm 1.1.0。以下操作都是以root用户进行，如需用户组和权限设定需自行配置。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="搭建5节点hadoop+zookeeper+hbase+spark(4):Spark">
+<meta property="og:title" content="搭建5节点hadoop+zookeeper+hbase+spark+kafka+storm(4):Spark">
 <meta property="og:url" content="http://www.jumpbeandev.com/2017/06/23/hadoop4/index.html">
 <meta property="og:site_name" content="JumpBean's Blog">
-<meta property="og:description" content="本篇介绍Spark集群安装。版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。以下操作都是以root用户进行，如需用户组和权限设定需自行配置。">
+<meta property="og:description" content="本篇介绍Spark集群安装。版本：java 1.8，Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2，Kafka 0.10.2.1，Storm 1.1.0。以下操作都是以root用户进行，如需用户组和权限设定需自行配置。">
 <meta property="og:image" content="http://www.jumpbeandev.com/images/2017/06/23/1322.png">
 <meta property="og:image" content="http://www.jumpbeandev.com/images/2017/06/23/1323.png">
 <meta property="og:image" content="http://www.jumpbeandev.com/images/2017/06/23/1416.png">
 <meta property="og:image" content="http://www.jumpbeandev.com/images/2017/06/23/1419.png">
-<meta property="og:updated_time" content="2017-06-23T06:27:18.000Z">
+<meta property="og:updated_time" content="2017-06-26T06:05:11.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="搭建5节点hadoop+zookeeper+hbase+spark(4):Spark">
-<meta name="twitter:description" content="本篇介绍Spark集群安装。版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。以下操作都是以root用户进行，如需用户组和权限设定需自行配置。">
+<meta name="twitter:title" content="搭建5节点hadoop+zookeeper+hbase+spark+kafka+storm(4):Spark">
+<meta name="twitter:description" content="本篇介绍Spark集群安装。版本：java 1.8，Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2，Kafka 0.10.2.1，Storm 1.1.0。以下操作都是以root用户进行，如需用户组和权限设定需自行配置。">
 <meta name="twitter:image" content="http://www.jumpbeandev.com/images/2017/06/23/1322.png">
 
 
@@ -153,7 +153,7 @@
 
 
 
-  <title> 搭建5节点hadoop+zookeeper+hbase+spark(4):Spark | JumpBean's Blog </title>
+  <title> 搭建5节点hadoop+zookeeper+hbase+spark+kafka+storm(4):Spark | JumpBean's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -356,7 +356,7 @@
             
             
               
-                搭建5节点hadoop+zookeeper+hbase+spark(4):Spark
+                搭建5节点hadoop+zookeeper+hbase+spark+kafka+storm(4):Spark
               
             
           </h1>
@@ -422,7 +422,7 @@
 
           
           
-             <span id="/2017/06/23/hadoop4/" class="leancloud_visitors" data-flag-title="搭建5节点hadoop+zookeeper+hbase+spark(4):Spark">
+             <span id="/2017/06/23/hadoop4/" class="leancloud_visitors" data-flag-title="搭建5节点hadoop+zookeeper+hbase+spark+kafka+storm(4):Spark">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -451,7 +451,7 @@
       
 
       
-        <p>本篇介绍Spark集群安装。<br>版本：java 1.8, Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2。<br>以下操作都是以root用户进行，如需用户组和权限设定需自行配置。<br><a id="more"></a></p>
+        <p>本篇介绍Spark集群安装。<br>版本：java 1.8，Hadoop 2.7.3，HBase 1.2.5，Zookeeper 3.4.10，Spark 2.1.1，Scala 2.12.2，Kafka 0.10.2.1，Storm 1.1.0。<br>以下操作都是以root用户进行，如需用户组和权限设定需自行配置。<br><a id="more"></a></p>
 <hr>
 <h2 id="1-服务器信息及节点分配"><a href="#1-服务器信息及节点分配" class="headerlink" title="1. 服务器信息及节点分配"></a>1. 服务器信息及节点分配</h2><p>服务器信息：</p>
 <table>
@@ -563,6 +563,22 @@
 <td style="text-align:center">YES</td>
 <td style="text-align:center">YES</td>
 </tr>
+<tr>
+<td style="text-align:center">kafka</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+</tr>
+<tr>
+<td style="text-align:center">storm</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+<td style="text-align:center">YES</td>
+</tr>
 </tbody>
 </table>
 <hr>
@@ -625,6 +641,10 @@
           
             <a href="/tags/spark/" rel="tag"># spark</a>
           
+            <a href="/tags/kafka/" rel="tag"># kafka</a>
+          
+            <a href="/tags/storm/" rel="tag"># storm</a>
+          
         </div>
       
 
@@ -636,8 +656,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/21/hadoop3/" rel="next" title="搭建5节点hadoop+zookeeper+hbase+spark(3):Hbase">
-                <i class="fa fa-chevron-left"></i> 搭建5节点hadoop+zookeeper+hbase+spark(3):Hbase
+              <a href="/2017/06/21/hadoop3/" rel="next" title="搭建5节点hadoop+zookeeper+hbase+spark+kafka+storm(3):Hbase">
+                <i class="fa fa-chevron-left"></i> 搭建5节点hadoop+zookeeper+hbase+spark+kafka+storm(3):Hbase
               </a>
             
           </div>
@@ -645,6 +665,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/26/hadoop5/" rel="prev" title="搭建5节点hadoop+zookeeper+hbase+spark+kafka+storm(5):Kafka">
+                搭建5节点hadoop+zookeeper+hbase+spark+kafka+storm(5):Kafka <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -756,7 +780,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -778,7 +802,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
