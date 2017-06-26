@@ -23,6 +23,9 @@
 
 
 
+
+
+
   <meta name="baidu-site-verification" content="Cffxnkwm8V" />
 
 
@@ -174,7 +177,7 @@ Cen">
   var CONFIG = {
     root: '/',
     scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post"},
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
     fancybox: true,
     motion: true,
     duoshuo: {
@@ -207,11 +210,13 @@ Cen">
   
 
 
+
+
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
           m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
   ga('create', '70327159-1', 'auto');
   ga('send', 'pageview');
 </script>
@@ -234,36 +239,40 @@ Cen">
 
 
 
+
+
   
   
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-meta ">
-  
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
 
-  <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <span class="site-title">JumpBean's Blog</span>
-      <span class="logo-line-after"><i></i></span>
-    </a>
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">JumpBean's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">天道酬勤</p>
+      
   </div>
-    
-      <p class="site-subtitle">天道酬勤</p>
-    
-</div>
 
-<div class="site-nav-toggle">
-  <button>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-  </button>
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
 </div>
 
 <nav class="site-nav">
@@ -331,12 +340,23 @@ Cen">
   
     <div class="site-search">
       
-  <div class="popup">
- <span class="search-icon fa fa-search"></span>
- <input type="text" id="local-search-input">
- <div id="local-search-result"></div>
- <span class="popup-btn-close">close</span>
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
 </div>
+
 
 
     </div>
@@ -364,20 +384,17 @@ Cen">
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://www.jumpbeandev.com/2017/02/03/k8sansible/">
+    <link itemprop="mainEntityOfPage" href="http://www.jumpbeandev.com/2017/02/03/k8sansible/">
 
-  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <meta itemprop="name" content="Jump Bean">
-    <meta itemprop="description" content="">
-    <meta itemprop="image" content="/images/default_avatar.jpg">
-  </span>
-
-  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="JumpBean's Blog">
-    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
-      <img style="display:none;" itemprop="url image" alt="JumpBean's Blog" src="">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jump Bean">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/default_avatar.jpg">
     </span>
-  </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JumpBean's Blog">
+    </span>
 
     
       <header class="post-header">
@@ -403,7 +420,7 @@ Cen">
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-02-03T16:19:16+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-03T16:19:16+08:00">
                 2017-02-03
               </time>
             
@@ -440,17 +457,16 @@ Cen">
           
             
               <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/02/03/k8sansible/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/02/03/k8sansible/" itemprop="commentCount"></span>
-                </a>
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
               </span>
+              
+                <a href="/2017/02/03/k8sansible/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2017/02/03/k8sansible/" itemprop="commentsCount"></span>
+                </a>
+              
             
-          
-
           
 
           
@@ -465,6 +481,8 @@ Cen">
                
                  <span class="leancloud-visitors-count"></span>
              </span>
+          
+
           
 
           
@@ -561,6 +579,12 @@ Cen">
       
     </div>
 
+    <div>
+      
+        
+
+      
+    </div>
 
     <footer class="post-footer">
       
@@ -573,6 +597,10 @@ Cen">
             <a href="/tags/ansible/" rel="tag"># ansible</a>
           
         </div>
+      
+
+      
+        
       
 
       
@@ -647,7 +675,7 @@ Cen">
     </div>
   </div>
 
-          
+
           </div>
           
 
@@ -655,12 +683,7 @@ Cen">
           
   <div class="comments" id="comments">
     
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
+      <div id="SOHUCS"></div>
     
   </div>
 
@@ -699,10 +722,12 @@ Cen">
                src="/images/default_avatar.jpg"
                alt="Jump Bean" />
           <p class="site-author-name" itemprop="name">Jump Bean</p>
-          <p class="site-description motion-element" itemprop="description">God helps those who help themselves</p>
+           
+              <p class="site-description motion-element" itemprop="description">God helps those who help themselves</p>
+          
         </div>
         <nav class="site-state motion-element">
-        
+
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
@@ -713,8 +738,10 @@ Cen">
           
 
           
+            
+            
             <div class="site-state-item site-state-categories">
-              <a href="/categories">
+              <a href="/categories/index.html">
                 <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">分类</span>
               </a>
@@ -722,8 +749,10 @@ Cen">
           
 
           
+            
+            
             <div class="site-state-item site-state-tags">
-              <a href="/tags">
+              <a href="/tags/index.html">
                 <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">标签</span>
               </a>
@@ -780,6 +809,8 @@ Cen">
       <!--/noindex-->
       
 
+      
+
     </div>
   </aside>
 
@@ -819,9 +850,13 @@ Cen">
       </div>
     </footer>
 
-    <div class="back-to-top">
-      <i class="fa fa-arrow-up"></i>
-    </div>
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
   </div>
 
   
@@ -841,6 +876,8 @@ Cen">
 
 
   
+
+
 
 
 
@@ -899,48 +936,53 @@ Cen">
   
 
 
+  
+
+
+
+
+	
+
+
+
+
 
   
 
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
     <script type="text/javascript">
-      var disqus_shortname = 'jumpbean';
-      var disqus_identifier = '2017/02/03/k8sansible/';
-
-      var disqus_title = "Ansible部署Kubernetes集群";
-
-
-      function run_disqus_script(disqus_script) {
-        var dsq = document.createElement('script');
-        dsq.type = 'text/javascript';
-        dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    (function(){
+      var appid = 'cyt4R1Wyn';
+      var conf = '9c186fcd135688958fe679a4efee4ccc';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
       }
-
-      run_disqus_script('count.js');
-
-      
-        var disqus_config = function () {
-            this.page.url = disqus_url;
-            this.page.identifier = disqus_identifier;
-            this.page.title = disqus_title;
-        };
-        run_disqus_script('embed.js');
-      
-
+    })();
     </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
   
 
 
 
-
-
-
-
-
-
   
-  
+
   <script type="text/javascript">
     // Popup Window;
     var isfetched = false;
@@ -953,7 +995,9 @@ Cen">
     // monitor main search box;
 
     function proceedsearch() {
-      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
       $('.popup').toggle();
     }
     // search function;
@@ -1057,7 +1101,7 @@ Cen">
 
     $('.popup-btn-close').click(function(e){
       $('.popup').hide();
-      $(".popoverlay").remove();
+      $(".local-search-pop-overlay").remove();
       $('body').css('overflow', '');
     });
     $('.popup').click(function(e){
@@ -1066,7 +1110,8 @@ Cen">
   </script>
 
 
-  
+
+
 
   
 
@@ -1181,6 +1226,7 @@ Cen">
 
   
 
+  
 
 </body>
 </html>
