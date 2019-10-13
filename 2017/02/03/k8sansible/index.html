@@ -1,32 +1,9 @@
-<!doctype html>
-
-
-
-  
-
-
-<html class="theme-next pisces use-motion" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-  <meta name="google-site-verification" content="kkGprphURMECAzNy_CxcrGPEV7H59jJooQIlxZBjW-g" />
+<!DOCTYPE html>
 
 
 
 
 
-
-
-  <meta name="baidu-site-verification" content="Cffxnkwm8V" />
 
 
 
@@ -35,8 +12,35 @@
 
 
   
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+  <meta name="google-site-verification" content="kkGprphURMECAzNy_CxcrGPEV7H59jJooQIlxZBjW-g">
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="Cffxnkwm8V">
+
+
 
 
 
@@ -49,18 +53,6 @@
   
     
     
-  
-
-  
-    
-      
-    
-
-    
-  
-
-  
-
   
 
   
@@ -72,9 +64,21 @@
   
 
   
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
     
     
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
   
 
 
@@ -82,108 +86,42 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
 
-<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="Kubernetes,Docker,ansible," />
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
 
 
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico?v=7.1.0">
 
 
-
-  <link rel="alternate" href="/atom.xml" title="JumpBean's Blog" type="application/atom+xml" />
-
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico?v=7.1.0">
 
 
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico?v=7.1.0">
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+  <link rel="mask-icon" href="/favicon.ico?v=7.1.0" color="#222">
 
 
 
 
 
 
-<meta name="description" content="Kubernetes官网提供了多种场景的部署方案，例如kubeadm，参照：Creating a Cluster。但还是觉得ansible的部署最方便，k8s的contrib中提供了ansible部署脚本，使用方法参照：Kubernetes Ansible。
 
-1. 服务器构成
-
-
-No
-Type
-IP
-Hostname
-OS
-
-
-
-
-1
-master
-192.168.34.52
-cts1
-Cen">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Ansible部署Kubernetes集群">
-<meta property="og:url" content="http://www.jumpbeandev.com/2017/02/03/k8sansible/index.html">
-<meta property="og:site_name" content="JumpBean's Blog">
-<meta property="og:description" content="Kubernetes官网提供了多种场景的部署方案，例如kubeadm，参照：Creating a Cluster。但还是觉得ansible的部署最方便，k8s的contrib中提供了ansible部署脚本，使用方法参照：Kubernetes Ansible。
-
-1. 服务器构成
-
-
-No
-Type
-IP
-Hostname
-OS
-
-
-
-
-1
-master
-192.168.34.52
-cts1
-Cen">
-<meta property="og:updated_time" content="2017-02-03T10:06:34.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Ansible部署Kubernetes集群">
-<meta name="twitter:description" content="Kubernetes官网提供了多种场景的部署方案，例如kubeadm，参照：Creating a Cluster。但还是觉得ansible的部署最方便，k8s的contrib中提供了ansible部署脚本，使用方法参照：Kubernetes Ansible。
-
-1. 服务器构成
-
-
-No
-Type
-IP
-Hostname
-OS
-
-
-
-
-1
-master
-192.168.34.52
-cts1
-Cen">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
+<script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Pisces',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
-    fancybox: true,
-    motion: true,
-    duoshuo: {
-      userId: 'undefined',
-      author: '博主'
-    },
+    scheme: 'Gemini',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     algolia: {
       applicationID: '',
       apiKey: '',
@@ -195,34 +133,62 @@ Cen">
 </script>
 
 
-
-  <link rel="canonical" href="http://www.jumpbeandev.com/2017/02/03/k8sansible/"/>
-
-
-
-
-
-  <title> Ansible部署Kubernetes集群 | JumpBean's Blog </title>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
   
 
 
 
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  ga('create', '70327159-1', 'auto');
-  ga('send', 'pageview');
+  <meta name="description" content="Kubernetes官网提供了多种场景的部署方案，例如kubeadm，参照：Creating a Cluster。但还是觉得ansible的部署最方便，k8s的contrib中提供了ansible部署脚本，使用方法参照：Kubernetes Ansible。  1. 服务器构成   No Type IP Hostname OS     1 master 192.168.34.52 cts1 Cen">
+<meta name="keywords" content="ansible,Kubernetes,Docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ansible部署Kubernetes集群">
+<meta property="og:url" content="http://www.jumpbeandev.com/2017/02/03/k8sansible/index.html">
+<meta property="og:site_name" content="JumpBean&#39;s Blog">
+<meta property="og:description" content="Kubernetes官网提供了多种场景的部署方案，例如kubeadm，参照：Creating a Cluster。但还是觉得ansible的部署最方便，k8s的contrib中提供了ansible部署脚本，使用方法参照：Kubernetes Ansible。  1. 服务器构成   No Type IP Hostname OS     1 master 192.168.34.52 cts1 Cen">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-02-03T10:06:34.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ansible部署Kubernetes集群">
+<meta name="twitter:description" content="Kubernetes官网提供了多种场景的部署方案，例如kubeadm，参照：Creating a Cluster。但还是觉得ansible的部署最方便，k8s的contrib中提供了ansible部署脚本，使用方法参照：Kubernetes Ansible。  1. 服务器构成   No Type IP Hostname OS     1 master 192.168.34.52 cts1 Cen">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="JumpBean's Blog" type="application/atom+xml">
+
+
+
+  
+  
+  <link rel="canonical" href="http://www.jumpbeandev.com/2017/02/03/k8sansible/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
 </script>
 
+  <title>Ansible部署Kubernetes集群 | JumpBean's Blog</title>
+  
 
-  <script type="text/javascript">
+
+
+
+  <script async src="//www.googletagmanager.com/gtag/js?id=70327159-1"></script>
+  <script>
+    var host = window.location.hostname;
+    if (host !== "localhost" || !true) {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', '70327159-1');
+    }
+  </script>
+
+
+
+  <script>
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
@@ -238,36 +204,65 @@ Cen">
 
 
 
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
 
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
 
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
   
   
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
+  <div class="site-meta">
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">JumpBean's Blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+    
       
         <p class="site-subtitle">天道酬勤</p>
       
+    
+    
   </div>
 
   <div class="site-nav-toggle">
-    <button>
+    <button aria-label="切换导航栏">
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
       <span class="btn-bar"></span>
@@ -275,66 +270,94 @@ Cen">
   </div>
 </div>
 
-<nav class="site-nav">
-  
 
+
+<nav class="site-nav">
   
     <ul id="menu" class="menu">
       
         
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
         
-        <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
+          
+          <li class="menu-item menu-item-home">
 
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
       
         <li class="menu-item menu-item-search">
           
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
-            
-            搜索
-          </a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
         </li>
       
     </ul>
+  
+
   
 
   
@@ -349,9 +372,7 @@ Cen">
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocapitalize="off" autocomplete="off" autocorrect="off"
-             placeholder="搜索..." spellcheck="false"
-             type="text" id="local-search-input">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -365,12 +386,23 @@ Cen">
 
 
 
- </div>
+  
+
+
+
+</div>
     </header>
+
+    
+
 
     <main id="main" class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
+            
+
+          
           <div id="content" class="content">
             
 
@@ -383,12 +415,18 @@ Cen">
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.jumpbeandev.com/2017/02/03/k8sansible/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jump Bean">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="God helps those who help themselves">
       <meta itemprop="image" content="/images/default_avatar.jpg">
     </span>
 
@@ -401,11 +439,8 @@ Cen">
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                Ansible部署Kubernetes集群
+          <h1 class="post-title" itemprop="name headline">Ansible部署Kubernetes集群
+
               
             
           </h1>
@@ -413,6 +448,11 @@ Cen">
 
         <div class="post-meta">
           <span class="post-time">
+
+            
+            
+            
+
             
               <span class="post-meta-item-icon">
                 <i class="fa fa-calendar-o"></i>
@@ -420,18 +460,23 @@ Cen">
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-03T16:19:16+08:00">
-                2017-02-03
-              </time>
+
+              
+                
+              
+
+              <time title="创建时间：2017-02-03 16:19:16 / 修改时间：18:06:34" itemprop="dateCreated datePublished" datetime="2017-02-03T16:19:16+08:00">2017-02-03</time>
             
 
             
+              
 
+              
             
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
             
               <span class="post-meta-divider">|</span>
             
@@ -442,11 +487,7 @@ Cen">
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/k8s/" itemprop="url" rel="index">
-                    <span itemprop="name">k8s</span>
-                  </a>
-                </span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/k8s/" itemprop="url" rel="index"><span itemprop="name">k8s</span></a></span>
 
                 
                 
@@ -456,20 +497,21 @@ Cen">
 
           
             
+            
           
 
           
           
-             <span id="/2017/02/03/k8sansible/" class="leancloud_visitors" data-flag-title="Ansible部署Kubernetes集群">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
+            <span id="/2017/02/03/k8sansible/" class="leancloud_visitors" data-flag-title="Ansible部署Kubernetes集群">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读次数：</span>
+              
+                <span class="leancloud-visitors-count"></span>
+            </span>
           
 
           
@@ -482,14 +524,16 @@ Cen">
       </header>
     
 
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
       
 
       
-        <p>Kubernetes官网提供了多种场景的部署方案，例如kubeadm，参照：<a href="https://kubernetes.io/docs/getting-started-guides/" target="_blank" rel="external">Creating a Cluster</a>。但还是觉得ansible的部署最方便，k8s的contrib中提供了ansible部署脚本，使用方法参照：<a href="https://github.com/kubernetes/contrib/tree/master/ansible" target="_blank" rel="external">Kubernetes Ansible</a>。</p>
+        <p>Kubernetes官网提供了多种场景的部署方案，例如kubeadm，参照：<a href="https://kubernetes.io/docs/getting-started-guides/" target="_blank" rel="noopener">Creating a Cluster</a>。但还是觉得ansible的部署最方便，k8s的contrib中提供了ansible部署脚本，使用方法参照：<a href="https://github.com/kubernetes/contrib/tree/master/ansible" target="_blank" rel="noopener">Kubernetes Ansible</a>。</p>
 <hr>
 <h2 id="1-服务器构成"><a href="#1-服务器构成" class="headerlink" title="1. 服务器构成"></a>1. 服务器构成</h2><table>
 <thead>
@@ -527,17 +571,17 @@ Cen">
 </table>
 <a id="more"></a>
 <hr>
-<h2 id="2-安装ansible"><a href="#2-安装ansible" class="headerlink" title="2. 安装ansible"></a>2. 安装ansible</h2><p>在master上安装ansible：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@cts1 ~]# yum -y install ansible</div></pre></td></tr></table></figure><br>安装后确认：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@cts1 ~]# ansible --version</div><div class="line">ansible 2.2.0.0</div><div class="line">  config file = /etc/ansible/ansible.cfg</div><div class="line">  configured module search path = Default w/o overrides</div></pre></td></tr></table></figure></p>
+<h2 id="2-安装ansible"><a href="#2-安装ansible" class="headerlink" title="2. 安装ansible"></a>2. 安装ansible</h2><p>在master上安装ansible：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@cts1 ~]# yum -y install ansible</span><br></pre></td></tr></table></figure><br>安装后确认：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@cts1 ~]# ansible --version</span><br><span class="line">ansible 2.2.0.0</span><br><span class="line">  config file = /etc/ansible/ansible.cfg</span><br><span class="line">  configured module search path = Default w/o overrides</span><br></pre></td></tr></table></figure></p>
 <hr>
-<h2 id="3-设置ssh"><a href="#3-设置ssh" class="headerlink" title="3. 设置ssh"></a>3. 设置ssh</h2><p>该部署方案需要使用ssh免密登录，在所有机器上生成ssh key:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@cts1 ~]# ssh-keygen</div><div class="line"></div><div class="line">[root@cts2 ~]# ssh-keygen</div></pre></td></tr></table></figure><br>可以通过hostname [newname]修改hostname，设定两台机器的/etc/hosts :<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[root@cts1 ~]# grep cts /etc/hosts</div><div class="line">192.168.34.52 cts1</div><div class="line">192.168.34.180 cts2</div><div class="line"></div><div class="line">[root@cts2 ~]# grep cts /etc/hosts</div><div class="line">192.168.34.52 cts1</div><div class="line">192.168.34.180 cts2</div></pre></td></tr></table></figure><br>在2台机器上都作如下设定，保证ssh可免密登录:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@cts1 ~]# ssh-copy-id -i cts1</div><div class="line">[root@cts1 ~]# ssh-copy-id -i cts2</div><div class="line"></div><div class="line">[root@cts2 ~]# ssh-copy-id -i cts1</div><div class="line">[root@cts2 ~]# ssh-copy-id -i cts2</div></pre></td></tr></table></figure><br>在ansible所安装的机器上，追加机器信息到/etc/ansible/hosts中:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@cts1 ~]# grep cts /etc/ansible/hosts</div><div class="line">cts1</div><div class="line">cts2</div></pre></td></tr></table></figure><br>确认ansible正常动作:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">[root@cts1 ~]# ansible cts1 -m ping</div><div class="line">cts1 | SUCCESS =&gt; &#123;</div><div class="line">    &quot;changed&quot;: false,</div><div class="line">    &quot;ping&quot;: &quot;pong&quot;</div><div class="line">&#125;</div><div class="line">[root@cts1 ~]# ansible cts2 -m ping</div><div class="line">cts2 | SUCCESS =&gt; &#123;</div><div class="line">    &quot;changed&quot;: false,</div><div class="line">    &quot;ping&quot;: &quot;pong&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="3-设置ssh"><a href="#3-设置ssh" class="headerlink" title="3. 设置ssh"></a>3. 设置ssh</h2><p>该部署方案需要使用ssh免密登录，在所有机器上生成ssh key:<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@cts1 ~]# ssh-keygen</span><br><span class="line"></span><br><span class="line">[root@cts2 ~]# ssh-keygen</span><br></pre></td></tr></table></figure><br>可以通过hostname [newname]修改hostname，设定两台机器的/etc/hosts :<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@cts1 ~]# grep cts /etc/hosts</span><br><span class="line">192.168.34.52 cts1</span><br><span class="line">192.168.34.180 cts2</span><br><span class="line"></span><br><span class="line">[root@cts2 ~]# grep cts /etc/hosts</span><br><span class="line">192.168.34.52 cts1</span><br><span class="line">192.168.34.180 cts2</span><br></pre></td></tr></table></figure><br>在2台机器上都作如下设定，保证ssh可免密登录:<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@cts1 ~]# ssh-copy-id -i cts1</span><br><span class="line">[root@cts1 ~]# ssh-copy-id -i cts2</span><br><span class="line"></span><br><span class="line">[root@cts2 ~]# ssh-copy-id -i cts1</span><br><span class="line">[root@cts2 ~]# ssh-copy-id -i cts2</span><br></pre></td></tr></table></figure><br>在ansible所安装的机器上，追加机器信息到/etc/ansible/hosts中:<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@cts1 ~]# grep cts /etc/ansible/hosts</span><br><span class="line">cts1</span><br><span class="line">cts2</span><br></pre></td></tr></table></figure><br>确认ansible正常动作:<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@cts1 ~]# ansible cts1 -m ping</span><br><span class="line">cts1 | SUCCESS =&gt; &#123;</span><br><span class="line">    "changed": false,</span><br><span class="line">    "ping": "pong"</span><br><span class="line">&#125;</span><br><span class="line">[root@cts1 ~]# ansible cts2 -m ping</span><br><span class="line">cts2 | SUCCESS =&gt; &#123;</span><br><span class="line">    "changed": false,</span><br><span class="line">    "ping": "pong"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <hr>
-<h2 id="4-下载Contrib"><a href="#4-下载Contrib" class="headerlink" title="4. 下载Contrib"></a>4. 下载Contrib</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@cts1 ~]# git clone https://github.com/kubernetes/contrib.git</div></pre></td></tr></table></figure>
+<h2 id="4-下载Contrib"><a href="#4-下载Contrib" class="headerlink" title="4. 下载Contrib"></a>4. 下载Contrib</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@cts1 ~]# git clone https://github.com/kubernetes/contrib.git</span><br></pre></td></tr></table></figure>
 <hr>
-<h2 id="5-创建inventory文件"><a href="#5-创建inventory文件" class="headerlink" title="5. 创建inventory文件"></a>5. 创建inventory文件</h2><p>按照contrib/ansible说明，在inventory目录下创建inventory文件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">[root@cts1 inventory]# pwd</div><div class="line">/data/contrib/ansible/inventory</div><div class="line">[root@cts1 inventory]# vim inventory</div><div class="line"></div><div class="line">[masters]</div><div class="line">cts1</div><div class="line"></div><div class="line">[etcd:children]</div><div class="line">masters</div><div class="line"></div><div class="line">[nodes]</div><div class="line">cts2</div></pre></td></tr></table></figure><br>开始误把etcd:children的值也配成cts1了，setup时报出Syntax Error while loading YAML的错误。</p>
+<h2 id="5-创建inventory文件"><a href="#5-创建inventory文件" class="headerlink" title="5. 创建inventory文件"></a>5. 创建inventory文件</h2><p>按照contrib/ansible说明，在inventory目录下创建inventory文件：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@cts1 inventory]# pwd</span><br><span class="line">/data/contrib/ansible/inventory</span><br><span class="line">[root@cts1 inventory]# vim inventory</span><br><span class="line"></span><br><span class="line">[masters]</span><br><span class="line">cts1</span><br><span class="line"></span><br><span class="line">[etcd:children]</span><br><span class="line">masters</span><br><span class="line"></span><br><span class="line">[nodes]</span><br><span class="line">cts2</span><br></pre></td></tr></table></figure><br>开始误把etcd:children的值也配成cts1了，setup时报出Syntax Error while loading YAML的错误。</p>
 <hr>
-<h2 id="6-安装所需package"><a href="#6-安装所需package" class="headerlink" title="6. 安装所需package"></a>6. 安装所需package</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@cts1 inventory]# yum -y install python-netaddr</div></pre></td></tr></table></figure>
+<h2 id="6-安装所需package"><a href="#6-安装所需package" class="headerlink" title="6. 安装所需package"></a>6. 安装所需package</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@cts1 inventory]# yum -y install python-netaddr</span><br></pre></td></tr></table></figure>
 <hr>
-<h2 id="7-执行安装文件"><a href="#7-执行安装文件" class="headerlink" title="7. 执行安装文件"></a>7. 执行安装文件</h2><p>执行cd scripts/ &amp;&amp; ./deploy-cluster.sh时总是报出如下错误：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">TASK [kubernetes : Read back the CA certificate] </div><div class="line">fatal: [cts2 -&gt; cts1]: FAILED! =&gt; &#123;&quot;changed&quot;: false, &quot;failed&quot;: true, &quot;msg&quot;: &quot;file not found: /etc/kubernetes/certs/ca.crt&quot;&#125;</div></pre></td></tr></table></figure><br>于是按照Targeted runs逐个执行：<br><strong>Etcd:</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@cts1 scripts]# ./deploy-cluster.sh --tags=etcd</div><div class="line"></div><div class="line">cts1                       : ok=28   changed=2    unreachable=0    failed=0</div><div class="line">cts2                       : ok=6    changed=0    unreachable=0    failed=0</div></pre></td></tr></table></figure><br>确认etcd:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">[root@cts1 scripts]# etcd --version</div><div class="line">etcd Version: 3.0.15</div><div class="line">Git SHA: fc00305</div><div class="line">Go Version: go1.6.3</div><div class="line">Go OS/Arch: linux/amd64</div><div class="line">[root@cts1 scripts]# etcdctl --version</div><div class="line">etcdctl version: 3.0.15</div><div class="line">API version: 2</div></pre></td></tr></table></figure><br><strong>Kubernetes master:</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@cts1 scripts]# ./deploy-cluster.sh --tags=masters</div><div class="line"></div><div class="line">cts1                       : ok=67   changed=4    unreachable=0    failed=0</div><div class="line">cts2                       : ok=6    changed=0    unreachable=0    failed=0</div></pre></td></tr></table></figure><br><strong>Kubernetes nodes:</strong><br>目前contrib版本中Install fluentd时因fluentd-es.yaml地址已不存在，会出错，解决办法参照：<a href="https://github.com/kubernetes/contrib/pull/2174" target="_blank" rel="external">Support Fluentd migration to DaemonSet</a>，将如下文件进行修改：</p>
+<h2 id="7-执行安装文件"><a href="#7-执行安装文件" class="headerlink" title="7. 执行安装文件"></a>7. 执行安装文件</h2><p>执行cd scripts/ &amp;&amp; ./deploy-cluster.sh时总是报出如下错误：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">TASK [kubernetes : Read back the CA certificate] </span><br><span class="line">fatal: [cts2 -&gt; cts1]: FAILED! =&gt; &#123;&quot;changed&quot;: false, &quot;failed&quot;: true, &quot;msg&quot;: &quot;file not found: /etc/kubernetes/certs/ca.crt&quot;&#125;</span><br></pre></td></tr></table></figure><br>于是按照Targeted runs逐个执行：<br><strong>Etcd:</strong><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@cts1 scripts]# ./deploy-cluster.sh --tags=etcd</span><br><span class="line"></span><br><span class="line">cts1                       : ok=28   changed=2    unreachable=0    failed=0</span><br><span class="line">cts2                       : ok=6    changed=0    unreachable=0    failed=0</span><br></pre></td></tr></table></figure><br>确认etcd:<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@cts1 scripts]# etcd --version</span><br><span class="line">etcd Version: 3.0.15</span><br><span class="line">Git SHA: fc00305</span><br><span class="line">Go Version: go1.6.3</span><br><span class="line">Go OS/Arch: linux/amd64</span><br><span class="line">[root@cts1 scripts]# etcdctl --version</span><br><span class="line">etcdctl version: 3.0.15</span><br><span class="line">API version: 2</span><br></pre></td></tr></table></figure><br><strong>Kubernetes master:</strong><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@cts1 scripts]# ./deploy-cluster.sh --tags=masters</span><br><span class="line"></span><br><span class="line">cts1                       : ok=67   changed=4    unreachable=0    failed=0</span><br><span class="line">cts2                       : ok=6    changed=0    unreachable=0    failed=0</span><br></pre></td></tr></table></figure><br><strong>Kubernetes nodes:</strong><br>目前contrib版本中Install fluentd时因fluentd-es.yaml地址已不存在，会出错，解决办法参照：<a href="https://github.com/kubernetes/contrib/pull/2174" target="_blank" rel="noopener">Support Fluentd migration to DaemonSet</a>，将如下文件进行修改：</p>
 <ul>
 <li>ansible/roles/kubernetes-addons/files/common/kube-addon-update.sh</li>
 <li>ansible/roles/kubernetes-addons/tasks/cluster-logging.yml</li>
@@ -545,85 +589,82 @@ Cen">
 <li>ansible/roles/node/tasks/fluentd-install.yml</li>
 <li>ansible/roles/node/tasks/main.yml</li>
 </ul>
-<p>然后执行安装命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@cts1 scripts]# ./deploy-cluster.sh --tags=nodes</div><div class="line"></div><div class="line">cts1                       : ok=8    changed=0    unreachable=0    failed=0</div><div class="line">cts2                       : ok=57   changed=3    unreachable=0    failed=0</div></pre></td></tr></table></figure><br><strong>Addons:</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@cts1 scripts]# ./deploy-cluster.sh --tags=addons</div><div class="line"></div><div class="line">cts1                       : ok=58   changed=1    unreachable=0    failed=0</div><div class="line">cts2                       : ok=6    changed=0    unreachable=0    failed=0</div></pre></td></tr></table></figure></p>
+<p>然后执行安装命令：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@cts1 scripts]# ./deploy-cluster.sh --tags=nodes</span><br><span class="line"></span><br><span class="line">cts1                       : ok=8    changed=0    unreachable=0    failed=0</span><br><span class="line">cts2                       : ok=57   changed=3    unreachable=0    failed=0</span><br></pre></td></tr></table></figure><br><strong>Addons:</strong><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@cts1 scripts]# ./deploy-cluster.sh --tags=addons</span><br><span class="line"></span><br><span class="line">cts1                       : ok=58   changed=1    unreachable=0    failed=0</span><br><span class="line">cts2                       : ok=6    changed=0    unreachable=0    failed=0</span><br></pre></td></tr></table></figure></p>
 <hr>
-<h2 id="8-确认Kubernetes状况"><a href="#8-确认Kubernetes状况" class="headerlink" title="8. 确认Kubernetes状况"></a>8. 确认Kubernetes状况</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">[root@cts1 scripts]# kubectl get nodes</div><div class="line">NAME      STATUS    AGE</div><div class="line">cts2      Ready     2h</div><div class="line">[root@cts1 scripts]# kubectl get services</div><div class="line">NAME         CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE</div><div class="line">kubernetes   10.254.0.1   &lt;none&gt;        443/TCP   2h</div><div class="line">[root@cts1 scripts]# kubectl --version</div><div class="line">Kubernetes v1.4.0</div></pre></td></tr></table></figure>
+<h2 id="8-确认Kubernetes状况"><a href="#8-确认Kubernetes状况" class="headerlink" title="8. 确认Kubernetes状况"></a>8. 确认Kubernetes状况</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@cts1 scripts]# kubectl get nodes</span><br><span class="line">NAME      STATUS    AGE</span><br><span class="line">cts2      Ready     2h</span><br><span class="line">[root@cts1 scripts]# kubectl get services</span><br><span class="line">NAME         CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE</span><br><span class="line">kubernetes   10.254.0.1   &lt;none&gt;        443/TCP   2h</span><br><span class="line">[root@cts1 scripts]# kubectl --version</span><br><span class="line">Kubernetes v1.4.0</span><br></pre></td></tr></table></figure>
 <hr>
-<p>参照资料：<br><a href="http://blog.csdn.net/liumiaocn/article/details/52068750" target="_blank" rel="external">Kubernetes 1.3 从入门到进阶 安装篇（2）</a><br><a href="https://github.com/kubernetes/contrib/tree/master/ansible" target="_blank" rel="external">Kubernetes Ansible</a><br><a href="https://github.com/kubernetes/contrib/pull/2174" target="_blank" rel="external">Support Fluentd migration to DaemonSet #2174</a></p>
+<p>参照资料：<br><a href="http://blog.csdn.net/liumiaocn/article/details/52068750" target="_blank" rel="noopener">Kubernetes 1.3 从入门到进阶 安装篇（2）</a><br><a href="https://github.com/kubernetes/contrib/tree/master/ansible" target="_blank" rel="noopener">Kubernetes Ansible</a><br><a href="https://github.com/kubernetes/contrib/pull/2174" target="_blank" rel="noopener">Support Fluentd migration to DaemonSet #2174</a></p>
 
       
     </div>
 
-    <div>
+    
+
+    
+    
+    
+
+    
+
+    
       
+    
+    
+
+    
+      <div>
         
 
-      
-    </div>
 
-    <div>
-      
-        
 
-      
-    </div>
 
-    <div>
-      
-        
+  
 
-      
-    </div>
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Jump Bean</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="http://www.jumpbeandev.com/2017/02/03/k8sansible/" title="Ansible部署Kubernetes集群">http://www.jumpbeandev.com/2017/02/03/k8sansible/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
 
     <footer class="post-footer">
       
         <div class="post-tags">
           
+            <a href="/tags/ansible/" rel="tag"># ansible</a>
+          
             <a href="/tags/Kubernetes/" rel="tag"># Kubernetes</a>
           
             <a href="/tags/Docker/" rel="tag"># Docker</a>
           
-            <a href="/tags/ansible/" rel="tag"># ansible</a>
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
           
-        </div>
-      
-
-      
-        
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
+          <div class="social_share">
             
-              <a href="/2017/01/03/sonarqube/" rel="next" title="Kubernetes + Docker搭建Sonarqube">
-                <i class="fa fa-chevron-left"></i> Kubernetes + Docker搭建Sonarqube
-              </a>
             
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/15/hyperledger/" rel="prev" title="Hyperledger Hackathon">
-                Hyperledger Hackathon <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </article>
-
-
-
-    <div class="post-spread">
-      
-        
+              <div>
+                
   <div class="bdsharebuttonbox">
     <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
     <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
@@ -660,21 +701,59 @@ Cen">
   with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
 </script>
 
+              </div>
+            
+          </div>
+        
+        </div>
       
-    </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/03/sonarqube/" rel="next" title="Kubernetes + Docker搭建Sonarqube">
+                <i class="fa fa-chevron-left"></i> Kubernetes + Docker搭建Sonarqube
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/15/hyperledger/" rel="prev" title="Hyperledger Hackathon">
+                Hyperledger Hackathon <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
   </div>
 
 
           </div>
           
 
-
-          
-  <div class="comments" id="comments">
-    
+  
+    <div class="comments" id="comments">
       <div id="lv-container" data-id="city" data-uid="MTAyMC8zNjk2MS8xMzQ5Nw=="></div>
-    
-  </div>
+    </div>
+
+  
+
 
 
         </div>
@@ -696,97 +775,211 @@ Cen">
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
             站点概览
           </li>
         </ul>
       
 
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/images/default_avatar.jpg"
-               alt="Jump Bean" />
-          <p class="site-author-name" itemprop="name">Jump Bean</p>
-           
-              <p class="site-description motion-element" itemprop="description">God helps those who help themselves</p>
-          
-        </div>
-        <nav class="site-state motion-element">
-
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">17</span>
-                <span class="site-state-item-name">日志</span>
-              </a>
-            </div>
-          
-
-          
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
+              <img class="site-author-image" itemprop="image" src="/images/default_avatar.jpg" alt="Jump Bean">
             
-            <div class="site-state-item site-state-categories">
-              <a href="/categories/index.html">
-                <span class="site-state-item-count">9</span>
-                <span class="site-state-item-name">分类</span>
-              </a>
-            </div>
-          
-
-          
-            
-            
-            <div class="site-state-item site-state-tags">
-              <a href="/tags/index.html">
-                <span class="site-state-item-count">25</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-          <div class="feed-link motion-element">
-            <a href="/atom.xml" rel="alternate">
-              <i class="fa fa-rss"></i>
-              RSS
-            </a>
+              <p class="site-author-name" itemprop="name">Jump Bean</p>
+              <div class="site-description motion-element" itemprop="description">God helps those who help themselves</div>
           </div>
-        
 
-        <div class="links-of-author motion-element">
           
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/yourname" title="GitHub &rarr; https://github.com/yourname" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
         </div>
-
-        
-        
-          <div class="cc-license motion-element" itemprop="license">
-            <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="cc-opacity" target="_blank">
-              <img src="/images/cc-by-sa.svg" alt="Creative Commons" />
-            </a>
-          </div>
-        
-
-        
-        
-
-        
-
-
-      </section>
+      </div>
 
       
       <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
           <div class="post-toc">
 
             
-              
+            
+            
             
 
             
@@ -794,7 +987,7 @@ Cen">
             
 
           </div>
-        </section>
+        </div>
       <!--/noindex-->
       
 
@@ -802,6 +995,7 @@ Cen">
 
     </div>
   </aside>
+  
 
 
         
@@ -810,30 +1004,39 @@ Cen">
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy;  2015 - 
-  <span itemprop="copyrightYear">2018</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
+        <div class="copyright">&copy; 2015 – <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Jump Bean</span>
+
+  
+
+  
 </div>
 
 
-<div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
-</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
 
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Pisces
-  </a>
-</div>
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.1.0</div>
+
+
 
 
         
+
+
+
+
+
+
+
 
         
       </div>
@@ -846,11 +1049,16 @@ Cen">
       </div>
     
 
+    
+
+    
+
+    
   </div>
 
   
 
-<script type="text/javascript">
+<script>
   if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
     window.Promise = null;
   }
@@ -864,102 +1072,23 @@ Cen">
 
 
 
-  
-
-
-
-
-
-
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
 
 
 
 
 
   
-
-
-
-
-
+    
+    
   
+  <script color="0,0,255" opacity="0.5" zindex="-2" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
 
 
 
 
 
-  
-    <script type="text/javascript">
-      (function(d, s) {
-        var j, e = d.getElementsByTagName(s)[0];
-        if (typeof LivereTower === 'function') { return; }
-        j = d.createElement(s);
-        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-        j.async = true;
-        e.parentNode.insertBefore(j, e);
-      })(document, 'script');
-    </script>
-  
+
+
 
 
 
@@ -967,245 +1096,480 @@ Cen">
 
 
   
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
 
-  <script type="text/javascript">
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.1.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+    <script>
+  window.livereOptions = {
+    refer: '2017/02/03/k8sansible/'
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
+
+  
+
+
+  
+  <script>
     // Popup Window;
     var isfetched = false;
+    var isXml = true;
     // Search DB path;
     var search_path = "search.xml";
-    if (search_path.length == 0) {
+    if (search_path.length === 0) {
       search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
     }
     var path = "/" + search_path;
     // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
 
     function proceedsearch() {
       $("body")
         .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
         .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
       $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
     }
+
     // search function;
     var searchFunc = function(path, search_id, content_id) {
       'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
       $.ajax({
         url: path,
-        dataType: "xml",
+        dataType: isXml ? "xml" : "json",
         async: true,
-        success: function( xmlResponse ) {
+        success: function(res) {
           // get the contents from search data
           isfetched = true;
           $('.popup').detach().appendTo('.header-inner');
-          var datas = $( "entry", xmlResponse ).map(function() {
+          var datas = isXml ? $("entry", res).map(function() {
             return {
-              title: $( "title", this ).text(),
+              title: $("title", this).text(),
               content: $("content",this).text(),
-              url: $( "url" , this).text()
+              url: $("url" , this).text()
             };
-          }).get();
-          var $input = document.getElementById(search_id);
-          var $resultContent = document.getElementById(content_id);
-          $input.addEventListener('input', function(){
-            var matchcounts = 0;
-            var str='<ul class=\"search-result-list\">';
-            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
-            $resultContent.innerHTML = "";
-            if (this.value.trim().length > 1) {
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
               // perform local searching
               datas.forEach(function(data) {
                 var isMatch = false;
-                var content_index = [];
-                var data_title = data.title.trim().toLowerCase();
-                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
-                var data_url = decodeURIComponent(data.url);
-                var index_title = -1;
-                var index_content = -1;
-                var first_occur = -1;
-                // only match artiles with not empty titles and contents
-                if(data_title != '') {
-                  keywords.forEach(function(keyword, i) {
-                    index_title = data_title.indexOf(keyword);
-                    index_content = data_content.indexOf(keyword);
-                    if( index_title >= 0 || index_content >= 0 ){
-                      isMatch = true;
-                      if (i == 0) {
-                        first_occur = index_content;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
                       }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
                     }
 
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
                   });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
                 }
+
                 // show search results
+
                 if (isMatch) {
-                  matchcounts += 1;
-                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
-                  var content = data.content.trim().replace(/<[^>]+>/g,"");
-                  if (first_occur >= 0) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
                     // cut out 100 characters
-                    var start = first_occur - 20;
-                    var end = first_occur + 80;
+                    var start = position - 20;
+                    var end = position + 80;
                     if(start < 0){
                       start = 0;
                     }
-                    if(start == 0){
-                      end = 50;
+                    if (end < position + word.length) {
+                      end = position + word.length;
                     }
                     if(end > content.length){
                       end = content.length;
                     }
-                    var match_content = content.substring(start, end);
-                    // highlight all keywords
-                    keywords.forEach(function(keyword){
-                      var regS = new RegExp(keyword, "gi");
-                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
-                    });
-
-                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
                   }
-                  str += "</li>";
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
                 }
-              })};
-            str += "</ul>";
-            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
-            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
-            $resultContent.innerHTML = str;
-          });
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
           proceedsearch();
         }
-      });}
+      });
+    }
 
     // handle and trigger popup window;
     $('.popup-trigger').click(function(e) {
       e.stopPropagation();
-      if (isfetched == false) {
+      if (isfetched === false) {
         searchFunc(path, 'local-search-input', 'local-search-result');
       } else {
         proceedsearch();
       };
     });
 
-    $('.popup-btn-close').click(function(e){
-      $('.popup').hide();
-      $(".local-search-pop-overlay").remove();
-      $('body').css('overflow', '');
-    });
+    $('.popup-btn-close').click(onPopupClose);
     $('.popup').click(function(e){
       e.stopPropagation();
     });
-  </script>
-
-
-
-
-
-  
-
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
-  <script>AV.initialize("sr13ek7g52mCLgs6nmPMUd8w", "Ghzxedwuv2MQpkphQpa8i7pV");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
-      });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
       }
     });
   </script>
 
 
+
+
+
+  
+  
+  <script>
+    
+    function addCount(Counter) {
+      var $visitors = $('.leancloud_visitors');
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+
+      Counter('get', '/classes/Counter', { where: JSON.stringify({ url }) })
+        .done(function({ results }) {
+          if (results.length > 0) {
+            var counter = results[0];
+            
+            Counter('put', '/classes/Counter/' + counter.objectId, JSON.stringify({ time: { '__op': 'Increment', 'amount': 1 } }))
+            
+              .done(function() {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.time + 1);
+              })
+            
+              .fail(function ({ responseJSON }) {
+                console.log('Failed to save Visitor num, with error message: ' + responseJSON.error);
+              })
+          } else {
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text('Counter not initialized! More info at console err msg.');
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .fail(function ({ responseJSON }) {
+          console.log('LeanCloud Counter Error: ' + responseJSON.code + ' ' + responseJSON.error);
+        });
+    }
+    
+
+    $(function() {
+      $.get('https://app-router.leancloud.cn/2/route?appId=' + 'sr13ek7g52mCLgs6nmPMUd8w')
+        .done(function({ api_server }) {
+          var Counter = function(method, url, data) {
+            return $.ajax({
+              method: method,
+              url: 'https://' + api_server + '/1.1' + url,
+              headers: {
+                'X-LC-Id': 'sr13ek7g52mCLgs6nmPMUd8w',
+                'X-LC-Key': 'Ghzxedwuv2MQpkphQpa8i7pV',
+                'Content-Type': 'application/json',
+              },
+              data: data
+            });
+          };
+          
+            addCount(Counter);
+          
+        });
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
   
 
